@@ -7,6 +7,9 @@
 	<title>Home</title>
 </head>
 <body>
-test login
+<h1>
+	Hello world!  
+</h1>
+
 </body>
 </html>
