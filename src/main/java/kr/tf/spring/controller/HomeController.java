@@ -53,54 +53,7 @@ public class HomeController {
 		
 		return "/main/home";
 	}
-	
-	@GetMapping("/login")
-	public String login(Model mo, UserVO user) {
-		// 화면
-		return "/user/login";
-	}
-	
-	@PostMapping("/login")
-	public String login_post(Model mo, LoginDTO user_, HttpSession session) {
-		// from테그에서 입력 받아용
-		// user_ 는 화면에서 받아온 친구
-		// remember 는 on 혹은 null 값을 가지고 쿠키와 관련되서 사용
-		UserVO user = userService.login(user_);
-		System.out.println(user);
-		if (user != null) {
-			session.setAttribute("user", user);//세션에 저장해용
-			mo.addAttribute("msg", user.getUs_id() + "님 환영합니다.");
-			mo.addAttribute("url","/");
-		} else {
-			mo.addAttribute("msg", "잘못된 로그인입니다. 다시 확인해주세요.");
-			mo.addAttribute("url","/");
-		}
-		// 세션에 저장
-		return "/main/msg";
-	}
-	
-	@GetMapping("/signup")
-	public String signup(Model mo, UserVO user) {
-		// 화면
-		return "/user/signup";
-	}
-	
-	@PostMapping("/signup")
-	public String signup_post(Model mo, UserVO user_) {
-		// from테그에서 입력 받아용
-		// user_ 는 화면에서 받아온 친구
-		
-		
-		return "/main/msg";
-	}
-	
-	@GetMapping("/logout")
-	public String logout(Model mo, HttpSession session) {
-		
-		//user 가 있으면 삭제 해줍니당
-		session.removeAttribute("user");
-		return "/main/msg";
-	}
+
 	
 	@PostMapping("/ajax/list")
 	@ResponseBody
