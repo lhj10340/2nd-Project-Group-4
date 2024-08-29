@@ -3,5 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.tf.spring.dao.UserDAO">
-  
+  	
+  	<select id="findById_InUserDB" resultType="kr.tf.spring.model.vo.UserVO">
+  	select * from user where us_id = #{us_id}
+  	</select>
+  	
 </mapper>
