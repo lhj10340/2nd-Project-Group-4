@@ -44,12 +44,20 @@
 
 
 		    <li class="nav-item">
+<<<<<<< Updated upstream
 		      <a class="nav-link" href="<c:url value="/signup"/>">회원가입</a>
+=======
+		      <a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-signup">회원가입</a>
+>>>>>>> Stashed changes
 		    </li>
 		    
 		    
 		    <li class="nav-item">
+<<<<<<< Updated upstream
 		      <a class="nav-link" href="<c:url value="/login"/>">로그인</a>
+=======
+		      <a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-login">로그인</a>
+>>>>>>> Stashed changes
 		    </li>
 		    
 		    
@@ -88,3 +96,107 @@
     
   </ul>
 </nav>
+<<<<<<< Updated upstream
+=======
+
+
+
+<!-- The Modal -->
+  <div class="modal fade" id="myModal-login">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+       	  <h1 class="modal-title">Login</h1>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+		          <div class="container justify-content-center">
+					  <form action='<c:url value="/login"/>' method="post" class="">
+					    <div class="form-group">
+					    	<input type=text class="form-control" id="id" placeholder="ID" name="us_id">
+					    </div>
+					    
+					    <div class="form-group">
+					      <input type="password" class="form-control" id="pw" placeholder="PASSWORD" name="us_pw">
+					    </div>
+				
+					    <div class="form-group form-check">
+					      <label class="form-check-label">
+					        <input class="form-check-input" type="checkbox" name="remember"> Remember me
+					      </label>
+					    </div>
+					    <div class="d-flex justify-content-end">
+					    	<button type="submit" class="btn btn-primary">Login</button>
+					    </div>
+					  </form>
+				</div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer"></div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+ <!-- The Modal -->
+  <div class="modal" id="myModal-signup">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h1 class="modal-title">Sign UP</h1>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <form action='<c:url value="/signup"/>' method="post" class="">
+        <!-- Modal body -->
+        
+        <div class="modal-body">
+   	 		<label for="id">ID & Password</label>
+     	    <div class="form-group">
+        		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id" required>
+        	</div>
+        	<div class="form-group">
+        		<input type="password" class="form-control" id="pw" placeholder="PASSWORD" name="us_pw" required>	
+        	</div>
+        	<div class="form-group">
+        		<input type="password" class="form-control" id="pw2" placeholder="PASSWORD Check" required>
+        	</div>
+        	<label for="demo">email:</label>
+			<div class="input-group mb-3">
+			  <input type="text" class="form-control" placeholder="EMAIL" id="demo" name="us_email" required>
+			  <div class="input-group-append">
+			  	<select class="input-group-text">
+			  		<option>@naver.com</option>
+			  		<option>@gmail.com</option>
+			  		<option>@daum.net</option>
+			  		<option>@kakao.com</option>
+			  		<option>직접입력</option>
+			  	</select>
+			  </div>
+			</div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Sign up</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+
+>>>>>>> Stashed changes
