@@ -4,9 +4,6 @@
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1>test</h1>      
-    <p>1</p>
-    
-    <p><a class="" href="<c:url value="/"/>" style="text-decoration: none; color: black;">Q&A문의소</a></p>
+  
   </div>
 </div>
