@@ -70,12 +70,12 @@
 	<c:when test="${user==null}">
 	
 	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/signup"/>">회원가입</a>
+	    	<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-signup">회원가입</a>
 	    </li>
 	    
 	    
 	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/login"/>">로그인</a>
+    		<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-login">로그인</a>
 	    </li>
 			    
 	</c:when>		    
