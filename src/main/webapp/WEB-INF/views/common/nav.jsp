@@ -19,17 +19,7 @@
 }
 </style>
 
-		    <li class="nav-item">
-		      <a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-signup">회원가입</a>
-		    </li>
-		    
-		    
-		    <li class="nav-item">
-		      <a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-login">로그인</a>
-		    </li>
-		    
-		    
-</c:when>		    
+   
 
 </head>
 <body>
