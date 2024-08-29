@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.tf.spring.dao.RestaurantDAO">
+ 	<select id="getListRest" resultType="kr.tf.spring.model.vo.RestaurantVO">
+ 		select re_x, re_y from restaurant order by re_name ASC;
+ 	</select>
+ 	<select id="getInfoRest" resultType="kr.tf.spring.model.vo.RestaurantVO">
+ 		select re_id, re_name, re_address, re_phone, re_score from restaurant where re_x = #{re_x} and re_y = #{re_y};
+ 	</select>
+ 	<select id="getSearchList" resultType="kr.tf.spring.model.vo.RestaurantVO">
+ 		select re_id, re_name, re_address, re_phone, re_score, re_x, re_y 
+ 		from restaurant
+ 		where 
+ 		<choose>
+			<when test="sfl == 're_name'">
+				re_name like concat('%',#{stx},'%')
+			</when>
+			<when test="sfl == 're_tag'">
+				re_tag like concat('%',#{stx},'%')
+			</when>
+			<otherwise>
+				re_name like concat('%',#{stx},'%') or re_tag like concat('%',#{stx},'%')
+			</otherwise>
+		</choose>
+ 	</select>
+</mapper>
