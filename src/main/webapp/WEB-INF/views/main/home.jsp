@@ -41,6 +41,9 @@
 		.desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
 		.info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
 		.info .link {color: #5085BB;}
+		
+		.sort{display: inline-block; font-weight: bold;}
+		.off {color: gray;}
 	</style>
 	<!-- fontawesome 추가-->
 	<script src="https://kit.fontawesome.com/aa7d727d3c.js" crossorigin="anonymous"></script>
@@ -56,6 +59,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(this); return false;">
+                	<input type="hidden" name="sort">
                     <select name="sfl" id="sfl">
                     	<option value="all">전체</option>
                     	<option value="re_name">매장명</option>
@@ -64,11 +68,27 @@
                     <input type="text" value="" name="stx" id="stx" size="15" placeholder="검색어 입력"> 
                     <button type="submit">찾기</button> 
                 </form>
-            </div>
+                <div>
+                	<ul>
+                		<li class="sort" onclick="sort_list('re_name', 'ASC')">
+                			이름순(오름차순) |
+                		</li>
+                		<li class="sort off" onclick="sort_list('re_name', 'DESC')">
+                			이름순(내림차순) 
+                		</li>
+                		<li class="sort off" onclick="sort_list('re_star', 'DESC')">
+                			좋은 별점순 |
+                		</li>
+                		<li class="sort off" onclick="sort_list('re_star', 'ASC')">
+                			나쁜 별점순
+                		</li>
+                	</ul>
+                </div>
+            </div>                                                                          
         </div>
         <hr>
         <ul id="placesList"></ul>
-    </div>
+    </div>   
 </div>
 <script>
 	var container = document.getElementById('map');
@@ -284,6 +304,10 @@
 	    while (el.hasChildNodes()) {
 	        el.removeChild (el.lastChild);
 	    }
+	}
+	
+	function sort_list(field, sort){
+		console.log(field + " / " + sort);
 	}
 </script>
 
