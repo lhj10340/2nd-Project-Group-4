@@ -70,12 +70,12 @@
 	<c:when test="${user==null}">
 	
 	    <li class="nav-item">
-	    	<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-signup">회원가입</a>
+	    	<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-signup" style="color: white;">회원가입</a>
 	    </li>
 	    
 	    
 	    <li class="nav-item">
-    		<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-login">로그인</a>
+    		<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-login" style="color: white;">로그인</a>
 	    </li>
 			    
 	</c:when>		    
@@ -103,7 +103,7 @@
 
 
 
-
+<c:if test="${user == null }">
 
 <!-- The Modal -->
   <div class="modal fade" id="myModal-login">
@@ -160,10 +160,10 @@
           <h1 class="modal-title">Sign UP</h1>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        <form action='<c:url value="/signup"/>' method="post" class="">
+        <form action='<c:url value="/user/signup"/>' method="post" class="">
         <!-- Modal body -->
         
-        <div class="modal-body">
+        <div class="modal-body container">
    	 		<label for="id">ID & Password</label>
      	    <div class="form-group">
         		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id" required>
@@ -176,17 +176,47 @@
         	</div>
         	<label for="demo">email:</label>
 			<div class="input-group mb-3">
-			  <input type="text" class="form-control" placeholder="EMAIL" id="demo" name="us_email" required>
+			  <input type="text" class="form-control" placeholder="EMAIL" id="email" name="us_email" required>
 			  <div class="input-group-append">
-			  	<select class="input-group-text">
+			  	<select class="input-group-text" name="us_email">
 			  		<option>@naver.com</option>
 			  		<option>@gmail.com</option>
 			  		<option>@daum.net</option>
 			  		<option>@kakao.com</option>
-			  		<option>직접입력</option>
+			  		<option>직접입력 - 미구현</option>
 			  	</select>
 			  </div>
 			</div>
+			<div class="d-flex">
+				
+					<label class="form-check-label mr-auto" >gender : </label>
+
+			     <div class="form-check-inline" >
+					    <label class="form-check-label" for="radio1">
+					      <input type="radio" class="form-check-input" id="radio1" name="gender" value="male" checked>남
+					    </label>
+				 </div>
+
+
+				<div class="form-check-inline" >
+					    <label class="form-check-label" for="radio2">
+					      <input type="radio" class="form-check-input" id="radio2" name="gender" value="female">여
+					    </label>
+				 </div>
+			
+			
+			 </div>
+			 
+   	 		<label for="id" style="margin-top: 10px;">Phone Number</label>
+     	    <div class="form-group">
+        		<input type="text" class="form-control" id="phone" placeholder="PHONE NUMBER 010-1234-1234" name="us_phone" required>
+        	</div>
+        	
+   	 		<label for="id" style="margin-top: 10px;">Name</label>
+     	    <div class="form-group">
+        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name" required>
+        	</div>
+        	
         </div>
         
         <!-- Modal footer -->
@@ -199,6 +229,6 @@
     </div>
   </div>
   
-
+</c:if>
 </body>
 </html>

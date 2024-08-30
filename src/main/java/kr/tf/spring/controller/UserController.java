@@ -14,6 +14,7 @@ import kr.tf.spring.model.vo.UserVO;
 import kr.tf.spring.service.UserService;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
 	
