@@ -151,7 +151,7 @@
 
 
  <!-- The Modal -->
-  <div class="modal" id="myModal-signup">
+  <div class="modal fade" id="myModal-signup">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
       

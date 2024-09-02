@@ -9,6 +9,7 @@
 	<definition name="base" template="/WEB-INF/views/layout/layout.jsp">
    	    <put-attribute name="nav" value="/WEB-INF/views/common/nav.jsp" />	
         <put-attribute name="foo" value="/WEB-INF/views/common/foo.jsp" />
+        <put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
  	</definition>
  	
     <definition name="/*/*" extends="base">
