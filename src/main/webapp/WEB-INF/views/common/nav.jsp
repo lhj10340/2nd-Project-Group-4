@@ -112,7 +112,7 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-       	  <h1 class="modal-title">Login</h1>
+       	  <h1 class="modal-title"> 로그인 </h1>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
@@ -125,16 +125,16 @@
 					    </div>
 					    
 					    <div class="form-group">
-					      <input type="password" class="form-control" id="pw" placeholder="PASSWORD" name="us_pw">
+					      <input type="password" class="form-control" id="pw" placeholder="비밀번호" name="us_pw">
 					    </div>
 				
 					    <div class="form-group form-check">
 					      <label class="form-check-label">
-					        <input class="form-check-input" type="checkbox" name="remember"> Remember me
+					        <input class="form-check-input" type="checkbox" name="remember"> 자동 로그인
 					      </label>
 					    </div>
 					    <div class="d-flex justify-content-end">
-					    	<button type="submit" class="btn btn-primary">Login</button>
+					    	<button type="submit" class="btn btn-primary">로그인</button>
 					    </div>
 					  </form>
 				</div>
@@ -157,14 +157,15 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h1 class="modal-title">Sign UP</h1>
+          <h1 class="modal-title">회원가입</h1>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
         <form action='<c:url value="/user/signup"/>' method="post" class="">
         <!-- Modal body -->
         
         <div class="modal-body container">
-   	 		<label for="id">ID & Password</label>
+        
+   	 		<label for="id">ID & 비밀번호</label>
      	    <div class="form-group">
         		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id" required>
         	</div>
@@ -174,7 +175,8 @@
         	<div class="form-group">
         		<input type="password" class="form-control" id="pw2" placeholder="PASSWORD Check" required>
         	</div>
-        	<label for="demo">email:</label>
+        	
+        	<label for="demo">이메일 :</label>
 			<div class="input-group mb-3">
 			  <input type="text" class="form-control" placeholder="EMAIL" id="email" name="us_email" required>
 			  <div class="input-group-append">
@@ -187,42 +189,67 @@
 			  	</select>
 			  </div>
 			</div>
+			
+			<label for="id" style="margin-top: 10px;">이름</label>
+   	 		
+	     	    <div class="form-group">
+	        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name" required>
+	        	</div>
+			
 			<div class="d-flex">
 				
-					<label class="form-check-label mr-auto" >gender : </label>
+					<label class="form-check-label mr-auto mb-2" > 성별 : </label>
+		
+					     <div class="form-check-inline" >
+							    <label class="form-check-label" for="radio1">
+							      <input type="radio" class="form-check-input mb-2" id="radio1" name="gender" value="male" checked>남
+							    </label>
+						 </div>
 
-			     <div class="form-check-inline" >
-					    <label class="form-check-label" for="radio1">
-					      <input type="radio" class="form-check-input" id="radio1" name="gender" value="male" checked>남
-					    </label>
-				 </div>
-
-
-				<div class="form-check-inline" >
-					    <label class="form-check-label" for="radio2">
-					      <input type="radio" class="form-check-input" id="radio2" name="gender" value="female">여
-					    </label>
-				 </div>
-			
+						<div class="form-check-inline" >
+							    <label class="form-check-label" for="radio2">
+							      <input type="radio" class="form-check-input mb-2" id="radio2" name="gender" value="female">여
+							    </label>
+						 </div>
 			
 			 </div>
 			 
-   	 		<label for="id" style="margin-top: 10px;">Phone Number</label>
+			 <div class="d-flex">
+				
+					<label class="form-check-label mr-auto" > 사업자 여부 : </label>
+
+					     <div class="form-check-inline" >
+							    <label class="form-check-label" for="radio3">
+							      <input type="radio" class="form-check-input" id="radio3" name="business" value="yes" checked> 예
+							    </label>
+						 </div>
+		
+						<div class="form-check-inline" >
+							    <label class="form-check-label" for="radio4">
+							      <input type="radio" class="form-check-input" id="radio4" name="business" value="no"> 아니오
+							    </label>
+						 </div>
+			
+			 </div>
+			 
+   	 		<label for="id" style="margin-top: 10px;"> 전화번호 </label>
+   	 		
      	    <div class="form-group">
         		<input type="text" class="form-control" id="phone" placeholder="PHONE NUMBER 010-1234-1234" name="us_phone" required>
         	</div>
         	
-   	 		<label for="id" style="margin-top: 10px;">Name</label>
-     	    <div class="form-group">
-        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name" required>
-        	</div>
+		  <label for="comment"> 회원 한마디 </label>
+		  
+        	<div class="form-group">
+			  <textarea class="form-control" rows="2" id="comment"></textarea>
+			</div>
         	
         </div>
         
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Sign up</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+          <button type="submit" class="btn btn-primary">회원가입</button>
         </div>
         </form>
       </div>
