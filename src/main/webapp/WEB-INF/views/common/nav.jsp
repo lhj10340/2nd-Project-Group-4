@@ -11,12 +11,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
 
 <style type="text/css">
-  body, p, span {
-    font-family: 'Gamja Flower';
-  }
-.navbar{
- background-color:#815854;
-}
+	body, p, span {
+	  font-family: 'Gamja Flower';
+	}
+	.navbar{
+	 background-color:#815854;
+	}
+	.sticky {
+	  top: 0;
+	  position: sticky;
+	  z-index: 99;
+	}
+
 </style>
 
    
@@ -25,7 +31,7 @@
 <body>
 
 <!-- user 정보는 로그인 시 세션에서 뿌리게 되었음 user 사용 가능함 -->
-	<nav class="navbar navbar-expand-sm" 
+	<nav class="navbar navbar-expand-sm sticky" 
 		style="font-size: 20px;  justify-content: space-between;">
 	  
 	  <ul class="navbar-nav">
