@@ -59,18 +59,6 @@
 	    
 	<ul class="navbar-nav">
 	
-	 <!-- Dropdown -->
-	    <li class="nav-item dropdown">
-	      <a class="nav-link dropdown-toggle text-white" href="<c:url value="/"/>" id="navbardrop" data-toggle="dropdown">
-	        ...
-	      </a>
-	      <div class="dropdown-menu">
-	        <a class="dropdown-item text-white" href="#"> ... </a>
-	        <a class="dropdown-item text-white" href="#"> ... </a>
-	        <a class="dropdown-item text-white" href="#"> ... </a>
-	      </div>
-	    </li>
-	
 	<c:choose>
 	
 	<c:when test="${user==null}">
