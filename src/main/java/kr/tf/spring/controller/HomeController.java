@@ -1,6 +1,7 @@
 package kr.tf.spring.controller;
 
 import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -58,7 +59,7 @@ public class HomeController {
 	@PostMapping("/ajax/list")
 	@ResponseBody
 	public List<RestaurantVO> ajaxPost(HttpServletRequest req, HttpServletResponse res) {
-		List<RestaurantVO> list = restaurantService.listRest();
+		List<RestaurantVO> list = restaurantService.searchList(null, null, null);
 		return list;
 	}
 	
@@ -71,8 +72,16 @@ public class HomeController {
 	
 	@PostMapping("/ajax/search")
 	@ResponseBody
-	public List<RestaurantVO> ajaxSearch(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx,HttpServletRequest req, HttpServletResponse res) {
-		List<RestaurantVO> list = restaurantService.searchList(sfl, stx);
+	public List<RestaurantVO> ajaxSearch(@RequestParam("sfl") String sfl, @RequestParam("stx") String stx, @RequestParam("sort") String sort,HttpServletRequest req, HttpServletResponse res) {
+		
+		// 허용된 정렬 기준 리스트
+		List<String> validSorts = Arrays.asList("re_name ASC", "re_name DESC", "re_score ASC", "re_score DESC");
+		// 만약 정렬 기준이 유효하지 않으면 기본값 사용
+	    if (!validSorts.contains(sort)) {
+	        sort = "re_name ASC";
+	    }
+	    
+		List<RestaurantVO> list = restaurantService.searchList(sfl, stx, sort);
 		return list;
 	}
 }
