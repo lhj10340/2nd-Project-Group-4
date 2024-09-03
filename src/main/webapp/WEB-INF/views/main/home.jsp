@@ -42,7 +42,7 @@
 		.info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
 		.info .link {color: #5085BB;}
 		
-		.sort{display: inline-block; font-weight: bold;}
+		.sort{display: inline-block; font-weight: bold; cursor: pointer;}
 		.off {color: gray;}
 	</style>
 	<!-- fontawesome 추가-->
