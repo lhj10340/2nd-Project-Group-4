@@ -14,11 +14,6 @@ public class RestaurantServiceImp implements RestaurantService {
 	private RestaurantDAO restaurantDao;
 
 	@Override
-	public List<RestaurantVO> listRest() {
-		return restaurantDao.getListRest();
-	}
-
-	@Override
 	public RestaurantVO infoRest(String lat, String lng) {
 		if(lat == null || lng == null) return null;
 		
@@ -30,9 +25,7 @@ public class RestaurantServiceImp implements RestaurantService {
 	}
 
 	@Override
-	public List<RestaurantVO> searchList(String sfl, String stx) {
-		if(stx == null) return null;
-		
-		return restaurantDao.getSearchList(sfl, stx);
+	public List<RestaurantVO> searchList(String sfl, String stx, String sort) {
+		return restaurantDao.getSearchList(sfl, stx, sort);
 	}
 }

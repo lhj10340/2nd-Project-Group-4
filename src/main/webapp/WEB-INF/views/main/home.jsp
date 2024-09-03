@@ -58,8 +58,8 @@
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
-                <form onsubmit="searchPlaces(this); return false;">
-                	<input type="hidden" name="sort">
+                <form name="fsearch" onsubmit="searchPlaces(this); return false;">
+                	<input type="hidden" name="sort" id="sort" value="re_name ASC">
                     <select name="sfl" id="sfl">
                     	<option value="all">전체</option>
                     	<option value="re_name">매장명</option>
@@ -71,15 +71,15 @@
                 <div>
                 	<ul>
                 		<li class="sort" onclick="sort_list('re_name', 'ASC')">
-                			이름순(오름차순) |
+                			이름순(오름차순)
                 		</li>
                 		<li class="sort off" onclick="sort_list('re_name', 'DESC')">
                 			이름순(내림차순) 
                 		</li>
-                		<li class="sort off" onclick="sort_list('re_star', 'DESC')">
-                			좋은 별점순 |
+                		<li class="sort off" onclick="sort_list('re_score', 'DESC')">
+                			좋은 별점순
                 		</li>
-                		<li class="sort off" onclick="sort_list('re_star', 'ASC')">
+                		<li class="sort off" onclick="sort_list('re_score', 'ASC')">
                 			나쁜 별점순
                 		</li>
                 	</ul>
@@ -208,6 +208,7 @@
 	//등록된 모든 맛집 가게 마커를 표시하기 위해 호출되는 함수입니다.
 	function ajaxList(){
 		var list = new Array();
+		var view = new Array(); //리스트업을 위한 정보
 		$.ajax({
 	        url: "<c:url value="/ajax/list"/>",
 			type: "post",
@@ -215,10 +216,12 @@
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
+	        		view.push(data[i]);
 		        	list.push(new kakao.maps.LatLng(parseFloat(data[i].re_x), parseFloat(data[i].re_y)));
 	        	} //가져온 정보값을 카카오 위치좌표 객체로 변환 후 list array에 담음
 	        }
         });
+		listView(view);
        	return list;
 	}
 	
@@ -240,19 +243,13 @@
 	
 	//검색을 요청하는 함수입니다
 	function searchPlaces(f) {
-
-	    if (!f.stx.value.replace(/^\s+|\s+$/g, '')) {
-	        f.stx.focus();
-	    	alert('키워드를 입력해주세요');
-	        return false;
-	    }
 	    var markers = new Array();
 	    var list = new Array();
 		$.ajax({
 	        url: "<c:url value="/ajax/search"/>",
 			type: "post",
 			dataType : 'json',
-			data : {sfl: f.sfl.value, stx: f.stx.value},
+			data : {sfl: f.sfl.value, stx: f.stx.value, sort: f.sort.value},
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
@@ -272,6 +269,12 @@
 		createRestaurantMarkers(); // 맛집가게 마커를 생성하고 맛집가게 마커 배열에 추가합니다
 		
 		setRestaurantMarkers(map); // 지도에 맛집가게 마커가 보이도록 설정합니다    
+		listView(list);
+		
+	}
+	//리스트에 맛집 정보를 노출시키는 함수입니다.
+	function listView(list){
+		
 		var listEl = document.getElementById('placesList');
 	 	 
 		removeAllChildNods(listEl);
@@ -297,6 +300,7 @@
 				content += "</li>";
 			}
 		}
+		console.log(list);
 		listEl.innerHTML = content;
 	}
 	// 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -307,8 +311,14 @@
 	}
 	
 	function sort_list(field, sort){
-		console.log(field + " / " + sort);
+		$("#sort").val(field + " " + sort);
+		searchPlaces(document.fsearch);
 	}
+	
+	$(".sort").on("click", function(){
+		$(".sort").addClass('off');
+		$(this).removeClass('off');	
+	});
 </script>
 
 </body>
