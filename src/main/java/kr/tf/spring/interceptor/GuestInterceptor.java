@@ -12,6 +12,7 @@ public class GuestInterceptor extends HandlerInterceptorAdapter {
 			Object handler)
 			throws Exception {
 			
+		
 			//구현
 			return true;
 	}
