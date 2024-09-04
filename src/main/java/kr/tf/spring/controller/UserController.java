@@ -58,9 +58,19 @@ public class UserController {
 
 	@PostMapping("/signup")
 	public String signup_post(Model mo, UserVO user_) {
-		System.out.println(user_);
-		// from테그에서 입력 받아용
-		// user_ 는 화면에서 받아온 친구
+		
+		boolean res = userService.signup(user_);
+		
+		if(res) {
+			
+			mo.addAttribute("url", "/login");
+			mo.addAttribute("msg", "회원가입에 성공했습니다.");
+		} else {
+			
+			mo.addAttribute("url", "/signup");
+			mo.addAttribute("msg", "회원가입에 실패했습니다.");
+		}
+		
 
 		return "/main/msg";
 	}

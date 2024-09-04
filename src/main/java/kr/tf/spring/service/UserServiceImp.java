@@ -63,5 +63,24 @@ public class UserServiceImp implements UserService{
 		return userDao.findById_InUserDB(us_id);
 	}
 
+	@Override
+	public boolean signup(UserVO user_) {
+		
+		if(user_ == null) {
+			return false;
+		}
+		
+		String encPw = passwordEncoder.encode(user_.getUs_pw());
+		
+		user_.setUs_pw(encPw);
+		
+		try {
+			return userDao.insertUser(user_);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 
 }
