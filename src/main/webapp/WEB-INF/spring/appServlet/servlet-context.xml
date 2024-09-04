@@ -36,6 +36,34 @@
 	    </beans:property>
 	</beans:bean>
 		
+	<beans:bean id="adminInterceptor" class="kr.tf.spring.interceptor.AdminInterceptor"/>
+	<beans:bean id="userInterceptor" class="kr.tf.spring.interceptor.UserInterceptor"/>
+	<beans:bean id="guestInterceptor" class="kr.tf.spring.interceptor.GuestInterceptor"/>
 	
+	<interceptors>
+		
+		<!-- 관리자 이외의 인원이 관리자 권한으로 접근할 경우 사용할 interceptor -->
+		
+		<interceptor>
+			<mapping path="/admin/**"/>
+			<beans:ref bean="adminInterceptor"/>
+		</interceptor>
+		
+		<!-- 비회원(로그인x)이 회원 권한(리뷰 작성)으로 접근할 경우 사용할 interceptor -->
+		
+		<interceptor>
+			<mapping path=""/>
+			<beans:ref bean="userInterceptor"/>
+		</interceptor>
+		
+		<!-- 회원이 이미 진행한 기능(로그인, 회원가입)으로 접근할 경우 사용할 interceptor -->
+		
+		<interceptor>
+			<mapping path="/login"/>
+			<mapping path="/signup"/>
+			<beans:ref bean="guestInterceptor"/>
+		</interceptor>
+		
+	</interceptors>
 	
 </beans:beans>
