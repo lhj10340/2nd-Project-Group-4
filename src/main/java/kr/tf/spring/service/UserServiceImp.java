@@ -1,5 +1,7 @@
 package kr.tf.spring.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,10 +60,30 @@ public class UserServiceImp implements UserService{
 	}
 
 	private UserVO findById_InUserDB(String us_id) {
-		
-		
 		return userDao.findById_InUserDB(us_id);
 	}
+	  // 이름으로 사용자 검색
+    @Override
+    public List<UserVO> findUsersByName(String name) {
+        return userDao.findUsersByName(name);
+    }
 
-
+    // ID로 사용자 정보 조회 
+    @Override
+    public UserVO findUserById(String id) {
+        return userDao.findUserById(id);
+    }
+    @Override
+    public boolean updateUser(UserVO user) {
+        int result = userDao.updateUser(user);
+        return result > 0;
+    }
+    
+    @Override
+    public boolean deleteUser(String us_id) {
+        int result = userDao.deleteUser(us_id);
+        return result > 0;
+    }
+   
 }
+    
