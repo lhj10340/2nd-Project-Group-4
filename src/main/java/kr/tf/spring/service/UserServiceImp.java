@@ -84,6 +84,19 @@ public class UserServiceImp implements UserService{
         int result = userDao.deleteUser(us_id);
         return result > 0;
     }
-   
+
+    @Override
+    public boolean registerUser(UserVO user) {
+        try {
+            String encodedPassword = passwordEncoder.encode(user.getUs_pw());
+            user.setUs_pw(encodedPassword);
+            userDao.insertUser(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
     

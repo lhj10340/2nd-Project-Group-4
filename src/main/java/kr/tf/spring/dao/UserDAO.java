@@ -21,4 +21,5 @@ public interface UserDAO {
 	
 	// 사용자 삭제
 	int  deleteUser(@Param("us_id") String userId);
+	int  insertUser(UserVO user);
 }

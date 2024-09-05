@@ -24,5 +24,4 @@ public class UserVO {
 	private Date us_stop;// datetime 
 	private String us_icon;// longtext 
 	private String us_say;// varchar(150)
-	
 }

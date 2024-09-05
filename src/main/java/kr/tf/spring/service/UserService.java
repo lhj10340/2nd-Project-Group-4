@@ -2,6 +2,9 @@ package kr.tf.spring.service;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import kr.tf.spring.model.dto.LoginDTO;
 import kr.tf.spring.model.vo.UserVO;
 
@@ -16,8 +19,14 @@ public interface UserService {
 
 	boolean  updateUser(UserVO user);
 
+	boolean registerUser(UserVO userVO);
+
 
 	
 
 
 }
+
+
+
+
