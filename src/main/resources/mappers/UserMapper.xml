@@ -14,7 +14,7 @@
   	
   	<insert id="insertUser">
   		insert into user (us_id, us_pw, us_auth, us_name, us_gender, us_hbd, us_phone, us_email)
-  		values (#{us.us_id},#{us.us_pw},#{us.us_auth},#{us.us_name},#{us.us_gender},#{us.us_hbd},#{us.us_phone},#{us.us_email},)
+  		values (#{us.us_id},#{us.us_pw},#{us.us_auth},#{us.us_name},#{us.us_gender},#{us.us_hbd},#{us.us_phone},#{us.us_email})
   	</insert>
   	
 </mapper>

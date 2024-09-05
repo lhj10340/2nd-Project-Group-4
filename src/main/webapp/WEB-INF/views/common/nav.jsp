@@ -78,6 +78,10 @@
 	</c:when>		    
 		
 	<c:otherwise>
+	   	
+	   	<li class="nav-item">
+			<a class="nav-link text-white" href="<c:url value="/mypage"/>">마이 페이지</a>
+		</li>
 	   		    
 		<li class="nav-item">
 			<a class="nav-link text-white" href="<c:url value="/logout"/>">로그아웃</a>
@@ -87,7 +91,7 @@
 	
 	</c:choose>
 	
-	<c:if test="${user.me_authority eq 'ADMIN'}">
+	<c:if test="${user.us_auth eq '9'}">
 		
 		   		    <li class="nav-item">
 				      <a class="nav-link text-white" href="<c:url value="/admin/tool"/>">관리자 페이지</a>
@@ -115,14 +119,15 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-		          <div class="container justify-content-center">
-					  <form action='<c:url value="/login"/>' method="post" class="">
+				  <form action='<c:url value="/login"/>' method="post" id="form">
+		          	<div class="container justify-content-center">
+		          	
 					    <div class="form-group">
-					    	<input type=text class="form-control" id="id" placeholder="ID" name="us_id">
+					    	<input type=text class="form-control" id="id_1" placeholder="ID" name="us_id">
 					    </div>
 					    
 					    <div class="form-group">
-					      <input type="password" class="form-control" id="pw" placeholder="비밀번호" name="us_pw">
+					      <input type="password" class="form-control" id="pw_1" placeholder="비밀번호" name="us_pw">
 					    </div>
 				
 					    <div class="form-group form-check">
@@ -133,8 +138,8 @@
 					    <div class="d-flex justify-content-end">
 					    	<button type="submit" class="btn btn-primary">로그인</button>
 					    </div>
-					  </form>
-				</div>
+					</div>
+				  </form>
         </div>
         
         <!-- Modal footer -->
@@ -158,7 +163,7 @@
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
         
-        <form action='<c:url value="/user/signup"/>' method="post" id="form" >
+        <form action='<c:url value="/signup"/>' method="post" id="form" >
         <!-- Modal body -->
         
         <div class="modal-body container">
@@ -173,9 +178,9 @@
         	<div class="form-group">
         		<input type="password" class="form-control" id="us_pw2" placeholder="PASSWORD Check" name="us_pw2" >
         	</div>
-        	
+        	<label for="id">이메일</label>
         	<div class="form-group">
-        		<input type="password" class="form-control" id="us_email" placeholder="E-mail" name="us_email" >
+        		<input type="text" class="form-control" id="us_email" placeholder="E-mail" name="us_email" >
         	</div>
         	
         	<!-- 
@@ -197,7 +202,7 @@
         	 -->
         	
 			
-			<label for="id" style="margin-top: 10px;">이름</label>
+			<label for="id" style="margin-top: 2px;">이름</label>
    	 		
 	     	    <div class="form-group">
 	        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name" >
@@ -205,21 +210,27 @@
 			
 			<div class="d-flex">
 				
-					<label class="form-check-label mr-auto mb-2" > 성별 : </label>
+					<label class="form-check-label mr-auto mb-1" > 성별 : </label>
 		
 					     <div class="form-check-inline" >
 							    <label class="form-check-label" for="radio1">
-							      <input type="radio" class="form-check-input mb-2" id="radio1" name="gender" value="male">남
+							      <input type="radio" class="form-check-input mb-1" id="radio1" name="us_gender" value="male">남
 							    </label>
 						 </div>
 
 						<div class="form-check-inline" >
 							    <label class="form-check-label" for="radio2">
-							      <input type="radio" class="form-check-input mb-2" id="radio2" name="gender" value="female">여
+							      <input type="radio" class="form-check-input mb-1" id="radio2" name="us_gender" value="female">여
 							    </label>
 						 </div>
 			
 			 </div>
+			 
+			 <label for="hbd" style="margin-top: 2px;">생년월일</label>
+   	 		
+	     	    <div class="form-group">
+	        		<input type="text" class="form-control" id="hbd" placeholder="ex) 19910327" name="us_hbd" >
+	        	</div>
 			 
 			 <div class="d-flex">
 				
@@ -227,19 +238,19 @@
 
 					     <div class="form-check-inline" >
 							    <label class="form-check-label" for="radio3">
-							      <input type="radio" class="form-check-input" id="radio3" name="business" value="yes" > 예
+							      <input type="radio" class="form-check-input" id="radio3" name="business" value="true" > 예
 							    </label>
 						 </div>
 		
 						<div class="form-check-inline" >
 							    <label class="form-check-label" for="radio4">
-							      <input type="radio" class="form-check-input" id="radio4" name="business" value="no"> 아니오
+							      <input type="radio" class="form-check-input" id="radio4" name="business" value="false"> 아니오
 							    </label>
 						 </div>
 			
 			 </div>
 			 
-   	 		<label for="id" style="margin-top: 10px;"> 전화번호 </label>
+   	 		<label for="id" style="margin-top: 2px;"> 전화번호 </label>
    	 		
      	    <div class="form-group">
         		<input type="text" class="form-control" id="phone" placeholder="PHONE NUMBER 010-1234-1234" name="us_phone">

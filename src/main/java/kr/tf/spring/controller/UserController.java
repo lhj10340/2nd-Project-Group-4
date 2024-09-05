@@ -19,7 +19,7 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/login")
-	public String login(Model mo, UserVO user) {
+	public String login() {
 		// 화면
 		return "/user/login";
 	}
@@ -51,7 +51,7 @@ public class UserController {
 
 	
 	@GetMapping("/signup")
-	public String signup(Model mo, UserVO user) {
+	public String signup() {
 		// 화면
 		return "/user/signup";
 	}
@@ -63,7 +63,7 @@ public class UserController {
 		
 		if(res) {
 			
-			mo.addAttribute("url", "/login");
+			mo.addAttribute("url", "/");
 			mo.addAttribute("msg", "회원가입에 성공했습니다.");
 		} else {
 			
@@ -83,5 +83,10 @@ public class UserController {
 		mo.addAttribute("msg", "로그아웃 완료");
 		mo.addAttribute("url", "/");
 		return "/main/msg";
+	}
+	
+	@GetMapping("mypage")
+	public String mypage() {
+		return "/user/mypage";
 	}
 }
