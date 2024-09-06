@@ -17,4 +17,12 @@
   	values (#{us.us_id}, #{us.us_pw}, #{us.us_auth}, #{us.us_name}, #{us.us_gender}, #{us.us_phone}, #{us.us_email}, 0, #{us.us_say}, #{us.us_hbd})
   	</insert>
 
+	<update id="add_us_failed">
+	update user set us_failed = us_failed + 1 where us_id = #{us_id}
+	</update>
+	
+	<update id="reset_us_failed">
+	update user set us_failed = 0 where us_id = #{us_id}
+	</update>
+	
 </mapper>

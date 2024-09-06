@@ -89,8 +89,13 @@
 	<c:otherwise>
 	   		    
 		<li class="nav-item">
-			<a class="nav-link text-white" href="<c:url value="/logout"/>">로그아웃</a>
+			<a class="nav-link text-white" href="<c:url value="/user/logout"/>">로그아웃</a>
+		</li>	   	
+			    
+		<li class="nav-item">
+			<a class="nav-link text-white" href="<c:url value="/user/mypage/${user.us_id }"/>">마이페이지</a>
 		</li>
+			    
 			    
 	</c:otherwise>
 	
@@ -244,7 +249,7 @@
 				<input type="date"
 						class="form-control"
 				        id="date"
-				        max="2077-06-05"
+				        max="2025-12-31"
 				        min="1900-01-01"
 				        name="us_hbd"
 				        style="width: 300px;"	>

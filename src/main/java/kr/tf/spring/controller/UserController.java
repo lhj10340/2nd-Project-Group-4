@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,7 +23,7 @@ public class UserController {
 
 	@GetMapping("/login")
 	public String login(Model mo, UserVO user) {
-		// 화면
+		// 화면 (없음)
 		return "/user/login";
 	}
 
@@ -51,7 +52,7 @@ public class UserController {
 	
 	@GetMapping("/signup")
 	public String signup(Model mo, UserVO user) {
-		// 화면
+		// 화면 (없음)
 		return "/user/signup";
 	}
 
@@ -87,4 +88,14 @@ public class UserController {
 		mo.addAttribute("url", "/");
 		return "/main/msg";
 	}
+	
+	@GetMapping("/mypage/{us_id}")
+	public String mypage(Model mo, @PathVariable("us_id")String us_id) {
+		
+	
+		return "/user/mypage";
+	}
+	
+	
+	
 }
