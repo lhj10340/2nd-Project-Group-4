@@ -106,7 +106,7 @@
 
 <c:if test="${user == null }">
 
-<!-- The Modal -->
+<!-- The Modal --> 
   <div class="modal fade" id="myModal-login">
     <div class="modal-dialog">
       <div class="modal-content">
