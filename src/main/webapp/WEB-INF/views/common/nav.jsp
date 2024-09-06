@@ -125,7 +125,7 @@
         <!-- Modal body -->
         <div class="modal-body">
 		          <div class="container justify-content-center">
-					  <form action='<c:url value="/login"/>' method="post" class="">
+					  <form action='<c:url value="/user/login"/>' method="post" class="">
 					    <div class="form-group">
 					    	<input type=text class="form-control" id="id" placeholder="ID" name="us_id">
 					    </div>
@@ -208,13 +208,13 @@
 		
 					     <div class="form-check-inline" >
 							    <label class="form-check-label" for="radio1">
-							      <input type="radio" class="form-check-input mb-2" id="radio1" name="gender" value="male" checked>남
+							      <input type="radio" class="form-check-input mb-2" id="radio1" name="us_gender" value="male" checked>남
 							    </label>
 						 </div>
 
 						<div class="form-check-inline" >
 							    <label class="form-check-label" for="radio2">
-							      <input type="radio" class="form-check-input mb-2" id="radio2" name="gender" value="female">여
+							      <input type="radio" class="form-check-input mb-2" id="radio2" name="us_gender" value="female">여
 							    </label>
 						 </div>
 			
@@ -226,13 +226,13 @@
 
 					     <div class="form-check-inline" >
 							    <label class="form-check-label" for="radio3">
-							      <input type="radio" class="form-check-input" id="radio3" name="business" value="yes" checked> 예
+							      <input type="radio" class="form-check-input" id="radio3" name="us_auth" value="7"> 예
 							    </label>
 						 </div>
 		
 						<div class="form-check-inline" >
 							    <label class="form-check-label" for="radio4">
-							      <input type="radio" class="form-check-input" id="radio4" name="business" value="no"> 아니오
+							      <input type="radio" class="form-check-input" id="radio4" name="us_auth" value="1" checked> 아니오
 							    </label>
 						 </div>
 			
@@ -247,7 +247,7 @@
 		  <label for="comment"> 회원 한마디 </label>
 		  
         	<div class="form-group">
-			  <textarea class="form-control" rows="2" id="comment"></textarea>
+			  <textarea class="form-control" rows="2" id="us_say" name="us_say"></textarea>
 			</div>
         	
         </div>

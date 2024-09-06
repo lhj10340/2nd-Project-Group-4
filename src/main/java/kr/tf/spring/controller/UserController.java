@@ -14,6 +14,7 @@ import kr.tf.spring.model.vo.UserVO;
 import kr.tf.spring.service.UserService;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
@@ -63,7 +64,21 @@ public class UserController {
 		System.out.println(user_);
 		// from테그에서 입력 받아용
 		// user_ 는 화면에서 받아온 친구
-
+		
+		//입력된 값 다 받아와용
+		//db > female 6글자, pw 암호화 때문에 255글자 수정
+		//member가 DB에 있던데 혹시 사용하나요? user말고
+		
+		boolean res = userService.signup(user_);
+		
+		if (res) {
+			mo.addAttribute("msg", "회원가입 성공");
+			mo.addAttribute("url", "/");
+		} else {
+			mo.addAttribute("msg", "회원가입 실패");
+			mo.addAttribute("url", "/");
+		}
+		
 		return "/main/msg";
 	}
 
