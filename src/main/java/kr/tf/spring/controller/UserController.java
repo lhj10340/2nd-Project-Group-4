@@ -37,13 +37,14 @@ public class UserController {
 		
 		if (user != null) {
 			session.setAttribute("user", user);//세션에 저장해용
-			mo.addAttribute("msg", user.getUs_id() + "님 환영합니다.");
+
 			
-		    if (user.getUs_auth() == 9) {   // us_auth 값이 9인 경우
-		    	 return "redirect:/adminhome"; // 관리자 페이지로 이동
-		    } else {
-			mo.addAttribute("url","/"); // 일반 사용자페이지로 이동 
-		    	}
+			    if (user.getUs_auth() == 9) {   // us_auth 값이 9인 경우
+			    	 return "redirect:/adminhome"; // 관리자 페이지로 이동
+			    } else {
+				mo.addAttribute("msg", user.getUs_id() + "님 환영합니다.");
+				mo.addAttribute("url","/"); // 일반 사용자페이지로 이동 
+			    	}
 			} else {
 			mo.addAttribute("msg", "잘못된 로그인입니다. 다시 확인해주세요.");
 			mo.addAttribute("url","/");

@@ -106,14 +106,20 @@ public class UserServiceImp implements UserService{
 		//암호화 적용
 		user_.setUs_pw(encPw);
 		
-		//만약 us_say를 여기서 한다면 >> 마크업언어가 가능해집니다 >> 태그 제거
+		//만약 us_say를 여기서 한다면 >> 마크업언어가 가능해집니다 >> 태그 제거 반드시해줘야해용
 		
 		
-		//이메일 쪼게고 붙이기
+		//이메일 쪼게기 (이물질 제거)
 		String email_arr[] = user_.getUs_email().split(",");
+		
+		//길이가 2보다 클 수 있는 경우는 ,를 2개 이상 넣었을 때
+		if (email_arr.length > 2) {
+			return false;
+		}
+		
+		//붙이기
 		String email_res = email_arr[0] + email_arr[1];
 		user_.setUs_email(email_res);
-		
 		
 		
 		return userDao.signup(user_);
