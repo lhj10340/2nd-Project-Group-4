@@ -55,9 +55,11 @@ public class UserServiceImp implements UserService{
 		
 		// 자동로그인이 된다면? => 나중에 쿠키굽기
 		// LoginDTO 에는 Remomber가 있는데 UserVO에는 없습니다
-//		if (user_.getRemember().equals("on")) {
-//			System.err.println("자동로그인 on된 인원입니다. 후추");
-//		}
+		if (user_.getRemember() != null) {
+			System.out.println("자동로그인 on된 인원입니다. 후추");
+			//쿠키 굽기
+		}
+
 		
 		//로그인시 us_failed 초기화
 		userDao.reset_us_failed(user_.getUs_id());
