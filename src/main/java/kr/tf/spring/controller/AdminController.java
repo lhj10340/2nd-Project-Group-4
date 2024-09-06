@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -57,5 +58,28 @@ public class AdminController {
         UserVO user = userService.findUserById(userId);
         model.addAttribute("user", user);
         return "admin/userinfo"; // 회원 정보 페이지로 이동
+    }
+    
+
+    @PostMapping("/updateUser")
+    public String updateUser(UserVO user, Model model) {
+        boolean success = userService.updateUser(user);
+        if (success) {
+            model.addAttribute("msg", "회원 정보가 성공적으로 수정되었습니다.");
+        } else {
+            model.addAttribute("msg", "회원 정보 수정에 실패하였습니다.");
+        }
+        return "admin/userinfo";
+    }
+
+    @PostMapping("/deleteUser")
+    public String deleteUser(@RequestParam("us_id") String us_id, Model model) {
+        boolean success = userService.deleteUser(us_id);
+        if (success) {
+            model.addAttribute("msg", "회원 정보가 성공적으로 삭제되었습니다.");
+        } else {
+            model.addAttribute("msg", "회원 정보 삭제에 실패하였습니다.");
+        }
+        return "admin/user";
     }
 }

@@ -67,33 +67,4 @@ public class UserController {
         model.addAttribute("msg", "로그아웃 완료");
         return "redirect:/"; // 로그아웃 후 메인 페이지로 이동
     }
-
-    @GetMapping("/user/info")
-    public String getUserInfo(@RequestParam("id") String userId, Model model) {
-        UserVO user = userService.findUserById(userId);
-        model.addAttribute("user", user);
-        return "admin/userinfo";
-    }
-
-    @PostMapping("/updateUser")
-    public String updateUser(UserVO user, Model model) {
-        boolean success = userService.updateUser(user);
-        if (success) {
-            model.addAttribute("msg", "회원 정보가 성공적으로 수정되었습니다.");
-        } else {
-            model.addAttribute("msg", "회원 정보 수정에 실패하였습니다.");
-        }
-        return "admin/userinfo";
-    }
-
-    @PostMapping("/deleteUser")
-    public String deleteUser(@RequestParam("us_id") String us_id, Model model) {
-        boolean success = userService.deleteUser(us_id);
-        if (success) {
-            model.addAttribute("msg", "회원 정보가 성공적으로 삭제되었습니다.");
-        } else {
-            model.addAttribute("msg", "회원 정보 삭제에 실패하였습니다.");
-        }
-        return "admin/userinfo";
-    }
 }
