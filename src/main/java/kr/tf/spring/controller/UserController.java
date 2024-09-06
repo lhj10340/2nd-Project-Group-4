@@ -30,6 +30,7 @@ public class UserController {
 		// from테그에서 입력 받아용
 		// user_ 는 화면에서 받아온 친구
 		// remember 는 on 혹은 null 값을 가지고 쿠키와 관련되서 사용
+		System.out.println(user_);
 		UserVO user = userService.login(user_);
 		System.out.println(user);
 		

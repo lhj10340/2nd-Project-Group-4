@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 public class UserVO {
 	
 	private String us_id;// varchar(20) PK 
-	private String us_pw;// varchar(20) 
+	private String us_pw;// varchar(255)
 	private int us_auth;// int 
 	private String us_name;// varchar(20) 
-	private String us_gender;// varchar(5) 
+	private String us_gender;// varchar(6) 
 	private Date us_hbd;// date 
 	private String us_phone;// varchar(15) 
 	private String us_email;// varchar(30) 

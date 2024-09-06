@@ -44,14 +44,14 @@ public class UserServiceImp implements UserService{
 		}
 		
 		// 암호화된 비번 체크
-		if (!passwordEncoder.matches(user_.getUs_pw(), findUser.getUs_pw())) {
-			return null;
-		}
+//		if (!passwordEncoder.matches(user_.getUs_pw(), findUser.getUs_pw())) {
+//			return null;
+//		}
 		
 		// 자동로그인이 된다면? => 나중에 쿠키굽기
-		if (user_.getRemember().equals("on")) {
-			System.err.println("자동로그인 on된 인원입니다. 후추");
-		}
+//		if (user_.getRemember().equals("on")) {
+//			System.err.println("자동로그인 on된 인원입니다. 후추");
+//		}
 		
 		//다 체크 완료되면 findUser 리턴
 		return findUser;
