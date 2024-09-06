@@ -158,7 +158,7 @@
 
  <!-- The Modal -->
   <div class="modal fade" id="myModal-signup">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog">
       <div class="modal-content">
       
         <!-- Modal Header -->
@@ -191,7 +191,7 @@
 			  		<option>@gmail.com</option>
 			  		<option>@daum.net</option>
 			  		<option>@kakao.com</option>
-			  		<option>직접입력 - 미구현</option>
+			  		<option>직접입력</option>
 			  	</select>
 			  </div>
 			</div>
@@ -206,13 +206,13 @@
 				
 					<label class="form-check-label mr-auto mb-2" > 성별 : </label>
 		
-					     <div class="form-check-inline" >
+					     <div class="form-check-inline"  >
 							    <label class="form-check-label" for="radio1">
 							      <input type="radio" class="form-check-input mb-2" id="radio1" name="us_gender" value="male" checked>남
 							    </label>
 						 </div>
 
-						<div class="form-check-inline" >
+						<div class="form-check-inline" style="margin-right: 46px;">
 							    <label class="form-check-label" for="radio2">
 							      <input type="radio" class="form-check-input mb-2" id="radio2" name="us_gender" value="female">여
 							    </label>
@@ -237,6 +237,19 @@
 						 </div>
 			
 			 </div>
+			 
+			 
+			 <div class="d-flex" style="margin-top: 6px;">
+				<label class="form-check-label mr-auto mb-1" for="date">생일 :</label>
+				<input type="date"
+						class="form-control"
+				        id="date"
+				        max="2077-06-05"
+				        min="1900-01-01"
+				        name="us_hbd"
+				        style="width: 300px;"	>
+			</div>
+			 
 			 
    	 		<label for="id" style="margin-top: 10px;"> 전화번호 </label>
    	 		

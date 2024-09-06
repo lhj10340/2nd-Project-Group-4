@@ -38,18 +38,13 @@ public class UserController {
 		if (user != null) {
 			session.setAttribute("user", user);//세션에 저장해용
 
-			
-			    if (user.getUs_auth() == 9) {   // us_auth 값이 9인 경우
-			    	 return "redirect:/adminhome"; // 관리자 페이지로 이동
-			    } else {
-				mo.addAttribute("msg", user.getUs_id() + "님 환영합니다.");
-				mo.addAttribute("url","/"); // 일반 사용자페이지로 이동 
-			    	}
-			} else {
+			mo.addAttribute("msg", user.getUs_id() + "님 환영합니다.");
+			mo.addAttribute("url","/"); // 일반 사용자페이지로 이동 
+		} else {
 			mo.addAttribute("msg", "잘못된 로그인입니다. 다시 확인해주세요.");
 			mo.addAttribute("url","/");
 		}
-		// 세션에 저장
+		
 		return "/main/msg";
 	}
 
@@ -68,7 +63,7 @@ public class UserController {
 		
 		//입력된 값 다 받아와용
 		//db > female 6글자, pw 암호화 때문에 255글자 수정
-		//member가 DB에 있던데 혹시 사용하나요? user말고
+		//member db삭제, us_hbd 날짜 YYYY-MM-DD
 		
 		boolean res = userService.signup(user_);
 		
