@@ -48,7 +48,7 @@
 	   
 	  	<!-- 실질적으로 커뮤니티(아카이브) 고르는 곳 comm으로 커뮤니티는 줄여 표현할 것 -->
 	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/"/>"> 커뮤니티 </a>
+	      <a class="nav-link text-white" href="<c:url value="/review/list"/>"> 커뮤니티 </a>
 	    </li>
 	  
 	    <li class="nav-item">
