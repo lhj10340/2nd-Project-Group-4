@@ -21,7 +21,7 @@ public interface UserService {
 
 	boolean registerUser(UserVO userVO);
 
-
+	List<UserVO> getAllUsers(); // 전체 사용자 목록 가져오기
 	
 
 

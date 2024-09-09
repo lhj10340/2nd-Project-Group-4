@@ -7,13 +7,16 @@
         select * from user where us_id = #{us_id}
     </select>
     <select id="findByIdAndAuth" resultType="kr.tf.spring.model.vo.UserVO">
-        select * from user where us_id = #{us_id} AND us_auth =#{us_auth}
+        select * from user where us_id = #{us_id} AND us_auth = #{us_auth}
     </select>
     <select id="findUsersByName" resultType="kr.tf.spring.model.vo.UserVO">
         select * from user where us_name = #{us_name}
     </select>
     <select id="findUserById" resultType="kr.tf.spring.model.vo.UserVO">
         select * from user where us_id = #{us_id}
+    </select>
+    <select id="getAllUsers" resultType="kr.tf.spring.model.vo.UserVO">
+        SELECT * FROM user;
     </select>
     <update id="updateUser">
         update user
@@ -37,7 +40,6 @@
     <delete id="deleteUser">
         delete from user where us_id = #{us_id}
     </delete>
-    <!-- 사용자 삽입 -->
     <insert id="insertUser" parameterType="kr.tf.spring.model.vo.UserVO">
         INSERT INTO user (us_id, us_pw, us_auth, us_name, us_gender, us_hbd, us_phone, us_email, us_failed, us_cookie, us_limit, us_report, us_stop, us_icon, us_say)
         VALUES (#{us_id}, #{us_pw}, #{us_auth}, #{us_name}, #{us_gender}, #{us_hbd}, #{us_phone}, #{us_email}, #{us_failed}, #{us_cookie}, #{us_limit}, #{us_report}, #{us_stop}, #{us_icon}, #{us_say})

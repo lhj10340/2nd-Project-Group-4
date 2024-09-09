@@ -38,9 +38,12 @@ public class AdminController {
         return "admin/review";
     }
 
+
     @GetMapping("/user")
     public String userManagement(Model model) {
-        // 회원 관리 페이지로 이동
+        // 사용자 목록 가져오기
+        List<UserVO> users = userService.getAllUsers(); // 전체 사용자 목록 가져오기
+        model.addAttribute("users", users); // JSP로 사용자 목록 전달
         return "admin/user";
     }
 
@@ -48,8 +51,8 @@ public class AdminController {
     public String searchUser(@RequestParam("name") String name, Model model) {
         // 회원 이름으로 검색
         List<UserVO> users = userService.findUsersByName(name);
-        model.addAttribute("users", users);
-        return "admin/user"; // 검색 결과를 admin/user.jsp에 전달
+        model.addAttribute("users", users); // 검색 결과를 모델에 추가
+        return "admin/user_search_popup"; // 팝업 창에서 검색 결과 표시
     }
 
     @GetMapping("/user/info")

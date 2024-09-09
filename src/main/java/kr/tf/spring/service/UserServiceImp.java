@@ -78,6 +78,10 @@ public class UserServiceImp implements UserService{
         int result = userDao.updateUser(user);
         return result > 0;
     }
+    @Override
+    public List<UserVO> getAllUsers() {
+        return userDao.getAllUsers(); // DAO를 통해 DB에서 모든 사용자 목록을 가져옴
+    }
     
     @Override
     public boolean deleteUser(String us_id) {

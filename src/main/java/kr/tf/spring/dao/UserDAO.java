@@ -22,4 +22,8 @@ public interface UserDAO {
 	// 사용자 삭제
 	int  deleteUser(@Param("us_id") String userId);
 	int  insertUser(UserVO user);
+	// 전체 사용자 목록 가져오기
+
+	List<UserVO> getAllUsers();
+	
 }
