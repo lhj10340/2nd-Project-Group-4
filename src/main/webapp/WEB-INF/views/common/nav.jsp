@@ -38,13 +38,9 @@
 	      <a class="nav-link text-white" href="<c:url value="/"/>">Main</a>
 	    </li> -->
 	   
-	  	<!-- 실질적으로 커뮤니티(아카이브) 고르는 곳 comm으로 커뮤니티는 줄여 표현할 것 -->
 	    <li class="nav-item">
-<<<<<<< Updated upstream
-	      <a class="nav-link text-white" href="<c:url value="/comm"/>"> 커뮤니티 </a>
-=======
 	      <a class="nav-link text-white" href="<c:url value="/review/list"/>"> 전체리뷰 </a>
->>>>>>> Stashed changes
+
 	    </li>
 	  
 	    <li class="nav-item">
