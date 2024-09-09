@@ -40,12 +40,19 @@ public class AdminController {
 
 
     @GetMapping("/user")
-    public String userManagement(Model model) {
-        // 사용자 목록 가져오기
-        List<UserVO> users = userService.getAllUsers(); // 전체 사용자 목록 가져오기
-        model.addAttribute("users", users); // JSP로 사용자 목록 전달
+    public String userManagement(@RequestParam(value = "name", required = false) String name, Model model) {
+        List<UserVO> users;
+        if (name != null && !name.trim().isEmpty()) {
+            // 이름으로 검색
+            users = userService.findUsersByName(name);
+        } else {
+            // 전체 사용자 목록 가져오기
+            users = userService.getAllUsers();
+        }
+        model.addAttribute("users", users);
         return "admin/user";
     }
+
 
     @GetMapping("/user/search")
     public String searchUser(@RequestParam("name") String name, Model model) {

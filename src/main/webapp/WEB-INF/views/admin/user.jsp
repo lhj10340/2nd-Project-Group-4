@@ -27,69 +27,14 @@
         th {
             background-color: #f2f2f2;
         }
-
-        /* 팝업 스타일 */
-        #popup {
-            display: none;
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-
-        #popup-close {
-            display: block;
-            text-align: right;
-            margin-bottom: 10px;
-        }
-
-        #overlay {
-            display: none;
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
     </style>
-    <script>
-        // 팝업 열기
-        function openPopup(users) {
-            const popup = document.getElementById('popup');
-            const overlay = document.getElementById('overlay');
-            const resultList = document.getElementById('search-results');
-            resultList.innerHTML = ''; // 기존 검색 결과 초기화
-
-            users.forEach(user => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="${user.link}">${user.name} - ${user.phone}</a>`;
-                resultList.appendChild(li);
-            });
-
-            popup.style.display = 'block';
-            overlay.style.display = 'block';
-        }
-
-        // 팝업 닫기
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-    </script>
 </head>
 <body>
     <h1>회원 관리</h1>
     
     <!-- 회원 검색 -->
-    <form action="${pageContext.request.contextPath}/admin/user/search" method="get" onsubmit="event.preventDefault(); searchUsers();">
-        <input type="text" id="searchName" name="name" placeholder="회원 이름 검색">
+    <form action="${pageContext.request.contextPath}/admin/user" method="get">
+        <input type="text" id="searchName" name="name" placeholder="회원 이름 검색" value="${param.name}">
         <button type="submit">검색</button>
     </form>
 
@@ -122,40 +67,5 @@
             </tbody>
         </table>
     </div>
-
-    <!-- 팝업 창 -->
-    <div id="popup">
-        <div id="popup-close">
-            <button onclick="closePopup()">닫기</button>
-        </div>
-        <h2>검색 결과</h2>
-        <ul id="search-results"></ul>
-    </div>
-    <div id="overlay" onclick="closePopup()"></div>
-
-    <script>
-        function searchUsers() {
-            const name = document.getElementById('searchName').value;
-
-            // AJAX 요청을 통해 검색 결과 가져오기
-            fetch(`${pageContext.request.contextPath}/admin/user/search?name=${name}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-                        const users = data.map(user => ({
-                            name: user.us_name,
-                            phone: user.us_phone,
-                            link: `${pageContext.request.contextPath}/admin/user/info?id=${user.us_id}`
-                        }));
-                        openPopup(users);  // 팝업에 결과 표시
-                    } else {
-                        alert('검색 결과가 없습니다.');
-                    }
-                })
-                .catch(error => {
-                    console.error('검색 오류:', error);
-                });
-        }
-    </script>
 </body>
 </html>
