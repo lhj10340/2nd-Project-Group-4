@@ -97,7 +97,7 @@
 <body>
     <div class="container">
         <h2>회원 정보</h2>
-        <form action="${pageContext.request.contextPath}/admin/userinfo" method="post">
+        <form action="${pageContext.request.contextPath}/admin/updateUser" method="post">
             <input type="hidden" name="us_id" value="${user.us_id}"/>
 
             <div class="form-group">
