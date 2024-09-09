@@ -7,11 +7,8 @@
 <head>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
-
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 
 <style type="text/css">
 	body, p, span {
@@ -25,10 +22,10 @@
 	  position: sticky;
 	  z-index: 99;
 	}
-	.error{
-		color : red;
-	}
+
 </style>
+
+   
 
 </head>
 <body>
@@ -51,7 +48,7 @@
 	   
 	  	<!-- 실질적으로 커뮤니티(아카이브) 고르는 곳 comm으로 커뮤니티는 줄여 표현할 것 -->
 	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/comm"/>"> 커뮤니티 </a>
+	      <a class="nav-link text-white" href="<c:url value="/"/>"> 커뮤니티 </a>
 	    </li>
 	  
 	    <li class="nav-item">
@@ -61,6 +58,18 @@
 	    </ul>
 	    
 	<ul class="navbar-nav">
+	
+	 <!-- Dropdown -->
+	    <li class="nav-item dropdown">
+	      <a class="nav-link dropdown-toggle text-white" href="<c:url value="/"/>" id="navbardrop" data-toggle="dropdown">
+	        ...
+	      </a>
+	      <div class="dropdown-menu">
+	        <a class="dropdown-item text-white" href="#"> ... </a>
+	        <a class="dropdown-item text-white" href="#"> ... </a>
+	        <a class="dropdown-item text-white" href="#"> ... </a>
+	      </div>
+	    </li>
 	
 	<c:choose>
 	
@@ -78,20 +87,16 @@
 	</c:when>		    
 		
 	<c:otherwise>
-	   	
-	   	<li class="nav-item">
-			<a class="nav-link text-white" href="<c:url value="/mypage"/>">마이 페이지</a>
-		</li>
 	   		    
 		<li class="nav-item">
-			<a class="nav-link text-white" href="<c:url value="/logout"/>">로그아웃</a>
+			<a class="nav-link text-white" href="<c:url value="/user/logout"/>">로그아웃</a>
 		</li>
 			    
 	</c:otherwise>
 	
 	</c:choose>
 	
-	<c:if test="${user.us_auth eq '9'}">
+	<c:if test="${user.us_auth == 9}">
 		
 		   		    <li class="nav-item">
 				      <a class="nav-link text-white" href="<c:url value="/admin/tool"/>">관리자 페이지</a>
@@ -106,7 +111,7 @@
 
 <c:if test="${user == null }">
 
-<!-- The Modal --> 
+<!-- The Modal -->
   <div class="modal fade" id="myModal-login">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -119,15 +124,14 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-				  <form action='<c:url value="/login"/>' method="post" id="form">
-		          	<div class="container justify-content-center">
-		          	
+		          <div class="container justify-content-center">
+					  <form action='<c:url value="/user/login"/>' method="post" class="">
 					    <div class="form-group">
-					    	<input type=text class="form-control" id="id_1" placeholder="ID" name="us_id">
+					    	<input type=text class="form-control" id="id" placeholder="ID" name="us_id">
 					    </div>
 					    
 					    <div class="form-group">
-					      <input type="password" class="form-control" id="pw_1" placeholder="비밀번호" name="us_pw">
+					      <input type="password" class="form-control" id="pw" placeholder="비밀번호" name="us_pw">
 					    </div>
 				
 					    <div class="form-group form-check">
@@ -138,8 +142,8 @@
 					    <div class="d-flex justify-content-end">
 					    	<button type="submit" class="btn btn-primary">로그인</button>
 					    </div>
-					</div>
-				  </form>
+					  </form>
+				</div>
         </div>
         
         <!-- Modal footer -->
@@ -154,7 +158,7 @@
 
  <!-- The Modal -->
   <div class="modal fade" id="myModal-signup">
-    <div class="modal-dialog modal-sm modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
       
         <!-- Modal Header -->
@@ -162,28 +166,21 @@
           <h1 class="modal-title">회원가입</h1>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        
-        <form action='<c:url value="/signup"/>' method="post" id="form" >
+        <form action='<c:url value="/user/signup"/>' method="post" class="">
         <!-- Modal body -->
         
         <div class="modal-body container">
         
    	 		<label for="id">ID & 비밀번호</label>
      	    <div class="form-group">
-        		<input type="text" class="form-control" id="us_id" placeholder="ID" name="us_id" >
+        		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id" required>
         	</div>
         	<div class="form-group">
-        		<input type="password" class="form-control" id="us_pw" placeholder="PASSWORD" name="us_pw" >	
+        		<input type="password" class="form-control" id="pw" placeholder="PASSWORD" name="us_pw" required>	
         	</div>
         	<div class="form-group">
-        		<input type="password" class="form-control" id="us_pw2" placeholder="PASSWORD Check" name="us_pw2" >
+        		<input type="password" class="form-control" id="pw2" placeholder="PASSWORD Check" required>
         	</div>
-        	<label for="id">이메일</label>
-        	<div class="form-group">
-        		<input type="text" class="form-control" id="us_email" placeholder="E-mail" name="us_email" >
-        	</div>
-        	
-        	<!-- 
         	
         	<label for="demo">이메일 :</label>
 			<div class="input-group mb-3">
@@ -199,38 +196,29 @@
 			  </div>
 			</div>
 			
-        	 -->
-        	
-			
-			<label for="id" style="margin-top: 2px;">이름</label>
+			<label for="id" style="margin-top: 10px;">이름</label>
    	 		
 	     	    <div class="form-group">
-	        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name" >
+	        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name" required>
 	        	</div>
 			
 			<div class="d-flex">
 				
-					<label class="form-check-label mr-auto mb-1" > 성별 : </label>
+					<label class="form-check-label mr-auto mb-2" > 성별 : </label>
 		
 					     <div class="form-check-inline" >
 							    <label class="form-check-label" for="radio1">
-							      <input type="radio" class="form-check-input mb-1" id="radio1" name="us_gender" value="male">남
+							      <input type="radio" class="form-check-input mb-2" id="radio1" name="us_gender" value="male" checked>남
 							    </label>
 						 </div>
 
 						<div class="form-check-inline" >
 							    <label class="form-check-label" for="radio2">
-							      <input type="radio" class="form-check-input mb-1" id="radio2" name="us_gender" value="female">여
+							      <input type="radio" class="form-check-input mb-2" id="radio2" name="us_gender" value="female">여
 							    </label>
 						 </div>
 			
 			 </div>
-			 
-			 <label for="hbd" style="margin-top: 2px;">생년월일</label>
-   	 		
-	     	    <div class="form-group">
-	        		<input type="text" class="form-control" id="hbd" placeholder="ex) 19910327" name="us_hbd" >
-	        	</div>
 			 
 			 <div class="d-flex">
 				
@@ -238,28 +226,28 @@
 
 					     <div class="form-check-inline" >
 							    <label class="form-check-label" for="radio3">
-							      <input type="radio" class="form-check-input" id="radio3" name="business" value="true" > 예
+							      <input type="radio" class="form-check-input" id="radio3" name="us_auth" value="7"> 예
 							    </label>
 						 </div>
 		
 						<div class="form-check-inline" >
 							    <label class="form-check-label" for="radio4">
-							      <input type="radio" class="form-check-input" id="radio4" name="business" value="false"> 아니오
+							      <input type="radio" class="form-check-input" id="radio4" name="us_auth" value="1" checked> 아니오
 							    </label>
 						 </div>
 			
 			 </div>
 			 
-   	 		<label for="id" style="margin-top: 2px;"> 전화번호 </label>
+   	 		<label for="id" style="margin-top: 10px;"> 전화번호 </label>
    	 		
      	    <div class="form-group">
-        		<input type="text" class="form-control" id="phone" placeholder="PHONE NUMBER 010-1234-1234" name="us_phone">
+        		<input type="text" class="form-control" id="phone" placeholder="PHONE NUMBER 010-1234-1234" name="us_phone" required>
         	</div>
         	
 		  <label for="comment"> 회원 한마디 </label>
 		  
         	<div class="form-group">
-			  <textarea class="form-control" rows="1" id="comment"></textarea>
+			  <textarea class="form-control" rows="2" id="us_say" name="us_say"></textarea>
 			</div>
         	
         </div>
@@ -275,63 +263,5 @@
   </div>
   
 </c:if>
-
-<script type="text/javascript">
-
-		var flag = false;
-		
-				$('#form').validate({
-					rules : {
-						us_id : {
-							required : true,
-							regex : /^\w{6,13}$/
-						},
-						us_pw : {
-							required : true,
-							regex : /^[a-zA-Z0-9!@#$]{6,15}$/
-						},
-						us_pw2 : {
-							equalTo : us_pw
-						},
-						us_email : {
-							required : true,
-							email : true
-						}
-					},
-					messages : {
-						us_id : {
-							required : '필수 항목입니다.',
-							regex : '아이디는 영어, 숫자만 가능하며, 6~13자이어야 합니다.'
-						},
-						us_pw : {
-							required : '필수 항목입니다.',
-							regex : '비밀번호는 영어, 숫자, 특수문자(!@#$)만 가능하며, 8~15자이어야 합니다.'
-						},
-						us_pw2 : {
-							equalTo : '비번과 일치하지 않습니다.'
-						},
-						us_email : {
-							required : '필수 항목입니다.',
-							email : 'email 형식이 아닙니다'
-						}
-					},
-					submitHandler : function() {
-						var id = $("#id").val();
-						var res = checkId(id);
-						if(res == 0){
-							displayCheckId(res);
-							alert('이미 사용중인 아이디입니다.');
-							return false;
-						}
-						return true;
-					}
-				});
-				$.validator.addMethod('regex', function(value, element, regex) {
-					var re = new RegExp(regex);
-					return this.optional(element) || re.test(value);
-				}, "정규표현식을 확인하세요.");
-		
-</script>
-
 </body>
 </html>
