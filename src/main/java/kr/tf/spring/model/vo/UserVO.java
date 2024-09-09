@@ -14,14 +14,14 @@ public class UserVO {
 	private int us_auth;// int 
 	private String us_name;// varchar(20) 
 	private String us_gender;// varchar(5) 
-	private Date us_hbd;// date 
+	private String us_hbd;// date 
 	private String us_phone;// varchar(15) 
 	private String us_email;// varchar(30) 
 	private int us_failed;// int 
 	private String us_cookie;// varchar(255) 
-	private Date us_limit;// datetime 
+	private String us_limit;// datetime 
 	private int us_report;// int 
-	private Date us_stop;// datetime 
+	private String us_stop;// datetime 
 	private String us_icon;// longtext 
 	private String us_say;// varchar(150)
 }

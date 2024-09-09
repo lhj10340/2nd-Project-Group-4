@@ -70,9 +70,19 @@ public class AdminController {
         return "admin/userinfo"; // 회원 정보 페이지로 이동
     }
     
-
     @PostMapping("/updateUser")
     public String updateUser(UserVO user, Model model) {
+        // UserVO의 날짜 필드가 null인 경우를 처리
+        if (user.getUs_hbd() == null) {
+            user.setUs_hbd(null); // null 처리
+        }
+        if (user.getUs_limit() == null) {
+            user.setUs_limit(null); // null 처리
+        }
+        if (user.getUs_stop() == null) {
+            user.setUs_stop(null); // null 처리
+        }
+        
         boolean success = userService.updateUser(user);
         if (success) {
             model.addAttribute("msg", "회원 정보가 성공적으로 수정되었습니다.");
@@ -80,7 +90,7 @@ public class AdminController {
             model.addAttribute("msg", "회원 정보 수정에 실패하였습니다.");
         }
         return "admin/userinfo";
-    }
+    	}
 
     @PostMapping("/deleteUser")
     public String deleteUser(@RequestParam("us_id") String us_id, Model model) {
@@ -93,3 +103,18 @@ public class AdminController {
         return "redirect:/admin/user";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
