@@ -40,6 +40,8 @@
 	<beans:bean id="adminInterceptor" class="kr.tf.spring.interceptor.AdminInterceptor"/>
 	<beans:bean id="userInterceptor" class="kr.tf.spring.interceptor.UserInterceptor"/>
 	<beans:bean id="guestInterceptor" class="kr.tf.spring.interceptor.GuestInterceptor"/>
+	<beans:bean id="loginInterceptor" class="kr.tf.spring.interceptor.LoginInterceptor"/>
+	<beans:bean id="autoLoginInterceptor" class="kr.tf.spring.interceptor.AutoLoginInterceptor"/>
 	
 	<interceptors>
 		
@@ -63,6 +65,20 @@
 			<mapping path="/login"/>
 			<mapping path="/signup"/>
 			<beans:ref bean="guestInterceptor"/>
+		</interceptor>
+		
+		<!-- login interceptor -->
+		
+		<interceptor>
+			<mapping path="/login"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		
+		<!-- autologin interceptor -->
+		
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:ref bean="autoLoginInterceptor"/>
 		</interceptor>
 		
 	</interceptors>

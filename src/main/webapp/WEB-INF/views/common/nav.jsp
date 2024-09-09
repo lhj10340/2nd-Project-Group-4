@@ -136,7 +136,7 @@
 				
 					    <div class="form-group form-check">
 					      <label class="form-check-label">
-					        <input class="form-check-input" type="checkbox" name="remember"> 자동 로그인
+					        <input class="form-check-input" type="checkbox" value="true" name="remember"> 자동 로그인
 					      </label>
 					    </div>
 					    <div class="d-flex justify-content-end">
