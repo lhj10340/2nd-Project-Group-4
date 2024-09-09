@@ -90,6 +90,6 @@ public class AdminController {
         } else {
             model.addAttribute("msg", "회원 정보 삭제에 실패하였습니다.");
         }
-        return "admin/user";
+        return "redirect:/admin/user";
     }
 }
