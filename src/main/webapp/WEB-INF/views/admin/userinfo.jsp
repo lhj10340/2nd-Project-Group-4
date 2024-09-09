@@ -101,6 +101,10 @@
             <input type="hidden" name="us_id" value="${user.us_id}"/>
 
             <div class="form-group">
+                <label for="us_id">회원 아이디:</label>
+                <input type="text" id="us_id" name="us_id" value="${user.us_id}" disabled/>
+            </div>
+            <div class="form-group">
                 <label for="us_pw">비밀번호:</label>
                 <input type="password" id="us_pw" name="us_pw" value="${user.us_pw}" class="editable"/>
             </div>
@@ -164,7 +168,7 @@
             </div>
         </form>
 
-        <form id="deleteForm" action="${pageContext.request.contextPath}/admin/user/delete" method="post" style="display: none;">
+        <form id="deleteForm" action="${pageContext.request.contextPath}/admin/deleteUser" method="post" style="display: none;">
             <input type="hidden" name="us_id" value="${user.us_id}"/>
         </form>
     </div>
