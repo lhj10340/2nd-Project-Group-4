@@ -39,5 +39,9 @@
 		 </c:forEach>
 	</tbody>
 </table>
+<div class="btn-group">
+	<a class="btn btn-search-color">리뷰작성</a>
+	<a class="btn btn-search-color">리뷰작성</a>
+</div>
 </body>
 </html>
