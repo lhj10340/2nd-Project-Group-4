@@ -5,28 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
-
-<style type="text/css">
-	body, p, span {
-	  font-family: 'Gamja Flower';
-	}
-	.navbar{
-	 background-color:#815854;
-	}
-	.sticky {
-	  top: 0;
-	  position: sticky;
-	  z-index: 99;
-	}
-
-</style>
-
-   
-
 </head>
 <body>
 

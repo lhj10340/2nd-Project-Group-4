@@ -79,6 +79,7 @@
 	<!-- fontawesome 추가-->
 	<script src="https://kit.fontawesome.com/aa7d727d3c.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd861de20f6f46a674cee82508a967e9"></script>
+	<link rel="stylesheet" href="<c:url value="/resources/css/map.css" />">
 </head>
 <body>
 <div class="map_wrap">
@@ -89,7 +90,7 @@
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
-                <form name="fsearch" onsubmit="searchPlaces(this); return false;">
+                <form name="fsearch" onsubmit="searchPlaces(this); return false;" autocomplete="off">
                 	<input type="hidden" name="sort" id="sort" value="re_name ASC">
                     <select name="sfl" id="sfl">
                     	<option value="all">전체</option>
@@ -97,7 +98,7 @@
                     	<option value="re_tag">태그</option>
                     </select>
                     <input type="text" value="" name="stx" id="stx" size="15" placeholder="검색어 입력"> 
-                    <button type="submit">찾기</button> 
+                    <button type="submit" class="btn btn-search-color">찾기</button> 
                 </form>
                 <div>
                 	<ul>
@@ -138,7 +139,7 @@
 	var restaurantPositions = ajaxList();
 	
 
-	var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
+	var markerImageSrc = '<c:url value="/resources/img/category.png"/>';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
 	    restaurantMarkers = [], // 맛집가게 마커 객체를 가지고 있을 배열입니다
 
 	    
@@ -251,7 +252,7 @@
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
 	        		view.push(data[i]);
-		        	list.push(new kakao.maps.LatLng(parseFloat(data[i].re_x), parseFloat(data[i].re_y)));
+		        	list.push(new kakao.maps.LatLng(parseFloat(data[i].re_y), parseFloat(data[i].re_x)));
 	        	} //가져온 정보값을 카카오 위치좌표 객체로 변환 후 list array에 담음
 	        }
         });
@@ -287,7 +288,7 @@
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
-	        		markers.push(new kakao.maps.LatLng(parseFloat(data[i].re_x), parseFloat(data[i].re_y)));
+	        		markers.push(new kakao.maps.LatLng(parseFloat(data[i].re_y), parseFloat(data[i].re_x)));
 	        		list.push(data[i]);
 	        	} //가져온 정보값을 카카오 위치좌표 객체로 변환 후 list array에 담음
 	        }
@@ -327,14 +328,13 @@
 				content += '		<img src="\http://hansusu.cafe24.com/data/apms/background/main.jpg"\>';
 				content += '	</span>';
 				content += '	<div class="info">';
-				content += '		<h5>'+list[i]['re_name']+' (<i class="fa-solid fa-star"></i>'+list[i]['re_score']+')</h5>';
-				content += '		<span>' +  list[i]['re_address']  + '</span>';
+				content += '		<h5>'+list[i]['re_name']+' (<i class="fa-solid fa-star rating"></i>'+list[i]['re_score']+')</h5>';
+				content += '		<span class="addr">' +  list[i]['re_address']  + '</span>';
 				content += '  		<span class="tel">' + list[i]['re_phone']  + '</span>';
 				content += '	</div>';
 				content += "</li>";
 			}
 		}
-		console.log(list);
 		listEl.innerHTML = content;
 	}
 	// 검색결과 목록의 자식 Element를 제거하는 함수입니다
