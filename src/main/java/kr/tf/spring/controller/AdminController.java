@@ -73,13 +73,24 @@ public class AdminController {
 
     @PostMapping("/updateUser")
     public String updateUser(UserVO user, Model model) {
-        boolean success = userService.updateUser(user);
+    	   
+    	// UserVO의 날짜 필드가 null 또는 빈 문자열("")인 경우를 처리
+        if (user.getUs_hbd() == null || user.getUs_hbd().isEmpty()) {
+            user.setUs_hbd("2000-01-01"); // DATE 필드의 기본값 처리
+        }
+        if (user.getUs_limit() == null || user.getUs_limit().isEmpty()) {
+            user.setUs_limit("2000-01-01 00:00:00"); // DATETIME 필드의 기본값 처리
+        }
+        if (user.getUs_stop() == null || user.getUs_stop().isEmpty()) {
+            user.setUs_stop("2000-01-01 00:00:00"); // DATETIME 필드의 기본값 처리
+        }
+    	boolean success = userService.updateUser(user);
         if (success) {
             model.addAttribute("msg", "회원 정보가 성공적으로 수정되었습니다.");
         } else {
             model.addAttribute("msg", "회원 정보 수정에 실패하였습니다.");
         }
-        return "admin/userinfo";
+        return "redirect:/admin/user";
     }
 
     @PostMapping("/deleteUser")
