@@ -47,14 +47,22 @@ public class UserServiceImp implements UserService{
 		
 		// 암호화된 비번 체크
 		if (!passwordEncoder.matches(user_.getUs_pw(), findUser.getUs_pw())) {
+			//비번이 틀린 경우
+			userDao.add_us_failed(user_.getUs_id());
+			
 			return null;
 		}
 		
 		// 자동로그인이 된다면? => 나중에 쿠키굽기
+		// LoginDTO 에는 Remomber가 있는데 UserVO에는 없습니다
 		if (user_.getRemember() != null) {
 			System.out.println("자동로그인 on된 인원입니다.");
 			//쿠키 굽기
 		}
+
+		
+		//로그인시 us_failed 초기화
+		userDao.reset_us_failed(user_.getUs_id());
 		
 		//다 체크 완료되면 findUser 리턴
 		return findUser;
@@ -107,18 +115,19 @@ public class UserServiceImp implements UserService{
 		//암호화 적용
 		user_.setUs_pw(encPw);
 		
-		//만약 us_say를 여기서 한다면 >> 마크업언어가 가능해집니다 >> 태그 제거 반드시해줘야해용
+		//만약 us_say를 여기서 한다면 >> 마크업언어가 가능해집니다 >> 태그 제거
+		String fix_us_say = user_.getUs_say().replaceAll("<[^>]*>", " ");
+		user_.setUs_say(fix_us_say);
 		
-		
-		//이메일 쪼게기 (이물질 제거)
+		//이메일 쪼게기 (이물질 제거를 위해)
 		String email_arr[] = user_.getUs_email().split(",");
 		
-		//길이가 2보다 클 수 있는 경우는 ,를 2개 이상 넣었을 때
+		//길이가 2보다 클 수 있는 경우는 ,를 2개 이상 넣었을 때 리턴 false
 		if (email_arr.length > 2) {
 			return false;
 		}
 		
-		//붙이기
+		//이메일 붙이기
 		String email_res = email_arr[0] + email_arr[1];
 		user_.setUs_email(email_res);
 		

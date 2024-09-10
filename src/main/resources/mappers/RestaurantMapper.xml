@@ -38,4 +38,9 @@
 	        </otherwise>
 	    </choose>
  	</select>
+ 	
+ 	<select id="findRestById" resultType="kr.tf.spring.model.vo.RestaurantVO">
+ 	SELECT * FROM restaurant where re_id = #{re_id}
+ 	</select>
+ 	
 </mapper>
