@@ -38,4 +38,7 @@
 	        </otherwise>
 	    </choose>
  	</select>
+ 	<select id="getReviewName" resultType="kr.tf.spring.model.vo.RestaurantVO">
+ 		select re_id, re_name, re_address, re_phone, re_score from restaurant where re_id = #{re_id};
+ 	</select>
 </mapper>

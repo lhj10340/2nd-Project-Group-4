@@ -28,4 +28,12 @@ public class RestaurantServiceImp implements RestaurantService {
 	public List<RestaurantVO> searchList(String sfl, String stx, String sort) {
 		return restaurantDao.getSearchList(sfl, stx, sort);
 	}
+
+	@Override
+	public RestaurantVO getReviewName(int restId) {
+		
+		if(restId < 0) return null;
+		
+		return restaurantDao.getReviewName(restId);
+	}
 }

@@ -8,4 +8,6 @@ public interface RestaurantService {
 	RestaurantVO infoRest(String lat, String lng);
 
 	List<RestaurantVO> searchList(String sfl, String stx, String sort);
+
+	RestaurantVO getReviewName(int restId);
 }

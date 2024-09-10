@@ -30,7 +30,7 @@
 	    </li>
 	  
 	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/"/>"> 고객문의 </a>
+	      <a class="nav-link text-white" href="<c:url value="/restaurant/register"/>"> 매장등록 </a>
 	    </li>
 	  
 	    </ul>
