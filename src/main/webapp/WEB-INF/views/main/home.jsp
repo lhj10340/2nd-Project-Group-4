@@ -6,8 +6,6 @@
 <head>
 	<title>Home</title>
 	<link rel="stylesheet" href="<c:url value="/resources/css/map.css" />">
-	<!-- fontawesome 추가-->
-	<script src="https://kit.fontawesome.com/aa7d727d3c.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd861de20f6f46a674cee82508a967e9"></script>
 </head>
 <body>

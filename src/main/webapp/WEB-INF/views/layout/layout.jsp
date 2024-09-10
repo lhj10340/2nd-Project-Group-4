@@ -8,13 +8,16 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<style type="text/css">
-	.rating {color: #f2be11 !important;}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+<!-- fontawesome 추가-->
+<script src="https://kit.fontawesome.com/aa7d727d3c.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/common.css" />">
 </head>
 <body>
     <tiles:insertAttribute name="nav"/>
-    <div class="container">
+    <div class="container body-con">
         <tiles:insertAttribute name="body" />
     </div>                                                  
     <tiles:insertAttribute name="foo" />
