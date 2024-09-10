@@ -21,3 +21,4 @@ ul, ol {list-style: none;}
 .footer-con {display: flex;justify-content: space-between;}
 body, p, span {font-family: 'Gamja Flower'!important;}
 .navbar{background-color:#815854 !important;}
+.btn-search-color{background: rgba(129, 88, 84, 0.8); color: #F9EBDE !important;}
