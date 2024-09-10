@@ -8,38 +8,90 @@
 <meta charset="UTF-8">
 <title>매장등록</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style type="text/css">
+	.zip-class{width: 30% !important; display: inline-flex !important;}
+	.form-div{color:#815854;}
+	.form-control-rest {
+	background-color:#fcf5ed;
+	display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #815854;
+    background-clip: padding-box;
+    border: 1px solid #fff;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+    label{font-weight: bold; font-size: 15px;}
+    .phone{width: 30% !important;display: inline-flex !important;}
+    .hyphen{margin-left: 2%;margin-right: 2%;}
+     textarea {
+	    height: 6.25em !important;
+	    resize: none;
+	  }
+</style>
 </head>
 <body>
 <div class="form-div">
-	<form name="frestaurant" id="frestaurant" onsubmit="frestaurantsubmit(this);" action="<c:url value="/restaurant/register"/>"  method="post" enctype="multipart/form-data">
-		<input type="text" name="us_id" value="test1234">
+	<form name="frestaurant" id="frestaurant" onsubmit="frestaurantsubmit(this);" action="<c:url value="/restaurant/register"/>"  method="post" enctype="multipart/form-data" autocomplete="off">
+		<input type="hidden" name="us_id" value="test1234">
 		<input type="text" name="re_x" value="" id="re_x">
 		<input type="text" name="re_y" value="" id="re_y">
 		<div class="form-group">
-			<input type="text" id="sample4_postcode" placeholder="우편번호">
-			<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-			<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-			<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
-			<span id="guide" style="color:#999;display:none"></span>
-			<input type="text" id="sample4_detailAddress" placeholder="상세주소">
-			<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+			<label for="re_name">매장명</label>
+			<input type="text" name="re_name" id="re_name" value="" class="form-control-rest">
 		</div>
 		<div class="form-group">
+			<label for="phone1">가게연락처</label>
+			<br>
+			<input type="text" name="phone[]" id="phone1" value="" size="5" class="form-control-rest phone"><span class="hyphen">-</span> 
+			<input type="text" name="phone[]" id="phone2" value="" size="5" class="form-control-rest phone"><span class="hyphen">-</span> 
+			<input type="text" name="phone[]" id="phone3" value="" size="5" class="form-control-rest phone">
 		</div>
 		<div class="form-group">
+			<input type="text" name="re_zip" id="re_zip" placeholder="우편번호" onfocus="getDaumPostcode()" required readonly class="form-control zip-class">
+			<input type="button" onclick="getDaumPostcode()" value="우편번호 찾기" class="btn btn-search-color">
+			<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+				<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+			</div>
 		</div>
 		<div class="form-group">
+			<label for="re_address">기본주소(도로명)</label>
+			<input type="text" name="re_address" id="re_address" placeholder="주소" class="form-control-rest">
+		</div>
+		<div class="form-group">
+			<label for="re_address2">상세주소</label>
+			<input type="text" name="re_address2" id="re_address2" placeholder="상세주소" class="form-control-rest">
+			<input type="hidden" id="extraAddress" placeholder="참고항목">
+		</div>
+		<div class="form-group">
+			<label for="re_category">매장태그(,로 구분되어 집니다. 여러 태그 작성시 ,를 이용해주세요. ex:맛집,분위기,데이트 )</label>
+			<input type="text" name="re_category" id="re_category" value="" placeholde="콤마(,)로 구분합니다." class="form-control-rest">
+		</div>
+		<div class="form-group">
+			<label for="re_content">매장소개</label>
+			<textarea name="re_content" id="re_content" class="form-control-rest" maxlength="500" onkeydown="countText(this.value);"></textarea>
+			<div class="text-count">
+				<span id="count">0</span> / 500
+			</div>
 		</div>
 		<div class="form-group">
 			<label>첨부파일:</label>
-			<input type="file" class="form-control" name="fileList">
-			<input type="file" class="form-control" name="fileList">
-			<input type="file" class="form-control" name="fileList">
+			<input type="file" class="form-control-rest" name="fileList">
+			<input type="file" class="form-control-rest" name="fileList">
+			<input type="file" class="form-control-rest" name="fileList">
 		</div>
 	</form>
 </div>
 
 <script type="text/javascript">
+	function countText(val){
+		var count = val.length; //문자수
+		console.log(count);
+	}
 	function frestaurantsubmit(f){
 		console.log(f);
 		return false;
@@ -62,63 +114,75 @@
 		});
 	}
 	
-	function sample4_execDaumPostcode() {
+	var element_wrap = document.getElementById('wrap');
+
+    function foldDaumPostcode() {
+        // iframe을 넣은 element를 안보이게 한다.
+        element_wrap.style.display = 'none';
+    }
+
+    function getDaumPostcode() {
+        // 현재 scroll 위치를 저장해놓는다.
+        var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
         new daum.Postcode({
             oncomplete: function(data) {
-            	console.log(data);
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                addr = data.roadAddress;
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("extraAddress").value = '';
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                document.getElementById('re_zip').value = data.zonecode;
+                document.getElementById("re_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("re_address2").focus();
                 
-                //좌표 가져오기
-                geocoderMap(roadAddr);
-                
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("sample4_extraAddress").value = '';
-                }
+              	//좌표 가져오기
+                geocoderMap(addr);
 
-                var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
+                // iframe을 넣은 element를 안보이게 한다.
+                // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+                element_wrap.style.display = 'none';
 
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } else {
-                    guideTextBox.innerHTML = '';
-                    guideTextBox.style.display = 'none';
-                }
-            }
-        }).open();
+                // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
+                document.body.scrollTop = currentScroll;
+            },
+            // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
+            onresize : function(size) {
+                element_wrap.style.height = size.height+'px';
+            },
+            width : '100%',
+            height : '100%'
+        }).embed(element_wrap);
+
+        // iframe을 넣은 element를 보이게 한다.
+        element_wrap.style.display = 'block';
     }
 </script>
 </body>
