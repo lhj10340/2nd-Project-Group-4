@@ -5,10 +5,84 @@
 <html>
 <head>
 	<title>Home</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<style type="text/css">
+		#map{width:100%;height:100%;position:relative;overflow:hidden;}
+		.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+		.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+		.map_wrap {position:relative;width:100%;height:100%;}
+		#menu_wrap {position:absolute;top:0px;right:0;bottom:-4%;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+		.bg_white {background:#fff;}
+		#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+		#menu_wrap .option{text-align: center;}
+		#menu_wrap .option p {margin:10px 0;}  
+		#menu_wrap .option button {margin-left:5px;}
+		#placesList li {list-style: none;}
+		#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+		#placesList .item span {display: block;margin-top:4px;}
+		#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+		#placesList .item .info{padding:10px 0 10px 55px;}
+		#placesList .info .gray {color:#8a8a8a;}
+		#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+		#placesList .info .tel {color:#009900;}
+		#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;}
+		#placesList .item .markerbg img {width:100%; height:100%;}
+		
+		/*맛집 정보 마커 클릭시 뜨는 모달창 css*/
+		.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+		.wrap * {padding: 0;margin: 0;}
+		.wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+		.wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+		.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+		.info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+		.info .close:hover {cursor: pointer;}
+		.info .body {position: relative;overflow: hidden;}
+		.info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+		.desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+		.desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+		.info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+		.info .link {color: #5085BB;}
+		
+		.sort{display: inline-block; font-weight: bold; cursor: pointer;}
+		.off {color: gray;}
+	</style>
+
+<style>
+	    .star-rating {
+      display: flex;
+    }
+
+    .star {
+      appearance: none;
+      padding: 1px;
+    }
+
+    .star::after {
+      content: '☆';
+      color: hsl(60, 80%, 45%);
+      font-size: 20px;
+    }
+
+    .star:hover::after,
+    .star:has(~ .star:hover)::after,
+    .star:checked::after,
+    .star:has(~ .star:checked)::after {
+      content: '★';
+    }
+
+    .star:hover ~ .star::after {
+      content: '☆';
+    }
+</style>
+	
+	
+	<!-- fontawesome 추가-->
+	<script src="https://kit.fontawesome.com/aa7d727d3c.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd861de20f6f46a674cee82508a967e9"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/map.css" />">
 </head>
 <body>
-<div class="map_wrap"> 
+<div class="map_wrap">
     <!-- 지도가 표시될 div -->
     <div id="map"></div>
     
@@ -49,6 +123,7 @@
     </div>   
 </div>
 <script>
+ 	var re_id;
 	var container = document.getElementById('map');
 	var options = {
 		//기본위치는 학원위치
@@ -142,16 +217,18 @@
            '           </div>' + 
            '            <div class="desc">' + 
            '                <div class="ellipsis">'+restaurant[2]+'</div>' + 
-           '                <div class="jibun ellipsis">'+restaurant[3]+' (<span class="rating">★</span>'+restaurant[4]+')</div>' + 
-           '                <div><a href="#" onclick="alert(\'구현예정\\n매장고유번호: '+restaurant[0]+'\');" class="link">리뷰보기</a></div>' + 
+           '                <div class="jibun ellipsis">'+restaurant[3]+' ('+restaurant[4]+')</div>' + 
+           '                <div><a href="#" onclick="w3_open()" class="link">리뷰보기 </a></div>' + 
            '            </div>' + 
            '        </div>' + 
            '    </div>' +    
            '</div>';
+          	re_id = restaurant[0]; //아이디 저 아래다가 전송 (sidebar에게)
        	var overlay = new kakao.maps.CustomOverlay({
 		    content: content,
 		    map: map,
-		    position: new kakao.maps.LatLng(getLat, getLng)  
+		    position: new kakao.maps.LatLng(getLat, getLng)
+
 		});
        	
        	
@@ -278,5 +355,106 @@
 	});
 </script>
 
+
+<script>
+//왼쪽에 창띄워서 사이드바로 여러가지 정보를 보여주며 간이 창으로 만들어서 여러가지 무언가를 띄워줄 수 있게 만들어주자
+
+
+
+function w3_open() {
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  //console.log(re_id); //값을 잘 가져오는지 작동하는지 테스트용
+  get_atag_number(re_id)
+  ajax_get_res(re_id);
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+}
+
+function get_atag_number() {
+	//모듈 형식으로 제작(sample w3c.css)
+	//(re_id를 기반으로 json파일 형식으로 BD값 가져오자)
+	//mj-title, mj-body, mj-footer 형식으로 꾸며주자
+	//$('#mj-title').text('매장명 받아올 ajax ' + re_id);
+
+	$('#mj-footer').text('여기쯤에 댓글이 들어가지 않을까 생각중입니다.');
+	
+}
+
+</script>
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left sticky" style="display:none; z-index: 99; left: 0;" id="mySidebar">
+  <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
+
+	<div class="container">
+	  <div class="w3-bar-item" >
+	  		<h1 id="mj-title"></h1>
+	  		  	  <div class="star-rating">
+				    <input type="radio" class="star" value="1" disabled>
+				    <input type="radio" class="star" value="2" disabled>
+				    <input type="radio" class="star" value="3" disabled>
+				    <input type="radio" class="star" value="4" disabled>
+				    <input type="radio" class="star" value="5" disabled>
+				  </div>
+	  
+	  </div>
+	  <hr>
+	  <div class="w3-bar-item" id="mj-body" style="border-radius: 5px; background-color: rgba(255, 99, 71, 0.4);"></div>
+	  <div class="w3-bar-item" id="mj-footer"></div>
+	  
+
+	  
+	  
+	  
+	  	  
+	  <a href="#" class="w3-bar-item w3-button">리뷰 포인트 가져와서 몇점인지 별점 세기기</a>
+	  <a href="#" class="w3-bar-item w3-button">상세 홈페이지로 이동</a>
+	  <div class="container">값 가져와서 몇몇 테그 걸어주기</div>
+	  <input type="text" value="간단한 댓글"> 
+	  
+
+  
+
+	  
+
+	</div>
+
+  
+</div>
+
+<script type="text/javascript">
+// ajax 들어갈 자리 스크롤 가능해야함
+// model scroll에서 뜯어오자
+function ajax_get_res(re_id) {
+	
+	let re = {
+			re_id : re_id
+		}
+	
+	$.ajax({
+		async : false, //비동기 : true(비동기), false(동기)
+		url : '<c:url value="/ajax/res_data"/>', 
+		type : 'post', 
+		data : JSON.stringify(re), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			console.log(data);
+			console.log(data.rest);
+			console.log(data.rest.re_content);
+			$('#mj-title').text(data.rest.re_name);
+			$('#mj-body').text(data.rest.re_content);
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log(jqXHR);
+		}
+	});
+}
+
+
+</script>
 </body>
 </html>

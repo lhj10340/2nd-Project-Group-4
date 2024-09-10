@@ -3,8 +3,10 @@ package kr.tf.spring.controller;
 import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,4 +87,15 @@ public class HomeController {
 		List<RestaurantVO> list = restaurantService.searchList(sfl, stx, sort);
 		return list;
 	}
+	
+	@PostMapping("/ajax/res_data")
+	@ResponseBody
+	public Map<String, Object> restaurantData(@RequestBody RestaurantVO re){
+		Map<String, Object> map = new HashMap<String, Object>();
+		RestaurantVO rest = restaurantService.findRestById(re.getRe_id());
+		System.out.println("왔나 안왔나 확인");
+		map.put("rest", rest);
+		return map;
+	}
+	
 }

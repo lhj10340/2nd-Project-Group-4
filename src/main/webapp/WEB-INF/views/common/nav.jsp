@@ -198,6 +198,19 @@
 			
 			 </div>
 			 
+			 			 
+			 <div class="d-flex" style="margin-top: 6px;">
+				<label class="form-check-label mr-auto mb-1" for="date">생일 :</label>
+				<input type="date"
+						class="form-control"
+				        id="date"
+				        max="2025-12-31"
+				        min="1900-01-01"
+				        name="us_hbd"
+				        style="width: 300px;"	>
+				</div>
+				 
+			 
 			 <div class="d-flex">
 				
 					<label class="form-check-label mr-auto" > 사업자 여부 : </label>
