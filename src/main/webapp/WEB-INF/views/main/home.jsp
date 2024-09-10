@@ -65,7 +65,7 @@
 	var restaurantPositions = ajaxList();
 	
 
-	var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
+	var markerImageSrc = '<c:url value="/resources/img/category.png"/>';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
 	    restaurantMarkers = [], // 맛집가게 마커 객체를 가지고 있을 배열입니다
 
 	    
