@@ -88,6 +88,10 @@
 		
 	<c:otherwise>
 	   		    
+ 		<li class="nav-item">
+			<a class="nav-link text-white" href="<c:url value="/user/mypage"/>">마이 페이지</a>
+		</li>
+	   		    
 		<li class="nav-item">
 			<a class="nav-link text-white" href="<c:url value="/user/logout"/>">로그아웃</a>
 		</li>

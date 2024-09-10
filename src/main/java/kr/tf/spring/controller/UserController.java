@@ -100,4 +100,10 @@ public class UserController {
 		mo.addAttribute("url", "/");
 		return "/main/msg";
 	}
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "/user/mypage";
+	}
+	
 }

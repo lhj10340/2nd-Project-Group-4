@@ -18,8 +18,8 @@
   	</insert>
 	
 	<update id="updateMemberCookie">
-		update user set us_cookie = #{user.us_cookie}, us_limit = #{user.us_limit}
-		where us_id = #{user.us_id}
+		update user set us_cookie = #{us.us_cookie}, us_limit = #{us.us_limit}
+		where us_id = #{us.us_id}
 	</update>
 	
 	<select id="selectUserByCookie" resultType="kr.tf.spring.model.vo.UserVO">

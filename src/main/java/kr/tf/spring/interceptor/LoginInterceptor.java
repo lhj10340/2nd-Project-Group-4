@@ -27,7 +27,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	    ModelAndView modelAndView)
 	    throws Exception {
 		
-		UserVO user = (UserVO) modelAndView.getModel().get("user");
+		UserVO user = (UserVO)modelAndView.getModel().get("user");
 		
 		System.out.println(user);
 		
