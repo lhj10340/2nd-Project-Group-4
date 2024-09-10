@@ -379,7 +379,7 @@ function get_atag_number() {
 	//(re_id를 기반으로 json파일 형식으로 BD값 가져오자)
 	//mj-title, mj-body, mj-footer 형식으로 꾸며주자
 	//$('#mj-title').text('매장명 받아올 ajax ' + re_id);
-	$('#mj-body').text('사진 같은거 들어갈 예정');
+
 	$('#mj-footer').text('여기쯤에 댓글이 들어가지 않을까 생각중입니다.');
 	
 }
@@ -390,19 +390,22 @@ function get_atag_number() {
   <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
 
 	<div class="container">
-	  <div class="w3-bar-item" id="mj-title">
+	  <div class="w3-bar-item" >
 	  		<h1 id="mj-title"></h1>
+	  		  	  <div class="star-rating">
+				    <input type="radio" class="star" value="1" disabled>
+				    <input type="radio" class="star" value="2" disabled>
+				    <input type="radio" class="star" value="3" disabled>
+				    <input type="radio" class="star" value="4" disabled>
+				    <input type="radio" class="star" value="5" disabled>
+				  </div>
+	  
 	  </div>
-	  <div class="w3-bar-item" id="mj-body"></div>
+	  <hr>
+	  <div class="w3-bar-item" id="mj-body" style="border-radius: 5px; background-color: rgba(255, 99, 71, 0.4);"></div>
 	  <div class="w3-bar-item" id="mj-footer"></div>
 	  
-  	  <div class="star-rating">
-	    <input type="radio" class="star" value="1">
-	    <input type="radio" class="star" value="2">
-	    <input type="radio" class="star" value="3">
-	    <input type="radio" class="star" value="4">
-	    <input type="radio" class="star" value="5">
-	  </div>
+
 	  
 	  
 	  
@@ -441,7 +444,9 @@ function ajax_get_res(re_id) {
 		success : function (data){
 			console.log(data);
 			console.log(data.rest);
+			console.log(data.rest.re_content);
 			$('#mj-title').text(data.rest.re_name);
+			$('#mj-body').text(data.rest.re_content);
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
 			console.log(jqXHR);
