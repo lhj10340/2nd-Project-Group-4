@@ -19,7 +19,7 @@
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
-                <form name="fsearch" onsubmit="searchPlaces(this); return false;">
+                <form name="fsearch" onsubmit="searchPlaces(this); return false;" autocomplete="off">
                 	<input type="hidden" name="sort" id="sort" value="re_name ASC">
                     <select name="sfl" id="sfl">
                     	<option value="all">전체</option>
@@ -27,7 +27,7 @@
                     	<option value="re_tag">태그</option>
                     </select>
                     <input type="text" value="" name="stx" id="stx" size="15" placeholder="검색어 입력"> 
-                    <button type="submit">찾기</button> 
+                    <button type="submit" class="btn btn-search-color">찾기</button> 
                 </form>
                 <div>
                 	<ul>
@@ -255,7 +255,7 @@
 				content += '	</span>';
 				content += '	<div class="info">';
 				content += '		<h5>'+list[i]['re_name']+' (<i class="fa-solid fa-star rating"></i>'+list[i]['re_score']+')</h5>';
-				content += '		<span>' +  list[i]['re_address']  + '</span>';
+				content += '		<span class="addr">' +  list[i]['re_address']  + '</span>';
 				content += '  		<span class="tel">' + list[i]['re_phone']  + '</span>';
 				content += '	</div>';
 				content += "</li>";
