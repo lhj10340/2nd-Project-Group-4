@@ -8,9 +8,6 @@
 <meta charset="UTF-8">
 <title>리뷰목록</title>
 <style>
-    body {
-        margin: 20px;
-    }
     table {
         width: 100%;
         border-collapse: collapse;
@@ -21,17 +18,21 @@
     }
     th, td {
         padding: 12px;
-        text-align: left;
+        text-align: center;
     }
     th {
         background-color: #815854;
-        color: white;
+        color: #F9EBDE;
+    }
+    tr{
+        background-color: #faf5f0;
+        color: #815854;
     }
     tr:nth-child(even) {
-        background-color: #f2f2f2;
+        background-color: #F9EBDE;
     }
     tr:hover {
-        background-color: #ddd;
+        background-color: #e3d0bc;
     }
 </style>
 </head>
