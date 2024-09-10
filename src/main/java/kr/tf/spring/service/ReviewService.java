@@ -1,46 +1,103 @@
 package kr.tf.spring.service;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.tf.spring.dao.ReviewDAO;
-import kr.tf.spring.model.Review;
+import kr.tf.spring.model.vo.ImageVO;
+import kr.tf.spring.model.vo.ReviewVO;
+import kr.tf.spring.model.vo.UserVO;
 import kr.tf.spring.pagination.PageMaker;
+import kr.tf.spring.pagination.ReviewCriteria;
+import kr.tf.spring.utils.UploadFileUtils;
 
 @Service
 public class ReviewService {
 	
     @Autowired
-    private ReviewDAO reviewDAO;
+    ReviewDAO reviewDao;
+    @Resource
+    String uploadPath;
 
-    // 일반 리뷰 데이터를 가져오는 메서드
-    public List<Review> getGeneralReviews(int page) {
-        int offset = (page - 1) * 10; // 10개의 리뷰를 한 페이지에 표시
-        return reviewDAO.selectGeneralReviews(offset);
-    }
+	public List<ReviewVO> getCommunityList() {
+		return reviewDao.selectCommunityList();
+	}
 
-    // 영수증 리뷰 데이터를 가져오는 메서드
-    public List<Review> getReceiptReviews(int page) {
-        int offset = (page - 1) * 10;
-        return reviewDAO.selectReceiptReviews(offset);
-    }
+	public List<ReviewVO> getReviewList(ReviewCriteria cri) {
+		if (cri == null) {
+			return null;
+		}
+		return reviewDao.selectReviewList(cri);
+	}
 
-    // 검색 결과를 가져오는 메서드
-    public List<Review> searchReviews(String query, int page) {
-        int offset = (page - 1) * 10;
-        return reviewDAO.searchReviews(query, offset);
-    }
+	public PageMaker getPageMaker(ReviewCriteria cri) {
+		if (cri == null) {
+			return null;
+		}
+		int totalCount = reviewDao.selectReviewTotalCount(cri);
+		return new PageMaker(3, cri, totalCount);
+	}
 
-    // 페이지네이션을 위한 PageMaker 객체를 반환하는 메서드
-    public PageMaker getPageMaker(int page, String reviewType) {
-        int totalCount = reviewDAO.countTotalReviews(reviewType);
-        return new PageMaker(page, totalCount);
-    }
+	public boolean insertReview(ReviewVO review, UserVO user, MultipartFile[] fileList) {
+		if (review == null || user == null) {
+			return false;
+		}
+		
+		boolean res;
+		try {
+			review.setRv_us_id(user.getUs_id());
+			res = reviewDao.insertReview(review);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		if (!res) {
+			return false;
+		}
 
-    // 리뷰 ID를 기반으로 리뷰 상세 정보를 가져오는 메서드
-    public Review getReviewById(int id) {
-        return reviewDAO.selectReviewById(id);
-    }
+		if (fileList == null || fileList.length == 0) {
+			return true;
+		}
+		
+		//첨부파일 추가
+		for(MultipartFile file : fileList) {
+			uploadFile(file, review.getRv_id());
+		}
+		return true;
+	}
+
+	private void uploadFile(MultipartFile file, int rv_id) {
+		
+		if (file == null || file.getOriginalFilename().length() == 0) {
+			return;
+		}
+		
+		try {
+			String im_ori_name = file.getOriginalFilename();
+			//첨부파일을 서버에 업로드 후 경로가 포함된 파일명을 가져옴
+			String im_name = 
+			UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+			//DB에 첨부파일 정보를 추가
+			ImageVO imageVO = new ImageVO(im_name, im_ori_name, rv_id);
+			reviewDao.insertImage(imageVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ReviewVO getReview(Integer rv_id) {
+		return reviewDao.selectReview(rv_id);
+	}
+
+	public List<ImageVO> getImageList(Integer rv_id) {
+		return reviewDao.selectImageList(rv_id);
+	}
 }

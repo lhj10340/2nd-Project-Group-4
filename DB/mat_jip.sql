@@ -49,14 +49,26 @@ CREATE TABLE `restaurant` (
 DROP TABLE IF EXISTS `review`;
 
 CREATE TABLE `review` (
-	`rv_id`	int auto_increment primary key	NOT NULL,
-	`rv_re_id`	int	NOT NULL,
-	`rv_us_id`	varchar(20)	NOT NULL,
-	`rv_title`	varchar(50)	NULL,
-	`rv_score`	int	NULL,
-	`rv_content`	longtext	NULL,
-	`rv_tf`	varchar(5)	NULL,
-	`rv_ thumb`	longtext	NULL
+	`rv_id`			int auto_increment primary key	NOT NULL,
+	`rv_re_id`		int			NOT NULL,
+	`rv_us_id`		varchar(20)	NOT NULL,
+	`rv_title`		varchar(50)	NOT NULL,
+	`rv_content`	longtext	NOT NULL,
+    `rv_date`		datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`rv_score`		DECIMAL(2,1)	NOT NULL,
+    `rv_tf`			tinyint(1)	NOT NULL,
+	`rv_ thumb`		longtext	NULL
+);
+
+DROP TABLE IF EXISTS `comment`;
+
+CREATE TABLE `comment` (
+	`co_id` 		int auto_increment primary key	NOT NULL,
+    `co_rv_id`		int NOT NULL,
+    `co_re_id`		int NOT NULL,
+    `co_us_id`		varchar(20)	NOT NULL,
+    `co_content` 	longtext NOT NULL,
+    `co_date`		date NOT NULL
 );
 
 DROP TABLE IF EXISTS `receipt`;
@@ -87,6 +99,15 @@ CREATE TABLE `file` (
 	`fi_re_id`	int	NOT NULL,
 	`fi_rv_id`	int	NOT NULL,
 	`me_id`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `image`;
+
+CREATE TABLE `image` (
+	`im_num` int primary key NOT NULL,
+    `im_ori_name` varchar(255) NOT NULL,
+    `im_name` varchar(255) NOT NULL,
+	`im_rv_id` int NOT NULL
 );
 
 DROP TABLE IF EXISTS `menu`;
@@ -133,6 +154,27 @@ REFERENCES `restaurant` (
 
 ALTER TABLE `review` ADD CONSTRAINT `FK_user_TO_review_1` FOREIGN KEY (
 	`rv_us_id`
+)
+REFERENCES `user` (
+	`us_id`
+);
+
+ALTER TABLE `comment` ADD CONSTRAINT `FK_review_TO_comment_1` FOREIGN KEY (
+	`co_rv_id`
+)
+REFERENCES `review` (
+	`rv_id`
+);
+
+ALTER TABLE `comment` ADD CONSTRAINT `FK_restaurant_TO_comment_1` FOREIGN KEY (
+	`co_re_id`
+)
+REFERENCES `restaurant` (
+	`re_id`
+);
+
+ALTER TABLE `comment` ADD CONSTRAINT `FK_user_TO_comment_1` FOREIGN KEY (
+	`co_us_id`
 )
 REFERENCES `user` (
 	`us_id`
@@ -185,6 +227,13 @@ ALTER TABLE `file` ADD CONSTRAINT `FK_menu_TO_file_1` FOREIGN KEY (
 )
 REFERENCES `menu` (
 	`me_id`
+);
+
+ALTER TABLE `image` ADD CONSTRAINT `FK_review_TO_image_1` FOREIGN KEY (
+	`im_rv_id`
+)
+REFERENCES `review` (
+	`rv_id`
 );
 
 ALTER TABLE `menu` ADD CONSTRAINT `FK_restaurant_TO_menu_1` FOREIGN KEY (

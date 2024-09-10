@@ -2,25 +2,25 @@ package kr.tf.spring.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import kr.tf.spring.model.Review;
 
-@Mapper
+import kr.tf.spring.model.vo.ImageVO;
+import kr.tf.spring.model.vo.ReviewVO;
+import kr.tf.spring.pagination.ReviewCriteria;
+
 public interface ReviewDAO {
 
-    // 일반 리뷰 목록을 가져오는 메서드
-    List<Review> selectGeneralReviews(@Param("offset") int offset);
+	List<ReviewVO> selectCommunityList();
+	
+	List<ReviewVO> selectReviewList(@Param("cri")ReviewCriteria cri);
 
-    // 영수증 리뷰 목록을 가져오는 메서드
-    List<Review> selectReceiptReviews(@Param("offset") int offset);
+	int selectReviewTotalCount(@Param("cri")ReviewCriteria cri);
 
-    // 검색 결과를 가져오는 메서드
-    List<Review> searchReviews(@Param("query") String query, @Param("offset") int offset);
+	boolean insertReview(@Param("review")ReviewVO review);
 
-    // 총 리뷰 개수를 세는 메서드
-    int countTotalReviews(@Param("reviewType") String reviewType);
+	void insertImage(@Param("image")ImageVO imageVO);
 
-    // 리뷰 ID로 리뷰 상세 정보를 가져오는 메서드
-    Review selectReviewById(@Param("id") int id);
+	ReviewVO selectReview(@Param("rv_id")Integer rv_id);
+
+	List<ImageVO> selectImageList(@Param("rv_id")Integer rv_id);
 }
