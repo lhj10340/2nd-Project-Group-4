@@ -10,4 +10,6 @@ public interface RestaurantService {
 	List<RestaurantVO> searchList(String sfl, String stx, String sort);
 
 	RestaurantVO findRestById(int re_id);
+	
+	RestaurantVO getReviewName(int restId);
 }

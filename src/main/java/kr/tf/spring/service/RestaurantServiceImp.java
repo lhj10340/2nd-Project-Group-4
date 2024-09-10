@@ -30,9 +30,14 @@ public class RestaurantServiceImp implements RestaurantService {
 	}
 
 	@Override
-	public RestaurantVO findRestById(int re_id) {
-		
-		
+	public RestaurantVO findRestById(int re_id) {	
 		return restaurantDao.findRestById(re_id);
+	}
+
+	public RestaurantVO getReviewName(int restId) {
+		
+		if(restId < 0) return null;
+		
+		return restaurantDao.getReviewName(restId);
 	}
 }
