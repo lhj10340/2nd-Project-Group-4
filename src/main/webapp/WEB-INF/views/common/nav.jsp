@@ -5,20 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
-
-<style type="text/css">
-  body, p, span {
-    font-family: 'Gamja Flower'!important;
-  }
-.navbar{
- background-color:#815854 !important;
-}
-</style>
-
 </head>
 <body>
 
