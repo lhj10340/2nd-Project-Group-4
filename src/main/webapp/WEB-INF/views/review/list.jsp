@@ -7,34 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰목록</title>
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-    table, th, td {
-        border: 1px solid #ccc;
-    }
-    th, td {
-        padding: 12px;
-        text-align: center;
-    }
-    th {
-        background-color: #815854;
-        color: #F9EBDE;
-    }
-    tr{
-        background-color: #faf5f0;
-        color: #815854;
-    }
-    tr:nth-child(even) {
-        background-color: #F9EBDE;
-    }
-    tr:hover {
-        background-color: #e3d0bc;
-    }
-</style>
+<link rel="stylesheet" href="<c:url value="/resources/css/review.css" />">
 </head>
 <body>
 <table>
