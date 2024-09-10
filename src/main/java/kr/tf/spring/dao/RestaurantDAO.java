@@ -10,4 +10,6 @@ public interface RestaurantDAO {
 	RestaurantVO getInfoRest(@Param("re_x")String lat, @Param("re_y")String lng);
 
 	List<RestaurantVO> getSearchList(@Param("sfl")String sfl, @Param("stx")String stx, @Param("sort")String sort);
+
+	RestaurantVO findRestById(@Param("re_id")int re_id);
 }

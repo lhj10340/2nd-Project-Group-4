@@ -46,6 +46,35 @@
 		.sort{display: inline-block; font-weight: bold; cursor: pointer;}
 		.off {color: gray;}
 	</style>
+
+<style>
+	    .star-rating {
+      display: flex;
+    }
+
+    .star {
+      appearance: none;
+      padding: 1px;
+    }
+
+    .star::after {
+      content: '☆';
+      color: hsl(60, 80%, 45%);
+      font-size: 20px;
+    }
+
+    .star:hover::after,
+    .star:has(~ .star:hover)::after,
+    .star:checked::after,
+    .star:has(~ .star:checked)::after {
+      content: '★';
+    }
+
+    .star:hover ~ .star::after {
+      content: '☆';
+    }
+</style>
+	
 	
 	<!-- fontawesome 추가-->
 	<script src="https://kit.fontawesome.com/aa7d727d3c.js" crossorigin="anonymous"></script>
@@ -333,14 +362,15 @@
 
 
 function w3_open() {
-  document.getElementById("main").style.marginLeft = "38%";
-  document.getElementById("mySidebar").style.width = "38%";
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
   document.getElementById("mySidebar").style.display = "block";
   //console.log(re_id); //값을 잘 가져오는지 작동하는지 테스트용
   get_atag_number(re_id)
+  ajax_get_res(re_id);
 }
 function w3_close() {
-  document.getElementById("main").style.marginLeft = "38%";
+  document.getElementById("main").style.marginLeft = "0%";
   document.getElementById("mySidebar").style.display = "none";
 }
 
@@ -348,7 +378,7 @@ function get_atag_number() {
 	//모듈 형식으로 제작(sample w3c.css)
 	//(re_id를 기반으로 json파일 형식으로 BD값 가져오자)
 	//mj-title, mj-body, mj-footer 형식으로 꾸며주자
-	$('#mj-title').text('매장명 받아올 ajax ' + re_id);
+	//$('#mj-title').text('매장명 받아올 ajax ' + re_id);
 	$('#mj-body').text('사진 같은거 들어갈 예정');
 	$('#mj-footer').text('여기쯤에 댓글이 들어가지 않을까 생각중입니다.');
 	
@@ -356,24 +386,68 @@ function get_atag_number() {
 
 </script>
 
-<!-- 사이드바 -->
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left sticky" style="display:none; z-index: 99; left: 0;" id="mySidebar">
   <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
-	
-  <div class="w3-bar-item" id="mj-title"></div>
-  <div class="w3-bar-item" id="mj-body"></div>
-  <div class="w3-bar-item" id="mj-footer"></div>
-  <a href="#" class="w3-bar-item w3-button">리뷰 포인트 가져와서 몇점인지 별점 세기기</a>
-  <a href="#" class="w3-bar-item w3-button">상세 홈페이지로 이동</a>
-  <div class="container">값 가져와서 몇몇 테그 걸어주기</div>
-  <input type="text" value="간단한 댓글"> 
 
+	<div class="container">
+	  <div class="w3-bar-item" id="mj-title">
+	  		<h1 id="mj-title"></h1>
+	  </div>
+	  <div class="w3-bar-item" id="mj-body"></div>
+	  <div class="w3-bar-item" id="mj-footer"></div>
+	  
+  	  <div class="star-rating">
+	    <input type="radio" class="star" value="1">
+	    <input type="radio" class="star" value="2">
+	    <input type="radio" class="star" value="3">
+	    <input type="radio" class="star" value="4">
+	    <input type="radio" class="star" value="5">
+	  </div>
+	  
+	  
+	  
+	  	  
+	  <a href="#" class="w3-bar-item w3-button">리뷰 포인트 가져와서 몇점인지 별점 세기기</a>
+	  <a href="#" class="w3-bar-item w3-button">상세 홈페이지로 이동</a>
+	  <div class="container">값 가져와서 몇몇 테그 걸어주기</div>
+	  <input type="text" value="간단한 댓글"> 
+	  
+
+  
+
+	  
+
+	</div>
+
+  
 </div>
-<!-- 사이드바 종료-->
 
 <script type="text/javascript">
 // ajax 들어갈 자리 스크롤 가능해야함
 // model scroll에서 뜯어오자
+function ajax_get_res(re_id) {
+	
+	let re = {
+			re_id : re_id
+		}
+	
+	$.ajax({
+		async : false, //비동기 : true(비동기), false(동기)
+		url : '<c:url value="/ajax/res_data"/>', 
+		type : 'post', 
+		data : JSON.stringify(re), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			console.log(data);
+			console.log(data.rest);
+			$('#mj-title').text(data.rest.re_name);
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log(jqXHR);
+		}
+	});
+}
 
 
 </script>
