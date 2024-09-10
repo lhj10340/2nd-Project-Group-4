@@ -23,8 +23,8 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String reviewList(Model model) {
-		List<ReviewVO> list =  reviewService.getReviewList();
-		System.out.println(list);
+		List<ReviewVO> lists =  reviewService.getReviewList();
+		model.addAttribute("lists", lists);
 		return "/review/list";
 	}
 }
