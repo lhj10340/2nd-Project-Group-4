@@ -175,7 +175,7 @@
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
 	        		view.push(data[i]);
-		        	list.push(new kakao.maps.LatLng(parseFloat(data[i].re_x), parseFloat(data[i].re_y)));
+		        	list.push(new kakao.maps.LatLng(parseFloat(data[i].re_y), parseFloat(data[i].re_x)));
 	        	} //가져온 정보값을 카카오 위치좌표 객체로 변환 후 list array에 담음
 	        }
         });
@@ -211,7 +211,7 @@
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
-	        		markers.push(new kakao.maps.LatLng(parseFloat(data[i].re_x), parseFloat(data[i].re_y)));
+	        		markers.push(new kakao.maps.LatLng(parseFloat(data[i].re_y), parseFloat(data[i].re_x)));
 	        		list.push(data[i]);
 	        	} //가져온 정보값을 카카오 위치좌표 객체로 변환 후 list array에 담음
 	        }
