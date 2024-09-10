@@ -14,5 +14,5 @@ public class RestaurantVO {
 	private String re_phone;
 	private String re_tag;
 	private String re_content;
-	private int re_score;
+	private double re_score;
 }

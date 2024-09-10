@@ -47,36 +47,7 @@
 		.off {color: gray;}
 	</style>
 
-<style>
-	.sticky{
-		position: sticky;
-	}
-	.star-rating {
-      display: flex;
-    }
 
-    .star {
-      appearance: none;
-      padding: 1px;
-    }
-
-    .star::after {
-      content: '☆';
-      color: hsl(60, 80%, 45%);
-      font-size: 20px;
-    }
-
-    .star:hover::after,
-    .star:has(~ .star:hover)::after,
-    .star:checked::after,
-    .star:has(~ .star:checked)::after {
-      content: '★';
-    }
-
-    .star:hover ~ .star::after {
-      content: '☆';
-    }
-</style>
 	
 	
 	<!-- fontawesome 추가-->
@@ -359,68 +330,6 @@
 </script>
 
 
-<script>
-//왼쪽에 창띄워서 사이드바로 여러가지 정보를 보여주며 간이 창으로 만들어서 여러가지 무언가를 띄워줄 수 있게 만들어주자
 
-
-
-function w3_open() {
-  document.getElementById("main").style.marginLeft = "25%";
-  document.getElementById("mySidebar").style.width = "25%";
-  document.getElementById("mySidebar").style.display = "block";
-  //console.log(re_id); //값을 잘 가져오는지 작동하는지 테스트용
-  get_atag_number(re_id)
-  ajax_get_res(re_id);
-}
-function w3_close() {
-  document.getElementById("main").style.marginLeft = "0%";
-  document.getElementById("mySidebar").style.display = "none";
-}
-
-function get_atag_number() {
-	//모듈 형식으로 제작(sample w3c.css)
-	//(re_id를 기반으로 json파일 형식으로 BD값 가져오자)
-	//mj-title, mj-body, mj-footer 형식으로 꾸며주자
-	//$('#mj-title').text('매장명 받아올 ajax ' + re_id);
-
-	$('#mj-footer').text('여기쯤에 댓글이 들어가지 않을까 생각중입니다.');
-	
-}
-
-</script>
-
-<!-- test -->
-
-<script type="text/javascript">
-// ajax 들어갈 자리 스크롤 가능해야함
-// model scroll에서 뜯어오자
-function ajax_get_res(re_id) {
-	
-	let re = {
-			re_id : re_id
-		}
-	
-	$.ajax({
-		async : false, //비동기 : true(비동기), false(동기)
-		url : '<c:url value="/ajax/res_data"/>', 
-		type : 'post', 
-		data : JSON.stringify(re), 
-		contentType : "application/json; charset=utf-8",
-		dataType : "json", 
-		success : function (data){
-			console.log(data);
-			console.log(data.rest);
-			console.log(data.rest.re_content);
-			$('#mj-title').text(data.rest.re_name);
-			$('#mj-body').text(data.rest);
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-			console.log(jqXHR);
-		}
-	});
-}
-
-
-</script>
 </body>
 </html>
