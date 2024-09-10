@@ -214,4 +214,3 @@ ALTER TABLE `reservation` ADD CONSTRAINT `FK_user_TO_reservation_1` FOREIGN KEY 
 REFERENCES `user` (
 	`us_id`
 );
-

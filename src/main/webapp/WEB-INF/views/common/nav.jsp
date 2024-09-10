@@ -9,7 +9,7 @@
 <body>
 
 <!-- user 정보는 로그인 시 세션에서 뿌리게 되었음 user 사용 가능함 -->
-	<nav class="navbar navbar-expand-sm sticky" 
+	<nav class="navbar navbar-expand-sm sticky"  
 		style="font-size: 20px;  justify-content: space-between;">
 	  
 	  <ul class="navbar-nav">
@@ -254,5 +254,46 @@
   </div>
   
 </c:if>
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left sticky" style="display:none; z-index: -1; left: 0;" id="mySidebar">
+  <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
+
+	<div class="container">
+	  <div class="w3-bar-item" >
+	  		<h1 id="mj-title"></h1>
+	  		  	  <div class="star-rating">
+				    <input type="radio" class="star" value="1" disabled>
+				    <input type="radio" class="star" value="2" disabled>
+				    <input type="radio" class="star" value="3" disabled>
+				    <input type="radio" class="star" value="4" disabled>
+				    <input type="radio" class="star" value="5" disabled>
+				  </div>
+	  
+	  </div>
+	  <hr>
+	  <div class="w3-bar-item" id="mj-body" style="border-radius: 5px; background-color: rgba(255, 99, 71, 0.4);"></div>
+	  <div class="w3-bar-item" id="mj-footer"></div>
+	  
+
+	  
+	  
+	  
+	  	  
+	  <a href="#" class="w3-bar-item w3-button">리뷰 포인트 가져와서 몇점인지 별점 세기기</a>
+	  <a href="#" class="w3-bar-item w3-button">상세 홈페이지로 이동</a>
+	  <div class="container">값 가져와서 몇몇 테그 걸어주기</div>
+	  <input type="text" value="간단한 댓글"> 
+	  
+
+  
+
+	  
+
+	</div>
+
+  
+</div>
+
+
 </body>
 </html>
