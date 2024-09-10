@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Home</title>
     <link rel="stylesheet" href="<c:url value='/resources/css/style.css' />"> <!-- 스타일시트 링크, 필요시 수정 -->
     <style>
@@ -51,13 +50,11 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Admin Dashboard</h1>
-        <div class="btn-group">
-            <a href="<c:url value='/admin/store' />" class="btn">매장 관리</a>
-            <a href="<c:url value='/admin/review' />" class="btn">리뷰 관리</a>
-            <a href="<c:url value='/admin/user' />" class="btn">회원 관리</a>
-        </div>
-    </div>
+<h1>Admin Dashboard</h1>
+<div class="btn-group">
+    <a href="<c:url value='/admin/store' />" class="btn">매장 관리</a>
+    <a href="<c:url value='/admin/review' />" class="btn">리뷰 관리</a>
+    <a href="<c:url value='/admin/user' />" class="btn">회원 관리</a>
+</div>        
 </body>
 </html>

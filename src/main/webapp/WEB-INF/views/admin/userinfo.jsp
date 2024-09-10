@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,7 +116,7 @@
 
             <div class="form-group">
                 <label for="us_id">회원 아이디:</label>
-                <input type="text" id="us_id" name="us_id" value="${user.us_id}" disabled/>
+                <input type="text" id="us_id" value="${user.us_id}" disabled/>
             </div>
             <div class="form-group">
                 <label for="us_pw">비밀번호:</label>
@@ -135,7 +136,7 @@
             </div>
             <div class="form-group">
                 <label for="us_hbd">생일:</label>
-                <input type="date" id="us_hbd" name="us_hbd" value="${user.us_hbd}" class="editable"/>
+                <input type="date" id="us_hbd" name="us_hbd" value="<fmt:formatDate value="${user.us_hbd}" pattern="yyyy-MM-dd" />" class="editable"/>
             </div>
             <div class="form-group">
                 <label for="us_phone">전화번호:</label>
@@ -155,7 +156,7 @@
             </div>
             <div class="form-group">
                 <label for="us_limit">제한 일자:</label>
-                <input type="datetime-local" id="us_limit" name="us_limit" value="${user.us_limit}" class="editable"/>
+                <input type="datetime-local" id="us_limit" name="us_limit" value="<fmt:formatDate value="${user.us_limit}" pattern="yyyy-MM-dd HH:mm:ss" />" class="editable"/>
             </div>
             <div class="form-group">
                 <label for="us_report">보고서:</label>
@@ -163,7 +164,7 @@
             </div>
             <div class="form-group">
                 <label for="us_stop">중지 일자:</label>
-                <input type="datetime-local" id="us_stop" name="us_stop" value="${user.us_stop}" class="editable"/>
+                <input type="datetime-local" id="us_stop" name="us_stop" value="<fmt:formatDate value="${user.us_stop}" pattern="yyyy-MM-dd HH:mm:ss" />" class="editable"/>
             </div>
             <div class="form-group">
                 <label for="us_icon">아이콘:</label>

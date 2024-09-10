@@ -1,17 +1,24 @@
 package kr.tf.spring.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.tf.spring.service.UserService;
 import kr.tf.spring.model.vo.UserVO;
-
-import java.util.List;
+import kr.tf.spring.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
@@ -66,6 +73,31 @@ public class AdminController {
     public String userInfo(@RequestParam("id") String userId, Model model) {
         // 특정 회원의 상세 정보를 가져옴
         UserVO user = userService.findUserById(userId);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if(user.getUs_hbd() == null) {
+        	try {
+				user.setUs_hbd(dateFormat.parse("0000-00-00"));
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        if(user.getUs_limit() == null) {
+        	try {
+				user.setUs_limit(dateFormat.parse("0000-00-00"));
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        if(user.getUs_stop() == null) {
+        	try {
+				user.setUs_stop(dateFormat.parse("0000-00-00"));
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
         model.addAttribute("user", user);
         return "admin/userinfo"; // 회원 정보 페이지로 이동
     }
@@ -73,26 +105,68 @@ public class AdminController {
     public String backspace(Model model) {
         return "/admin/user";
     }
-
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+    
     @PostMapping("/updateUser")
-    public String updateUser(UserVO user, Model model) {
-    	   
-    	// UserVO의 날짜 필드가 null 또는 빈 문자열("")인 경우를 처리
-        if (user.getUs_hbd() == null || user.getUs_hbd().isEmpty()) {
-            user.setUs_hbd("2000-01-01"); // DATE 필드의 기본값 처리
+    public String updateUser(@ModelAttribute UserVO user, Model model) {
+        // 날짜 형식 설정
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat datetimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        System.out.println(user);
+        try {
+			System.out.println(dateFormat.parse("2000-01-01"));
+		} catch (java.text.ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+            // us_hbd가 null일 경우 기본값으로 설정
+            if (user.getUs_hbd() == null) {
+                try {
+					user.setUs_hbd(dateFormat.parse("2000-01-01"));
+				} catch (java.text.ParseException e) {
+					e.printStackTrace();
+				}
+            }
+
+            // us_limit가 null일 경우 기본값으로 설정
+            if (user.getUs_limit() == null) {
+                try {
+					user.setUs_limit(datetimeFormat.parse("2000-01-01 00:00:00"));
+				} catch (java.text.ParseException e) {
+					e.printStackTrace();
+				}
+            }
+
+            // us_stop가 null일 경우 기본값으로 설정
+            if (user.getUs_stop() == null) {
+                try {
+					user.setUs_stop(datetimeFormat.parse("2000-01-01 00:00:00"));
+				} catch (java.text.ParseException e) {
+					e.printStackTrace();
+				}
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            model.addAttribute("msg", "날짜 형식 변환 중 오류가 발생했습니다.");
+            return "redirect:/admin/user";
         }
-        if (user.getUs_limit() == null || user.getUs_limit().isEmpty()) {
-            user.setUs_limit("2000-01-01 00:00:00"); // DATETIME 필드의 기본값 처리
-        }
-        if (user.getUs_stop() == null || user.getUs_stop().isEmpty()) {
-            user.setUs_stop("2000-01-01 00:00:00"); // DATETIME 필드의 기본값 처리
-        }
-    	boolean success = userService.updateUser(user);
+
+        // User 정보 업데이트 처리
+        boolean success = userService.updateUser(user);
         if (success) {
             model.addAttribute("msg", "회원 정보가 성공적으로 수정되었습니다.");
         } else {
             model.addAttribute("msg", "회원 정보 수정에 실패하였습니다.");
         }
+
         return "redirect:/admin/user";
     }
 
