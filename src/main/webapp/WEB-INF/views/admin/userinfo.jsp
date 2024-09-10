@@ -75,6 +75,14 @@
         .button-group button.delete:hover {
             background-color: #c82333;
         }
+
+        .button-group button.back {
+            background-color: #6c757d;
+        }
+
+        .button-group button.back:hover {
+            background-color: #5a6268;
+        }
     </style>
     <script>
         function toggleEdit() {
@@ -92,6 +100,11 @@
                 document.getElementById('deleteForm').submit();
             }
         }
+    
+        function goBack() {
+            window.location.href = '${pageContext.request.contextPath}/admin/user';
+        }
+
     </script>
 </head>
 <body>
@@ -162,9 +175,9 @@
             </div>
 
             <div class="button-group">
-                <button type="button" id="editButton" onclick="toggleEdit()">수정</button>
-                <button type="submit" id="saveButton" style="display: none;">저장</button>
+                <button type="submit" id="editButton" onclick="toggleEdit()">수정</button>
                 <button type="button" class="delete" onclick="confirmDelete()">삭제</button>
+                <button type="button" class="back" onclick="goBack()">뒤로가기</button>
             </div>
         </form>
 

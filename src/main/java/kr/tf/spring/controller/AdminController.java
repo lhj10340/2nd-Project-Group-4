@@ -69,7 +69,10 @@ public class AdminController {
         model.addAttribute("user", user);
         return "admin/userinfo"; // 회원 정보 페이지로 이동
     }
-    
+    @RequestMapping("/user")
+    public String backspace(Model model) {
+        return "/admin/user";
+    }
 
     @PostMapping("/updateUser")
     public String updateUser(UserVO user, Model model) {
