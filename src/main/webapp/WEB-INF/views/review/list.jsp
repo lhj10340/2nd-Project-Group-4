@@ -108,7 +108,7 @@
 			</ul>
 		</c:if>
 		<form action="<c:url value="/review/list"/>">
-			<input type="hidden" name="rv_id" value="${pm.cri.rv_tf}">
+			<input type="hidden" name="rv_tf" value="${pm.cri.rv_tf}">
 			<div class="input-group mb-3">
 				<select class="form-control" name="type">
 					<option value="all"
