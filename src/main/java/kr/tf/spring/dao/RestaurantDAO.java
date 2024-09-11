@@ -11,4 +11,6 @@ public interface RestaurantDAO {
 	List<RestaurantVO> getSearchList(@Param("sfl")String sfl, @Param("stx")String stx, @Param("sort")String sort);
 
 	RestaurantVO findRestById(@Param("re_id")int re_id);
+	
+	RestaurantVO getReviewName(@Param("re_id")int restId);
 }
