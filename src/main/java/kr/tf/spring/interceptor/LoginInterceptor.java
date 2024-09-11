@@ -29,7 +29,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		UserVO user = (UserVO)modelAndView.getModel().get("user");
 		
-		System.out.println(user);
+		System.out.println("0" + user);
 		
 		if(user == null) {
 			return;

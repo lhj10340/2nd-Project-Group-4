@@ -38,7 +38,7 @@ public class UserController {
 		if (user != null) {
 
 				
-				user.setRemeber(user.isRemeber());
+				user.setRemeber(user_.isRemember());
 			
 			    if (user.getUs_auth() == 9) {   // us_auth 값이 9인 경우
 			    	 return "redirect:/adminhome"; // 관리자 페이지로 이동
