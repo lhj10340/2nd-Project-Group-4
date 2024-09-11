@@ -55,7 +55,7 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd861de20f6f46a674cee82508a967e9"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/map.css" />">
 	<style type="text/css">
-		.body-con{all: initial; margin-top: 0 !important; padding-bottom: 0px !important;}
+		.body-con{all: unset; margin-top: 0 !important; padding-bottom: 0px !important;}
 	</style>
 </head>
 <body>
