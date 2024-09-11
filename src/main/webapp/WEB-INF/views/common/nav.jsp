@@ -10,6 +10,7 @@
 <style>
 	.sticky{
 		position: sticky;
+		top: 0;
 	}
 	.star-rating {
       display: flex;
@@ -40,7 +41,7 @@
 <body>
  
 <!-- user 정보는 로그인 시 세션에서 뿌리게 되었음 user 사용 가능함 -->
-	<nav class="navbar navbar-expand-sm sticky"  
+	<nav class="navbar navbar-expand-sm"  
 		style="font-size: 20px;  justify-content: space-between;">
 	  <ul class="navbar-nav">
 	  	 <li class="nav-item">
@@ -296,9 +297,7 @@
 	  
 	  <!-- re_content 자리 -->
 	  <div class="w3-bar-item" id="mj-body" style="border-radius: 5px; background-color: rgba(255, 99, 71, 0.4);"></div>
-	  <div class="w3-bar-item" id="mj-footer re_comment">
-	
-	  </div>
+	  <div class="w3-bar-item" id="mj-footer re_comment"></div>
 	  
 
 	  
@@ -310,6 +309,8 @@
 	  <div class="container">값 가져와서 몇몇 테그 걸어주기</div>
 	  
 	  
+  	  <hr>
+  	  
   	  <hr>
 	  <form class="w3-container">
 	  <p><label>댓글</label>
