@@ -38,33 +38,23 @@
     }
 </style>
 <body>
-
+ 
 <!-- user 정보는 로그인 시 세션에서 뿌리게 되었음 user 사용 가능함 -->
 	<nav class="navbar navbar-expand-sm sticky"  
 		style="font-size: 20px;  justify-content: space-between;">
-	  
 	  <ul class="navbar-nav">
-	  	
 	  	 <li class="nav-item">
 	      <a class="navbar-brand" href="#">
 	      	<img width = 80px; height = 35px src="resources/img/twitter_header_photo_1.png">
 	      </a>
 	    </li>
-	  	
-	    <li class="nav-item active">
-	      <a class="nav-link text-white" href="<c:url value="/"/>">Main</a>
-	    </li>
-	   
-	  	<!-- 실질적으로 커뮤니티(아카이브) 고르는 곳 comm으로 커뮤니티는 줄여 표현할 것 -->
 	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/"/>"> 커뮤니티 </a>
+	      <a class="nav-link text-white" href="<c:url value="/"/>"> 전체리뷰 </a>
 	    </li>
-	  
 	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/"/>"> 고객문의 </a>
+	      <a class="nav-link text-white" href="<c:url value="/"/>"> 매장등록 </a>
 	    </li>
-	  
-	    </ul>
+	   </ul>
 	    
 	<ul class="navbar-nav">
 	
