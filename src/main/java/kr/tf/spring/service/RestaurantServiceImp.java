@@ -44,9 +44,12 @@ public class RestaurantServiceImp implements RestaurantService {
 
 	@Override
 	public boolean restaurantRegister(RestaurantVO rest, MultipartFile[] fileList) {
+		if(rest == null) return false;
+		
+		boolean res = restaurantDao.restaurantRegistert(rest);
 		/*if(fileList == null || fileList.length == 0) {
 			return true;
 		}*/
-		return false;
+		return res;
 	}
 }
