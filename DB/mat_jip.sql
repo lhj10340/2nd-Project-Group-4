@@ -56,7 +56,7 @@ CREATE TABLE `review` (
 	`rv_score`	int	NULL,
 	`rv_content`	longtext	NULL,
 	`rv_tf`	varchar(5)	NULL,
-	`rv_ thumb`	longtext	NULL
+	`rv_thumb`	longtext	NULL
 );
 
 DROP TABLE IF EXISTS `receipt`;
@@ -214,3 +214,14 @@ ALTER TABLE `reservation` ADD CONSTRAINT `FK_user_TO_reservation_1` FOREIGN KEY 
 REFERENCES `user` (
 	`us_id`
 );
+
+
+ALTER TABLE `matjip`.`restaurant` 
+ADD COLUMN `re_zip` INT(11) NULL DEFAULT 0 AFTER `re_tag`,
+ADD COLUMN `re_addr2` VARCHAR(255) NULL DEFAULT NULL AFTER `re_zip`,
+CHANGE COLUMN `re_address` `re_address` VARCHAR(255) NULL DEFAULT NULL ;
+
+
+ALTER TABLE `matjip`.`restaurant` 
+CHANGE COLUMN `re_zip` `re_zip` INT NULL DEFAULT '0' AFTER `re_y`,
+CHANGE COLUMN `re_addr2` `re_address2` VARCHAR(255) NULL DEFAULT NULL AFTER `re_address`;
