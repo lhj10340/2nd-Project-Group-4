@@ -9,10 +9,10 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
 	`us_id`	varchar(20) primary key	NOT NULL,
-	`us_pw`	varchar(20)	NULL,
+	`us_pw`	varchar(255)	NULL,
 	`us_auth`	int	NULL,
 	`us_name`	varchar(20)	NULL,
-	`us_gender`	varchar(5)	NULL,
+	`us_gender`	varchar(6)	NULL,
 	`us_hbd`	date	NULL,
 	`us_phone`	varchar(15)	NULL,
 	`us_email`	varchar(30)	NULL,
@@ -33,7 +33,7 @@ CREATE TABLE `restaurant` (
 	`re_name`	varchar(50)	NULL,
 	`re_x`	varchar(30)	NULL,
 	`re_y`	varchar(30)	NULL,
-	`re_ address`	varchar(50)	NULL,
+	`re_address`	varchar(50)	NULL,
 	`re_phone`	varchar(15)	NULL,
 	`re_state`	varchar(15)	NULL,
 	`re_time`	datetime	NULL,
@@ -214,4 +214,3 @@ ALTER TABLE `reservation` ADD CONSTRAINT `FK_user_TO_reservation_1` FOREIGN KEY 
 REFERENCES `user` (
 	`us_id`
 );
-

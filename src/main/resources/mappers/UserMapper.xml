@@ -3,14 +3,40 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.tf.spring.dao.UserDAO">
-    <select id="findById_InUserDB" resultType="kr.tf.spring.model.vo.UserVO">
-        select * from user where us_id = #{us_id}
-    </select>
-    <select id="findByIdAndAuth" resultType="kr.tf.spring.model.vo.UserVO">
-        select * from user where us_id = #{us_id} AND us_auth = #{us_auth}
-    </select>
-    
-    <select id="findUsersByName" resultType="kr.tf.spring.model.vo.UserVO">
+
+  	<select id="findById_InUserDB" resultType="kr.tf.spring.model.vo.UserVO">
+  		select * from user where us_id = #{us_id}
+  	</select>
+  	
+  	<select id="findByIdAndAuth" resultType="kr.tf.spring.model.vo.UserVO">
+  		select * from user where us_id = #{us_id} AND us_auth =#{us_auth}
+  	</select>
+  	
+  	<insert id="signup">
+  	insert into user (us_id, us_pw, us_auth, us_name, us_gender, us_phone, us_email, us_failed, us_say, us_hbd)
+  	values (#{us.us_id}, #{us.us_pw}, #{us.us_auth}, #{us.us_name}, #{us.us_gender}, #{us.us_phone}, #{us.us_email}, 0, #{us.us_say}, #{us.us_hbd})
+  	</insert>
+
+	
+	<update id="updateMemberCookie">
+		update user set us_cookie = #{us.us_cookie}, us_limit = #{us.us_limit}
+		where us_id = #{us.us_id}
+	</update>
+	
+	<select id="selectUserByCookie" resultType="kr.tf.spring.model.vo.UserVO">
+		select * from user where us_cookie = #{us_cookie} and us_limit > now()
+	</select>
+
+
+	<update id="add_us_failed">
+	update user set us_failed = us_failed + 1 where us_id = #{us_id}
+	</update>
+	
+	<update id="reset_us_failed">
+	update user set us_failed = 0 where us_id = #{us_id}
+	</update>
+
+     <select id="findUsersByName" resultType="kr.tf.spring.model.vo.UserVO">
        select * from user WHERE us_name LIKE CONCAT('%', #{us_name}, '%')
     </select>
     
@@ -46,4 +72,6 @@
         INSERT INTO user (us_id, us_pw, us_auth, us_name, us_gender, us_hbd, us_phone, us_email, us_failed, us_cookie, us_limit, us_report, us_stop, us_icon, us_say)
         VALUES (#{us_id}, #{us_pw}, #{us_auth}, #{us_name}, #{us_gender}, #{us_hbd}, #{us_phone}, #{us_email}, #{us_failed}, #{us_cookie}, #{us_limit}, #{us_report}, #{us_stop}, #{us_icon}, #{us_say})
     </insert>
+
+	
 </mapper>

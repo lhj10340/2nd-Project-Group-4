@@ -5,49 +5,14 @@
 <html>
 <head>
 	<title>Home</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="<c:url value="/resources/css/map.css" />">
 	<style type="text/css">
-		#map{width:100%;height:100%;position:relative;overflow:hidden;}
-		.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-		.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-		.map_wrap {position:relative;width:100%;height:100%;}
-		#menu_wrap {position:absolute;top:0px;right:0;bottom:-4%;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-		.bg_white {background:#fff;}
-		#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-		#menu_wrap .option{text-align: center;}
-		#menu_wrap .option p {margin:10px 0;}  
-		#menu_wrap .option button {margin-left:5px;}
-		#placesList li {list-style: none;}
-		#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-		#placesList .item span {display: block;margin-top:4px;}
-		#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-		#placesList .item .info{padding:10px 0 10px 55px;}
-		#placesList .info .gray {color:#8a8a8a;}
-		#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-		#placesList .info .tel {color:#009900;}
-		#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;}
-		#placesList .item .markerbg img {width:100%; height:100%;}
-		
-		/*맛집 정보 마커 클릭시 뜨는 모달창 css*/
-		.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-		.wrap * {padding: 0;margin: 0;}
-		.wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-		.wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-		.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-		.info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-		.info .close:hover {cursor: pointer;}
-		.info .body {position: relative;overflow: hidden;}
-		.info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-		.desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-		.desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
-		.info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
-		.info .link {color: #5085BB;}
+		.body-con{all: unset; margin-top: 0 !important; padding-bottom: 0px !important;}
 	</style>
-	<!-- fontawesome 추가-->
-	<script src="https://kit.fontawesome.com/aa7d727d3c.js" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd861de20f6f46a674cee82508a967e9"></script>
 </head>
 <body>
-<div class="map_wrap"> 
+<div class="map_wrap">
     <!-- 지도가 표시될 div -->
     <div id="map"></div>
     
@@ -55,22 +20,40 @@
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
-                <form onsubmit="searchPlaces(this); return false;">
+                <form name="fsearch" onsubmit="searchPlaces(this); return false;" autocomplete="off">
+                	<input type="hidden" name="sort" id="sort" value="re_name ASC">
                     <select name="sfl" id="sfl">
                     	<option value="all">전체</option>
                     	<option value="re_name">매장명</option>
                     	<option value="re_tag">태그</option>
                     </select>
                     <input type="text" value="" name="stx" id="stx" size="15" placeholder="검색어 입력"> 
-                    <button type="submit">찾기</button> 
+                    <button type="submit" class="btn btn-search-color">찾기</button> 
                 </form>
-            </div>
+                <div>
+                	<ul>
+                		<li class="sort" onclick="sort_list('re_name', 'ASC')">
+                			이름순(오름차순)
+                		</li>
+                		<li class="sort off" onclick="sort_list('re_name', 'DESC')">
+                			이름순(내림차순) 
+                		</li>
+                		<li class="sort off" onclick="sort_list('re_score', 'DESC')">
+                			좋은 별점순
+                		</li>
+                		<li class="sort off" onclick="sort_list('re_score', 'ASC')">
+                			나쁜 별점순
+                		</li>
+                	</ul>
+                </div>
+            </div>                                                                          
         </div>
         <hr>
         <ul id="placesList"></ul>
-    </div>
+    </div>   
 </div>
 <script>
+ 	var re_id;
 	var container = document.getElementById('map');
 	var options = {
 		//기본위치는 학원위치
@@ -86,7 +69,7 @@
 	var restaurantPositions = ajaxList();
 	
 
-	var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
+	var markerImageSrc = '<c:url value="/resources/img/category.png"/>';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
 	    restaurantMarkers = [], // 맛집가게 마커 객체를 가지고 있을 배열입니다
 
 	    
@@ -164,19 +147,19 @@
            '           </div>' + 
            '            <div class="desc">' + 
            '                <div class="ellipsis">'+restaurant[2]+'</div>' + 
-           '                <div class="jibun ellipsis">'+restaurant[3]+' ('+restaurant[4]+')</div>' + 
-           '                <div><a href="#" onclick="alert(\'구현예정\\n매장고유번호: '+restaurant[0]+'\');" class="link">리뷰보기</a></div>' + 
+           '                <div class="jibun ellipsis">'+restaurant[3]+' (<span class="rating">★</span>'+restaurant[4]+')</div>' + 
+           '                <div><a href="#" onclick="w3_open()" class="link">리뷰보기 </a></div>' + 
            '            </div>' + 
            '        </div>' + 
            '    </div>' +    
            '</div>';
+          	re_id = restaurant[0]; //아이디 저 아래다가 전송 (sidebar에게)
        	var overlay = new kakao.maps.CustomOverlay({
 		    content: content,
 		    map: map,
-		    position: new kakao.maps.LatLng(getLat, getLng)  
+		    position: new kakao.maps.LatLng(getLat, getLng)
+
 		});
-       	
-       	
        	overlay.setMap(map);
 	}
 
@@ -188,6 +171,7 @@
 	//등록된 모든 맛집 가게 마커를 표시하기 위해 호출되는 함수입니다.
 	function ajaxList(){
 		var list = new Array();
+		var view = new Array(); //리스트업을 위한 정보
 		$.ajax({
 	        url: "<c:url value="/ajax/list"/>",
 			type: "post",
@@ -195,10 +179,12 @@
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
-		        	list.push(new kakao.maps.LatLng(parseFloat(data[i].re_x), parseFloat(data[i].re_y)));
+	        		view.push(data[i]);
+		        	list.push(new kakao.maps.LatLng(parseFloat(data[i].re_y), parseFloat(data[i].re_x)));
 	        	} //가져온 정보값을 카카오 위치좌표 객체로 변환 후 list array에 담음
 	        }
         });
+		listView(view);
        	return list;
 	}
 	
@@ -208,7 +194,7 @@
 		$.ajax({
 	        url: "<c:url value="/ajax/info"/>",
 			type: "post",
-			dataType : 'json',
+			dataType : "json",
 			data : {lat: lat, lng: lng},
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
@@ -220,23 +206,17 @@
 	
 	//검색을 요청하는 함수입니다
 	function searchPlaces(f) {
-
-	    if (!f.stx.value.replace(/^\s+|\s+$/g, '')) {
-	        f.stx.focus();
-	    	alert('키워드를 입력해주세요');
-	        return false;
-	    }
 	    var markers = new Array();
 	    var list = new Array();
 		$.ajax({
 	        url: "<c:url value="/ajax/search"/>",
 			type: "post",
 			dataType : 'json',
-			data : {sfl: f.sfl.value, stx: f.stx.value},
+			data : {sfl: f.sfl.value, stx: f.stx.value, sort: f.sort.value},
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
-	        		markers.push(new kakao.maps.LatLng(parseFloat(data[i].re_x), parseFloat(data[i].re_y)));
+	        		markers.push(new kakao.maps.LatLng(parseFloat(data[i].re_y), parseFloat(data[i].re_x)));
 	        		list.push(data[i]);
 	        	} //가져온 정보값을 카카오 위치좌표 객체로 변환 후 list array에 담음
 	        }
@@ -252,6 +232,12 @@
 		createRestaurantMarkers(); // 맛집가게 마커를 생성하고 맛집가게 마커 배열에 추가합니다
 		
 		setRestaurantMarkers(map); // 지도에 맛집가게 마커가 보이도록 설정합니다    
+		listView(list);
+		
+	}
+	//리스트에 맛집 정보를 노출시키는 함수입니다.
+	function listView(list){
+		
 		var listEl = document.getElementById('placesList');
 	 	 
 		removeAllChildNods(listEl);
@@ -270,8 +256,8 @@
 				content += '		<img src="\http://hansusu.cafe24.com/data/apms/background/main.jpg"\>';
 				content += '	</span>';
 				content += '	<div class="info">';
-				content += '		<h5>'+list[i]['re_name']+' (<i class="fa-solid fa-star"></i>'+list[i]['re_score']+')</h5>';
-				content += '		<span>' +  list[i]['re_address']  + '</span>';
+				content += '		<h5>'+list[i]['re_name']+' (<i class="fa-solid fa-star rating"></i>'+list[i]['re_score']+')</h5>';
+				content += '		<span class="addr">' +  list[i]['re_address']  + '</span>';
 				content += '  		<span class="tel">' + list[i]['re_phone']  + '</span>';
 				content += '	</div>';
 				content += "</li>";
@@ -285,7 +271,19 @@
 	        el.removeChild (el.lastChild);
 	    }
 	}
+	
+	function sort_list(field, sort){
+		$("#sort").val(field + " " + sort);
+		searchPlaces(document.fsearch);
+	}
+	
+	$(".sort").on("click", function(){
+		$(".sort").addClass('off');
+		$(this).removeClass('off');	
+	});
 </script>
+
+
 
 </body>
 </html>
