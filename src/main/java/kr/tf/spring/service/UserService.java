@@ -9,4 +9,8 @@ public interface UserService {
 
 	boolean signup(UserVO user_);
 
+	void updateUserCookie(UserVO user);
+
+	UserVO getUserByCookie(String sid);
+
 }

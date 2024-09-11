@@ -19,12 +19,15 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd861de20f6f46a674cee82508a967e9&libraries=services"></script>
 </head>
 <body>
-    <tiles:insertAttribute name="nav"/>
 	<div id="main">
+    <tiles:insertAttribute name="nav"/>
+
+   
 	    <div class="container body-con">
 	        <tiles:insertAttribute name="body" />
 	    </div>
-    </div>            
+
     <tiles:insertAttribute name="foo" />
+     </div>                                       
 </body>
 </html>

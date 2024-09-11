@@ -1,4 +1,4 @@
-package kr.tf.spring.model.vo;
+ package kr.tf.spring.model.vo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,9 @@ public class RestaurantVO {
 	private int re_zip;
 	private String re_address;
 	private String re_address2;
+	private String re_state;
 	private String re_phone;
+	private int re_views;
 	private String re_tag;
 	private String re_category;
 	private String re_content;

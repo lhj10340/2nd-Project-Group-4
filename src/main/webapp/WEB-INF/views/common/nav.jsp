@@ -10,6 +10,7 @@
 <style>
 	.sticky{
 		position: sticky;
+		top: 0;
 	}
 	.star-rating {
       display: flex;
@@ -40,7 +41,7 @@
 <body>
  
 <!-- user 정보는 로그인 시 세션에서 뿌리게 되었음 user 사용 가능함 -->
-	<nav class="navbar navbar-expand-sm sticky"  
+	<nav class="navbar navbar-expand-sm"  
 		style="font-size: 20px;  justify-content: space-between;">
 	  <ul class="navbar-nav">
 	  	 <li class="nav-item">
@@ -86,6 +87,10 @@
 	</c:when>		    
 		
 	<c:otherwise>
+	   		    
+ 		<li class="nav-item">
+			<a class="nav-link text-white" href="<c:url value="/user/mypage"/>">마이 페이지</a>
+		</li>
 	   		    
 		<li class="nav-item">
 			<a class="nav-link text-white" href="<c:url value="/user/logout"/>">로그아웃</a>
@@ -135,7 +140,7 @@
 				
 					    <div class="form-group form-check">
 					      <label class="form-check-label">
-					        <input class="form-check-input" type="checkbox" name="remember"> 자동 로그인
+					        <input class="form-check-input" type="checkbox" value="true" name="remember"> 자동 로그인
 					      </label>
 					    </div>
 					    <div class="d-flex justify-content-end">
@@ -281,7 +286,7 @@
 
 	<div class="container">
 	  <div class="w3-bar-item" >
-	  		<h1 id="mj-title"></h1>
+	  		<h1 id="re_name"></h1>
 	  		  	  <div class="star-rating">
 				    <input type="radio" class="star star1" value="1" disabled>
 				    <input type="radio" class="star star2" value="2" disabled>
@@ -291,32 +296,37 @@
 					<label id="re-score" style="margin-left: 4px;font-size: 20px;"></label>
 				  </div>
 	  </div>
+	  <!-- img box -->
+		<div class="w3-container">
+			<img src="test.jpg" alt="img box" style="width:100px;">
+			<img src="test.jpg" alt="img box" style="width:100px;">
+			<img src="test.jpg" alt="img box" style="width:100px;">
+		</div>
 	  <hr>
 
 	  
-	  <!-- re_content 자리 -->
-	  <div class="w3-bar-item" id="mj-body" style="border-radius: 5px; background-color: rgba(255, 99, 71, 0.4);"></div>
-	  <div class="w3-bar-item" id="mj-footer re_comment">
-	
-	  </div>
-	  
-
-	  
-	  
-	  
-	  	  
-	  <a href="#" class="w3-bar-item w3-button">■리뷰 포인트 가져와서 몇점인지 별점 세기기</a>
-	  <a href="#" class="w3-bar-item w3-button">■상세 홈페이지로 이동</a>
-	  <div class="container">값 가져와서 몇몇 테그 걸어주기</div>
-	  
-	  
-  	  <hr>
-	  <form class="w3-container">
-	  <p><label>댓글</label>
-	  <input class="w3-input" type="text" placeholder="댓글 입력"></p>
-	  <button class="w3-button w3-right">등록</button>
-	  </form>
-	  
+		<!-- re_content 자리 -->
+		<div class="w3-bar-item"><i class="fa-duotone fa-solid fa-location-arrow"></i>&nbsp;<span id="re_address"></span></div>
+		<div class="w3-bar-item"><i class="fa-solid fa-phone"></i>&nbsp;&nbsp;<span id="re_phone"></span></div>
+		<div class="w3-bar-item"><i class="fa-solid fa-clock"></i>&nbsp;&nbsp;<span id="re_state"></span></div>
+		<div class="w3-bar-item"><i class="fa-solid fa-spoon"></i>&nbsp;&nbsp;<span id="re_menu"></span></div>
+		<div class="w3-bar-item"><i class="fa-solid fa-tags"></i>&nbsp;&nbsp;<span id="re_tag"></span></div>
+		<div class="w3-bar-item" id="re_comment" style="border-radius: 5px; background-color: rgba(150, 50, 71, 0.4);"></div>
+		
+		
+		<div class="w3-bar-item" id="mj-footer"></div>
+		
+		<hr>
+  			<a href="#" class="w3-bar-item w3-button">여기에 대표 리뷰가 들어갈 것 같습니다.</a>
+			<img src="test.jpg" class="w3-circle" alt="여기에 유저 이미지 들어가요" style="width:50px;"><i>작성자 이름</i>
+  			<p>작성시간 : </p>
+		<hr>
+		
+		
+		<div class="w3-container">
+			<button class="w3-button w3-right w3-khaki w3-round-large">상세 홈페이지</button>
+		</div>
+				  
 	  
 
 <script>
@@ -325,10 +335,9 @@
 
 
 function w3_open() {
-  document.getElementById("main").style.marginLeft = "25%";
-  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("main").style.marginLeft = "30%";
+  document.getElementById("mySidebar").style.width = "30%";
   document.getElementById("mySidebar").style.display = "block";
-  //console.log(re_id); //값을 잘 가져오는지 작동하는지 테스트용
   get_atag_number(re_id)
   ajax_get_res(re_id);
 }
@@ -342,9 +351,6 @@ function get_atag_number() {
 	//(re_id를 기반으로 json파일 형식으로 BD값 가져오자)
 	//mj-title, mj-body, mj-footer 형식으로 꾸며주자
 	//$('#mj-title').text('매장명 받아올 ajax ' + re_id);
-
-	$('#mj-footer').text('여기쯤에 댓글이 들어가지 않을까 생각중입니다.');
-	
 }
 
 </script>
@@ -368,20 +374,19 @@ function ajax_get_res(re_id) {
 		contentType : "application/json; charset=utf-8",
 		dataType : "json", 
 		success : function (data){
-			console.log(data);
-			console.log(data.rest);
-			console.log(data.rest.re_content);
-			$('#mj-title').text(data.rest.re_name);
+			$('#re_name').text(data.rest.re_name);
 			$('#re-score').text(data.rest.re_score);
-			$('#mj-body').text(data.rest.re_content);
-			
-			
+			$('#re_comment').text(data.rest.re_content);
+			$('#re_address').text(data.rest.re_address);
+			$('#re_phone').text(data.rest.re_phone);
+			$('#re_state').text(data.rest.re_state);
+			//메뉴는 어렵겠죠?
+			$('#re_tag').text(data.rest.re_tag);
 			var score = data.rest.re_score;
 			star_reset();
 			star_mk(score);
-			
 
-			
+			//get_review(re_id);
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
 			console.log(jqXHR);
@@ -410,6 +415,34 @@ function star_mk(score) {
 	}else{
 		$('.star1').prop('checked',false);
 	}
+}
+
+function get_review(re_id) {
+	alert(re_id);
+	
+	var rv_re_id = re_id
+	
+	let rv = {
+		rv_re_id : rv_re_id
+	}
+	
+	$.ajax({
+		async : false, //비동기 : true(비동기), false(동기)
+		url : '<c:url value="/ajax/rv_data"/>', 
+		type : 'post', 
+		data : JSON.stringify(rv), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			console.log(data)
+
+
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log(jqXHR);
+		}
+	});
+	
 }
 
 </script>
