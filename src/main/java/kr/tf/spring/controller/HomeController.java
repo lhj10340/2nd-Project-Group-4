@@ -56,7 +56,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "/main/home";
+		return "/main/home";	// 매인
+		//return "/admin/adminHome"; // 테스트용
 	}
 
 	
