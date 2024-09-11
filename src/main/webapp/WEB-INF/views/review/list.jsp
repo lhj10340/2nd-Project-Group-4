@@ -127,7 +127,7 @@
 			</div>
 		</form>
 		<a href="<c:url value="/review/insert?rv_tf=${pm.cri.rv_tf }"/>"
-			class="btn btn-outline-info btn-insert">리뷰 등록</a>
+			class="btn btn-outline-info btn-insert mb-5">리뷰 등록</a>
 	<%-- </c:i	f> --%>
 	<script type="text/javascript">
 		$('.btn-insert').click(function() {

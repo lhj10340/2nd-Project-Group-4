@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewCriteria extends Criteria{
 	
-	private int rv_tf;
+	private String rv_tf;
 
 	@Override
 	public String toString() {

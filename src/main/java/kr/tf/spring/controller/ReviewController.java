@@ -43,6 +43,7 @@ public class ReviewController {
     	//화면에 전송
     	model.addAttribute("list", list);
     	model.addAttribute("reviewList", reviewList);
+    	model.addAttribute("pm", pm);
         return "/review/list";
     }
     
