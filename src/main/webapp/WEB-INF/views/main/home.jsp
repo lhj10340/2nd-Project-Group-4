@@ -7,7 +7,7 @@
 	<title>Home</title>
 	<link rel="stylesheet" href="<c:url value="/resources/css/map.css" />">
 	<style type="text/css">
-		.body-con{all: initial; margin-top: 0 !important; padding-bottom: 0px !important;}
+		.body-con{all: unset; margin-top: 0 !important; padding-bottom: 0px !important;}
 	</style>
 </head>
 <body>
