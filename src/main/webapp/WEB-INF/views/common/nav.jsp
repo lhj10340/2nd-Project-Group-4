@@ -45,7 +45,7 @@
 	  <ul class="navbar-nav">
 	  	 <li class="nav-item">
 	      <a class="navbar-brand" href="<c:url value="/"/>">
-	      	<img width = 80px; height = 35px src="resources/img/twitter_header_photo_1.png">
+	      	<img width = 80px; height = 35px src="<c:url value="/resources/img/twitter_header_photo_1.png"/>">
 	      </a>
 	    </li>
 	    <li class="nav-item">
