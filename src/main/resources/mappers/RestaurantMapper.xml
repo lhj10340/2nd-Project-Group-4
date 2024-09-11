@@ -38,12 +38,28 @@
 	        </otherwise>
 	    </choose>
  	</select>
- 	
  	<select id="findRestById" resultType="kr.tf.spring.model.vo.RestaurantVO">
- 	SELECT * FROM restaurant where re_id = #{re_id}
+ 		SELECT * FROM restaurant where re_id = #{re_id}
  	</select>
- 	
  	<select id="getReviewName" resultType="kr.tf.spring.model.vo.RestaurantVO">
  		select re_id, re_name, re_address, re_phone, re_score from restaurant where re_id = #{re_id};
  	</select>
+ 	<insert id="restaurantRegistert">
+ 	<![CDATA[
+ 		insert into restaurant
+ 		set re_name = '${rest.re_name}',
+ 			re_us_id = '${rest.re_us_id}',
+ 			re_x = '${rest.re_x}',
+ 			re_y = '${rest.re_y}',
+ 			re_phone = '${rest.re_phone}',
+ 			re_zip = ${rest.re_zip},
+ 			re_address = '${rest.re_address}',
+ 			re_address2 = '${rest.re_address2}',
+ 			re_tag = '${rest.re_tag}',
+ 			re_content = '${rest.re_content}',
+ 			re_score = 0,
+ 			re_views = 0,
+ 			re_time = NOW();
+ 		]]>
+ 	</insert>
 </mapper>
