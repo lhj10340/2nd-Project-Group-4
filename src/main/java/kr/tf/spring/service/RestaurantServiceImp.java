@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.tf.spring.dao.RestaurantDAO;
 import kr.tf.spring.model.vo.RestaurantVO;
@@ -27,5 +28,28 @@ public class RestaurantServiceImp implements RestaurantService {
 	@Override
 	public List<RestaurantVO> searchList(String sfl, String stx, String sort) {
 		return restaurantDao.getSearchList(sfl, stx, sort);
+	}
+
+	@Override
+	public RestaurantVO findRestById(int re_id) {	
+		return restaurantDao.findRestById(re_id);
+	}
+
+	public RestaurantVO getReviewName(int restId) {
+		
+		if(restId < 0) return null;
+		
+		return restaurantDao.getReviewName(restId);
+	}
+
+	@Override
+	public boolean restaurantRegister(RestaurantVO rest, MultipartFile[] fileList) {
+		if(rest == null) return false;
+		
+		boolean res = restaurantDao.restaurantRegistert(rest);
+		/*if(fileList == null || fileList.length == 0) {
+			return true;
+		}*/
+		return res;
 	}
 }

@@ -2,6 +2,8 @@ package kr.tf.spring.model.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +16,7 @@ public class UserVO {
 	private int us_auth;// int 
 	private String us_name;// varchar(20) 
 	private String us_gender;// varchar(6) 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date us_hbd;// date 
 	private String us_phone;// varchar(15) 
 	private String us_email;// varchar(30) 

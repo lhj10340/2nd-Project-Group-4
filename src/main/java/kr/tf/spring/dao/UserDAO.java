@@ -11,4 +11,8 @@ public interface UserDAO {
 	UserVO findByIdAndAuth(@Param("us_id") String us_id, @Param("us_auth") int us_auth);
 
 	boolean signup(@Param("us")UserVO user_);
+
+	void add_us_failed(@Param("us_id")String us_id);
+
+	void reset_us_failed(@Param("us_id")String us_id);
 }

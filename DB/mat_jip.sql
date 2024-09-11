@@ -33,7 +33,7 @@ CREATE TABLE `restaurant` (
 	`re_name`	varchar(50)	NULL,
 	`re_x`	varchar(30)	NULL,
 	`re_y`	varchar(30)	NULL,
-	`re_ address`	varchar(50)	NULL,
+	`re_address`	varchar(50)	NULL,
 	`re_phone`	varchar(15)	NULL,
 	`re_state`	varchar(15)	NULL,
 	`re_time`	datetime	NULL,
@@ -263,4 +263,3 @@ ALTER TABLE `reservation` ADD CONSTRAINT `FK_user_TO_reservation_1` FOREIGN KEY 
 REFERENCES `user` (
 	`us_id`
 );
-
