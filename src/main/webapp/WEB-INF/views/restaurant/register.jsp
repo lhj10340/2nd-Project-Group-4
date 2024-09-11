@@ -38,8 +38,8 @@
 <div class="form-div">
 	<form name="frestaurant" id="frestaurant" onsubmit="frestaurantsubmit(this);" action="<c:url value="/restaurant/register"/>"  method="post" enctype="multipart/form-data" autocomplete="off">
 		<input type="hidden" name="us_id" value="test1234">
-		<input type="text" name="re_x" value="" id="re_x">
-		<input type="text" name="re_y" value="" id="re_y">
+		<input type="hidden" name="re_x" value="" id="re_x">
+		<input type="hidden" name="re_y" value="" id="re_y">
 		<div class="form-group">
 			<label for="re_name">매장명</label>
 			<input type="text" name="re_name" id="re_name" value="" class="form-control-rest">
@@ -69,28 +69,30 @@
 		</div>
 		<div class="form-group">
 			<label for="re_category">매장태그(,로 구분되어 집니다. 여러 태그 작성시 ,를 이용해주세요. ex:맛집,분위기,데이트 )</label>
-			<input type="text" name="re_category" id="re_category" value="" placeholde="콤마(,)로 구분합니다." class="form-control-rest">
+			<input type="text" name="re_category" id="re_category" value="" placeholder="콤마(,)로 구분합니다." class="form-control-rest">
 		</div>
 		<div class="form-group">
 			<label for="re_content">매장소개</label>
-			<textarea name="re_content" id="re_content" class="form-control-rest" maxlength="500" onkeydown="countText(this.value);"></textarea>
+			<textarea name="re_content" id="re_content" class="form-control-rest" maxlength="500" onkeyup="countText(this.value);" placeholder="간단하게 매장을 소개해주세요:)"></textarea>
 			<div class="text-count">
 				<span id="count">0</span> / 500
 			</div>
 		</div>
 		<div class="form-group">
 			<label>첨부파일:</label>
-			<input type="file" class="form-control-rest" name="fileList">
-			<input type="file" class="form-control-rest" name="fileList">
-			<input type="file" class="form-control-rest" name="fileList">
+			<input type="file" class="form-control-rest" name="fileList frm_file">
+			<input type="file" class="form-control-rest" name="fileList frm_file">
+			<input type="file" class="form-control-rest" name="fileList frm_file">
+			<img class="img_preview"/>
 		</div>
 	</form>
 </div>
 
 <script type="text/javascript">
 	function countText(val){
+		val = val.replace(/\s+/g, '');
 		var count = val.length; //문자수
-		console.log(count);
+		$("#count").text(count);
 	}
 	function frestaurantsubmit(f){
 		console.log(f);
@@ -184,6 +186,27 @@
         // iframe을 넣은 element를 보이게 한다.
         element_wrap.style.display = 'block';
     }
+    
+    function readURL(input) {
+		console.log(input);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            var $wrap = $(input).parent();
+            if($wrap.find('.img_preview').length==0){
+                $wrap.append("<div><img class='img_preview'/></div>");
+            }
+
+            reader.onload = function(e) {
+                $('img.img_preview',$wrap).attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(".frm_file ").change(function() {
+        readURL(this);
+    });
 </script>
 </body>
 </html>
