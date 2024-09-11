@@ -6,8 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -18,12 +21,11 @@
 <body>
 	<h1>리뷰 게시판</h1>
 	<div class="mb-3">
-		<a href="<c:url value='/review/list?rv_tf=0' />"
-			class="btn btn-outline-info">일반 리뷰</a> <a
-			href="<c:url value='/review/list?rv_tf=1' />"
-			class="btn btn-outline-info">영수증 리뷰</a>
+		<a href="<c:url value='/review/list' />" class="btn btn-outline-info">전체 리뷰</a>
+		<a href="<c:url value='/review/list?rv_tf=0' />"class="btn btn-outline-info">일반 리뷰</a> 
+		<a href="<c:url value='/review/list?rv_tf=1' />"class="btn btn-outline-info">영수증 리뷰</a>
 	</div>
-	<%-- <c:if test="${pm.cri.rv_tf eq '' }"> --%>
+	<%-- <c:if test="${pm.cri.rv_tf eq 0 || pm.cri.rv_tf eq 1 }"> --%>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -40,16 +42,13 @@
 					<tr>
 						<td>${review.rv_id }</td>
 						<td><a href="#">${review.rv_re_id }</a></td>
-						<td>
-							<c:url var="url" value="/review/detail">
+						<td><c:url var="url" value="/review/detail">
 								<c:param name="rv_tf" value="${pm.cri.rv_tf }" />
 								<c:param name="page" value="${pm.cri.page }" />
 								<c:param name="type" value="${pm.cri.type }" />
 								<c:param name="search" value="${pm.cri.search }" />
 								<c:param name="rv_id" value="${review.rv_id }" />
-							</c:url>
-							<a href="${url }">${review.rv_title }</a>
-						</td>
+							</c:url> <a href="${url }">${review.rv_title }</a></td>
 						<td><c:url var="url" value="/review/list">
 								<c:param name="rv_tf" value="${pm.cri.rv_tf }" />
 								<c:param name="type" value="id" />
@@ -128,7 +127,7 @@
 		</form>
 		<a href="<c:url value="/review/insert?rv_tf=${pm.cri.rv_tf }"/>"
 			class="btn btn-outline-info btn-insert mb-5">리뷰 등록</a>
-	<%-- </c:i	f> --%>
+	<%-- </c:if> --%>
 	<script type="text/javascript">
 		$('.btn-insert').click(function() {
 			if ('' != '${user.us_id}') {

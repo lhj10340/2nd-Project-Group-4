@@ -49,7 +49,7 @@
 	      </a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/"/>"> 전체리뷰 </a>
+	      <a class="nav-link text-white" href="<c:url value="/review/list"/>"> 전체리뷰 </a>
 	    </li>
 	    <li class="nav-item">
 				<a class="nav-link text-white" href="<c:url value="/restaurant/register"/>"> 매장등록 </a>
