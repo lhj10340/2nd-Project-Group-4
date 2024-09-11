@@ -3,7 +3,7 @@ html, body {width: 100%;height: 100%;margin: 0;padding: 0;}
 body{background-color: #F9EBDE;}
 .rating {color: #f2be11 !important;}
 .jumbotron{background-color: #bfb0a3 !important; margin-bottom: 0 !important; padding: 2rem 1rem !important;}
-.body-con{margin-top: 2% !important; min-height: 100%; height: auto; padding-bottom: 168px;}
+.body-con{margin-top: 2% !important; min-height: 100%; height: auto; padding-bottom: 5%;}
 ul, ol {list-style: none;}
 .ft_info {float: left;}
 .ft_info .info_ul {list-style: none;padding: 0;margin: 0 0 10px 0;}
