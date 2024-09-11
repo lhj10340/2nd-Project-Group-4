@@ -87,6 +87,10 @@
 		
 	<c:otherwise>
 	   		    
+ 		<li class="nav-item">
+			<a class="nav-link text-white" href="<c:url value="/user/mypage"/>">마이 페이지</a>
+		</li>
+	   		    
 		<li class="nav-item">
 			<a class="nav-link text-white" href="<c:url value="/user/logout"/>">로그아웃</a>
 		</li>
@@ -135,7 +139,7 @@
 				
 					    <div class="form-group form-check">
 					      <label class="form-check-label">
-					        <input class="form-check-input" type="checkbox" name="remember"> 자동 로그인
+					        <input class="form-check-input" type="checkbox" value="true" name="remember"> 자동 로그인
 					      </label>
 					    </div>
 					    <div class="d-flex justify-content-end">
