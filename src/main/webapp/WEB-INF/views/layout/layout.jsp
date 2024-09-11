@@ -23,7 +23,7 @@
 	<div id="main">
 
    
-	    <div class="containe body-conr">
+	    <div class="containe body-con">
 	        <tiles:insertAttribute name="body" />
 	    </div>
      </div>                                       
