@@ -147,7 +147,7 @@
            '           </div>' + 
            '            <div class="desc">' + 
            '                <div class="ellipsis">'+restaurant[2]+'</div>' + 
-           '                <div class="jibun ellipsis">'+restaurant[3]+' ('+restaurant[4]+')</div>' + 
+           '                <div class="jibun ellipsis">'+restaurant[3]+' (<span class="rating">★</span>'+restaurant[4]+')</div>' + 
            '                <div><a href="#" onclick="w3_open()" class="link">리뷰보기 </a></div>' + 
            '            </div>' + 
            '        </div>' + 
@@ -160,8 +160,6 @@
 		    position: new kakao.maps.LatLng(getLat, getLng)
 
 		});
-       	
-       	
        	overlay.setMap(map);
 	}
 
@@ -196,7 +194,7 @@
 		$.ajax({
 	        url: "<c:url value="/ajax/info"/>",
 			type: "post",
-			dataType : 'json',
+			dataType : "json",
 			data : {lat: lat, lng: lng},
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
