@@ -12,7 +12,12 @@ public interface UserDAO {
 
 	boolean signup(@Param("us")UserVO user_);
 
+	void updateMemberCookie(@Param("us")UserVO user);
+
+	UserVO selectUserByCookie(@Param("us_cookie")String sid);
+
 	void add_us_failed(@Param("us_id")String us_id);
 
 	void reset_us_failed(@Param("us_id")String us_id);
+
 }
