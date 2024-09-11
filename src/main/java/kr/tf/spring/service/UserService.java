@@ -7,4 +7,6 @@ public interface UserService {
 
 	UserVO login(LoginDTO user_);
 
+	boolean signup(UserVO user_);
+
 }

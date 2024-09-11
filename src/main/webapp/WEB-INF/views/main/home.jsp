@@ -5,13 +5,14 @@
 <html>
 <head>
 	<title>Home</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="<c:url value="/resources/css/map.css" />">
 	<style type="text/css">
 		.body-con{all: unset; margin-top: 0 !important; padding-bottom: 0px !important;}
 	</style>
 </head>
 <body>
-<div class="map_wrap"> 
+<div class="map_wrap">
     <!-- 지도가 표시될 div -->
     <div id="map"></div>
     
@@ -52,6 +53,7 @@
     </div>   
 </div>
 <script>
+ 	var re_id;
 	var container = document.getElementById('map');
 	var options = {
 		//기본위치는 학원위치
@@ -145,16 +147,18 @@
            '           </div>' + 
            '            <div class="desc">' + 
            '                <div class="ellipsis">'+restaurant[2]+'</div>' + 
-           '                <div class="jibun ellipsis">'+restaurant[3]+' (<span class="rating">★</span>'+restaurant[4]+')</div>' + 
-           '                <div><a href="#" onclick="alert(\'구현예정\\n매장고유번호: '+restaurant[0]+'\');" class="link">리뷰보기</a></div>' + 
+           '                <div class="jibun ellipsis">'+restaurant[3]+' ('+restaurant[4]+')</div>' + 
+           '                <div><a href="#" onclick="w3_open()" class="link">리뷰보기 </a></div>' + 
            '            </div>' + 
            '        </div>' + 
            '    </div>' +    
            '</div>';
+          	re_id = restaurant[0]; //아이디 저 아래다가 전송 (sidebar에게)
        	var overlay = new kakao.maps.CustomOverlay({
 		    content: content,
 		    map: map,
-		    position: new kakao.maps.LatLng(getLat, getLng)  
+		    position: new kakao.maps.LatLng(getLat, getLng)
+
 		});
        	
        	
@@ -280,6 +284,8 @@
 		$(this).removeClass('off');	
 	});
 </script>
+
+
 
 </body>
 </html>
