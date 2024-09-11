@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.tf.spring.model.dto.LoginDTO;
 import kr.tf.spring.model.vo.UserVO;
@@ -41,7 +41,7 @@ public class UserController {
 				user.setRemeber(user_.isRemember());
 			
 			    if (user.getUs_auth() == 9) {   // us_auth 값이 9인 경우
-			    	 return "redirect:/adminhome"; // 관리자 페이지로 이동
+			    	 return "redirect:/admin/adminhome"; // 관리자 페이지로 이동
 			    } else {
 				mo.addAttribute("msg", user.getUs_id() + "님 환영합니다.");
 				mo.addAttribute("url","/"); // 일반 사용자페이지로 이동 
