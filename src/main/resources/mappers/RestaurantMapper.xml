@@ -65,4 +65,13 @@
 		insert into file(fi_name, fi_ori_name, fi_re_id)
 		values(#{file.fi_name},#{file.fi_ori_name},#{file.fi_re_id})
 	</insert>
+	
+	<select id="findRestByUserId" resultType="kr.tf.spring.model.vo.RestaurantVO">
+	select * from restaurant where re_us_id = #{user.us_id}
+	</select>
+	
+	
+	
+	
+	
 </mapper>

@@ -8,7 +8,7 @@
 
 </head>
 <body>
-
+	<div>리스트... ${list } 가 없으면 널이라 안뜸</div>
 	<h1>마이페이지 지만 곧 메뉴관리 페이지로 바뀔 예정</h1>
 	<form action="<c:url value="/mypage"/>" method="post" id="form">
 		<div class="form-group">
