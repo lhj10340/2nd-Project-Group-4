@@ -53,6 +53,17 @@ public class RestaurantController {
 	    model.addAttribute("restaurantList", restaurantList); 
 	    return "/restaurant/registerList"; 
 	}
+	
+	@GetMapping("/update")
+	public String reviewUpdate(Model model,Integer re_id) {
+		RestaurantVO rest = restaurantService.findRestById(re_id);
+		if(rest == null) {
+			model.addAttribute("url", "/restaurant/registerList");
+			model.addAttribute("msg", "잘못된 매장입니다.");
+		}
+		model.addAttribute("rest", rest);
+	    return "/restaurant/update";
+	}
 
 	
 	

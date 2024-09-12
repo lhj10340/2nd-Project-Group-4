@@ -23,6 +23,7 @@ import kr.tf.spring.model.vo.FileVO;
 import kr.tf.spring.model.vo.RestaurantVO;
 import kr.tf.spring.model.vo.ReviewVO;
 import kr.tf.spring.service.RestaurantService;
+import kr.tf.spring.service.ReviewService;
 import kr.tf.spring.service.UserService;
 
 
@@ -37,6 +38,9 @@ public class HomeController {
 	
 	@Autowired
 	private RestaurantService restaurantService;
+
+	@Autowired
+	private  ReviewService reviewService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
@@ -103,12 +107,25 @@ public class HomeController {
 	
 	@PostMapping("/ajax/rv_data")
 	@ResponseBody
-	public Map<String, Object> restaurantData(@RequestBody ReviewVO rv){
+	public Map<String, Object> restaurantData(@RequestBody ReviewVO rv_){
 		Map<String, Object> map = new HashMap<String, Object>();
-		//get rv_data 만들어 주세용
-		System.out.println("리뷰를 보내주세용");
+		// rv_ 는 화면에서 받아왔어용
+		//rv = rv_re_id 값만 가지고 있고 나머지 값은 가지지 않음
+
+		//rv 는 db에서 받아옵니다.
+		//하나만 받아올 것이기 때문에 limit 1 로 받아옵니다.
+		ReviewVO rv = reviewService.getReviewByRestId(rv_);
+
+		System.out.println("홈컨트롤러 리뷰데이터 ajax로 전송하는 부분 line 108 입니다.");
 		System.out.println(rv);
-		map.put("rv", "test");
+
+		if (rv == null) {
+			//만약 리뷰가 없는 매장일 경우 필요한 데이터를전송하고싶으면 이곳에 넣어주세요
+		} else {
+			//리뷰가 하나라도 있으면
+			map.put("rv", rv);
+		}
+		//map에 담아서 rv를 전송합니다 ( -> 사용예제 data.rv. 리뷰VO에 있는 값들)(홈으로 전송)
 		return map;
 	}
 	

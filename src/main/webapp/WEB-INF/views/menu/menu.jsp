@@ -74,7 +74,7 @@
 						</div>
 					</td>
 					<td>
-						<a class="w3-button w3-white w3-border w3-border-yellow w3-round-large" data-toggle="modal" data-target="#myModal-update-menu">수정</a>
+						<a class="w3-button w3-white w3-border w3-border-yellow w3-round-large" data-toggle="modal" data-target="#myModal-update-menu-${me.me_id}">수정</a>
 						<a href='<c:url value="/menu/delete_menu?me_id=${me.me_id }"/>' class="w3-button w3-white w3-border w3-border-red w3-round-large">삭제</a>
 					</td>
 				</tr>
@@ -85,14 +85,14 @@
 				
 				
 				
-				<!-- update-menu modal -->
+<!-- update-menu modal -->
 	
 	
 <div class="container">
 
 
   <!-- The Modal -->
-  <div class="modal fade" id="myModal-update-menu">
+  <div class="modal fade" id="myModal-update-menu-${me.me_id}">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
       
