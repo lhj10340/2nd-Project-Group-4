@@ -195,7 +195,7 @@
         		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id">
         	</div>
         	<div class="form-group">
-        		<input type="password" class="form-control" id="pw" placeholder="PASSWORD" name="us_pw">	
+        		<input type="password" class="form-control" id="us_pw" placeholder="PASSWORD" name="us_pw">	
         	</div>
         	<div class="form-group">
         		<input type="password" class="form-control" id="pw2" placeholder="PASSWORD Check" name="us_pw2">
@@ -215,9 +215,6 @@
 			  </div>
 			</div>
 			
-			<div>
-				<label id="email-error" class="error" for="email" style=""></label>
-			</div>
 			
 			<label for="id" style="margin-top: 10px;">이름</label>
    	 		
@@ -298,5 +295,53 @@
     </div>
   </div>
 </c:if>
+
+<script type="text/javascript">
+
+				$('#form').validate({
+					rules : {
+						us_id : {
+							required : true,
+							regex : /^\w{8,13}$/
+						},
+						us_pw : {
+							required : true,
+							regex : /^[a-zA-Z0-9!@#$]{8,15}$/
+						},
+						us_pw2 : {
+							equalTo : us_pw
+						}
+					},
+					messages : {
+						us_id : {
+							required : '필수 항목입니다.',
+							regex : '아이디는 영어, 숫자만 가능하며, 8~13자이어야 합니다.'
+						},
+						us_pw : {
+							required : '필수 항목입니다.',
+							regex : '비밀번호는 영어, 숫자, 특수문자(!@#$)만 가능하며, 8~15자이어야 합니다.'
+						},
+						us_pw2 : {
+							equalTo : '비번과 일치하지 않습니다.'
+						}
+					},
+					submitHandler : function() {
+						var id = $("#id").val();
+						var res = checkId(id);
+						if(res == 0){
+							displayCheckId(res);
+							alert('이미 사용중인 아이디입니다.');
+							return false;
+						}
+						return true;
+					}
+				});
+				$.validator.addMethod('regex', function(value, element, regex) {
+					var re = new RegExp(regex);
+					return this.optional(element) || re.test(value);
+				}, "정규표현식을 확인하세요.");
+		
+</script>
+
 </body>
 </html>
