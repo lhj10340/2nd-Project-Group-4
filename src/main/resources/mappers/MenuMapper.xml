@@ -9,9 +9,11 @@
  	</select>
  	
  	<insert id="setMenuInDB">
- 	insert into menu(me_re_id, me_title, me_category, me_main_menu, me_show, me_price, me_thumb)
- 	value (#{menu.me_re_id}, #{menu.me_title}, #{menu.me_category}, #{menu.me_main_menu}, #{menu.me_show}, #{menu.me_price},#{menu.me_thumb})
- 	</insert>
+	  <![CDATA[
+	    insert into menu(me_re_id, me_title, me_category, me_main_menu, me_show, me_price, me_thumb)
+	    values (#{menu.me_re_id}, #{menu.me_title}, #{menu.me_category}, #{menu.me_main_menu}, #{menu.me_show}, #{menu.me_price}, #{menu.me_thumb})
+	  ]]>
+	</insert>
 
 
 </mapper>
