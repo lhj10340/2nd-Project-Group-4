@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.tf.spring.model.vo.FileVO;
 import kr.tf.spring.model.vo.RestaurantVO;
 import kr.tf.spring.model.vo.ReviewVO;
 import kr.tf.spring.service.RestaurantService;
@@ -52,12 +53,19 @@ public class HomeController {
 	
 	@PostMapping("/ajax/info")
 	@ResponseBody
-	public RestaurantVO ajaxInfo(@RequestParam("re_id") String str_re_id, HttpServletRequest req, HttpServletResponse res) {
-		
-		Integer re_id = Integer.parseInt(str_re_id);
-		
-		RestaurantVO map = restaurantService.findRestById(re_id);
-		return map;
+	public Map<String, Object> ajaxInfo(@RequestParam("re_id") String str_re_id, HttpServletRequest req, HttpServletResponse res) {
+
+	    Integer re_id = Integer.parseInt(str_re_id);
+
+	    RestaurantVO map = restaurantService.findRestById(re_id);
+	    List<FileVO> files = restaurantService.selectFileRestaurant(re_id);
+
+	    // 데이터를 담기 위한 Map 생성
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("restaurant", map); // RestaurantVO 객체
+	    response.put("files", files);    // 파일 리스트
+
+	    return response;  // Map 반환
 	}
 	
 	@PostMapping("/ajax/search")
@@ -73,6 +81,15 @@ public class HomeController {
 	    
 		List<RestaurantVO> list = restaurantService.searchList(sfl, stx, sort);
 		return list;
+	}
+	
+	@PostMapping("/ajax/files")
+	@ResponseBody
+	public List<FileVO> ajaxFiles(@RequestParam("re_id") Integer re_id,HttpServletRequest req, HttpServletResponse res) {
+		
+		List<FileVO> files = restaurantService.selectFileRestaurant(re_id);
+	
+		return files;
 	}
 	
 	@PostMapping("/ajax/res_data")
