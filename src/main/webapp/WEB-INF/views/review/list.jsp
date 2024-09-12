@@ -42,7 +42,7 @@
 				<c:forEach items="${reviewList }" var="review">
 					<tr>
 						<td>${review.rv_id }</td>
-						<td><a href="#">${review.rv_re_id }</a></td>
+						<td><a href="#">${review.rv_name }</a></td>
 						<td><c:url var="url" value="/review/detail">
 								<c:param name="rv_tf" value="${pm.cri.rv_tf }" />
 								<c:param name="page" value="${pm.cri.page }" />
@@ -120,8 +120,8 @@
 						<c:if test="${pm.cri.type eq 'title' }">selected</c:if>>제목</option>
 					<option value="id"
 						<c:if test="${pm.cri.type eq 'id' }">selected</c:if>>작성자</option>
-					<option value="re"
-						<c:if test="${pm.cri.type eq 're' }">selected</c:if>>매장명</option>
+					<option value="name"
+						<c:if test="${pm.cri.type eq 'name' }">selected</c:if>>매장명</option>
 				</select> <input type="text" class="form-control" placeholder="검색어"
 					name="search" value="${pm.cri.search }">
 				<div class="input-group-append">

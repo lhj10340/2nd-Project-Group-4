@@ -51,6 +51,7 @@ DROP TABLE IF EXISTS `review`;
 CREATE TABLE `review` (
 	`rv_id`			int auto_increment primary key	NOT NULL,
 	`rv_re_id`		int			NULL,
+    `rv_re_name`	varchar(50)	NULL,
 	`rv_us_id`		varchar(20)	NULL,
 	`rv_title`		varchar(50)	NULL,
 	`rv_content`	longtext	NULL,
@@ -154,6 +155,13 @@ ALTER TABLE `review` ADD CONSTRAINT `FK_restaurant_TO_review_1` FOREIGN KEY (
 )
 REFERENCES `restaurant` (
 	`re_id`
+);
+
+ALTER TABLE `review` ADD CONSTRAINT `FK_restaurant_TO_review_2` FOREIGN KEY (
+	`rv_re_name`
+)
+REFERENCES `restaurant` (
+	`re_name`
 );
 
 ALTER TABLE `review` ADD CONSTRAINT `FK_user_TO_review_1` FOREIGN KEY (
