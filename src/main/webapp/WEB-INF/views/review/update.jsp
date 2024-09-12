@@ -35,7 +35,7 @@
 				<input type="image" class="form-control" name="imageList">
 			</c:forEach>
 		</div>
-		<button class="btn btn-outline-info col-12 mb-3">게시글 수정</button>
+		<button class="btn btn-search-color col-12 mb-3">게시글 수정</button>
 		<input type="hidden" name="rv_tf" value="${cri.rv_tf }">
 		<input type="hidden" name="rv_id" value="${review.rv_id }">
 		<input type="hidden" name="page" value="${cri.page }">

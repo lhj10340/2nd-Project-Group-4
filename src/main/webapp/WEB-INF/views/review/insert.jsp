@@ -19,6 +19,12 @@
 .fixed-size {
 	resize: none; /* 사용자가 크기를 조정하지 못하도록 설정 */
 }
+
+.content {
+	resize: none;
+}
+
+textarea {resize: none;}
 </style>
 </head>
 <body>
@@ -65,9 +71,12 @@
 
 		<div class="form-group mt-3">
 			<label for="content">내용: </label>
-			<textarea type="text" class="form-control" id="content"
-				name="rv_content"></textarea>
+			<textarea class="content" id="content" name="content" maxlength="200" onkeyup="countText(this.value);"></textarea>
+			<div class="text-count">
+				<span id="count">0</span> / 200
+			</div>
 		</div>
+		
 		<div class="form-group">
 			<label>사진첨부:</label> <input type="file" class="form-control"
 				name="fileList" accept=".jpg, .jpeg, .png"> <input
@@ -75,7 +84,7 @@
 				accept=".jpg, .jpeg, .png"> <input type="file"
 				class="form-control" name="fileList" accept=".jpg, .jpeg, .png">
 		</div>
-		<button class="btn btn-outline-info col-12 mb-3">리뷰 등록</button>
+		<button class="btn btn-search-color col-12 mb-3">리뷰 등록</button>
 		<input type="hidden" name="rv_tf" value="${rv_tf }">
 	</form>
 	<script>
@@ -111,6 +120,16 @@
 		        document.getElementById('rv_tf').value = '0';
 		    }
 		});
+        
+		function countText(val){
+			val = val.replace(/\s+/g, '');
+			var count = val.length; //문자수
+			var maxLength = 200;
+			$("#count").text(count);
+			if(count > maxLength){
+				$("#content").val(val.slice(0, maxLength));  
+			}
+		}
 	</script>
 </body>
 </html>

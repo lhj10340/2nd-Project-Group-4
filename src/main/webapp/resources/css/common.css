@@ -23,3 +23,8 @@ ul, ol {list-style: none;}
 .footer-con {display: flex;justify-content: space-between;}
 .navbar{background-color:#815854 !important;}
 .btn-search-color{background: rgba(129, 88, 84, 0.8); color: #F9EBDE !important;}
+.btn-review-color {
+  background: rgba(129, 88, 84, 0.8);
+  color: #F9EBDE !important;
+  margin-top: 10px;
+}

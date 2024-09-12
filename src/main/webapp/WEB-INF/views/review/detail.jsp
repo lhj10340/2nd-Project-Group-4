@@ -48,7 +48,7 @@
 		<c:param name="type" value="${cri.type }" />
 		<c:param name="search" value="${cri.search }" />
 	</c:url>
-	<a href="${url }" class="btn btn-outline-info">목록</a>
+	<a href="${url }" class="btn btn-search-color">목록</a>
 		<c:if test="${review.rv_us_id eq user.us_id }">
 		<c:url var="url" value="/review/update">
 			<c:param name="rv_tf" value="${cri.rv_tf }"/>
@@ -57,7 +57,7 @@
 			<c:param name="search" value="${cri.search}"/>
 			<c:param name="rv_id" value="${review.rv_id }"/>
 		</c:url>
-		<a href="${url}" class="btn btn-outline-warning">수정</a>
+		<a href="${url}" class="btn btn-search-color">수정</a>
 		<c:url var="url" value="/review/delete">
 			<c:param name="rv_tf" value="${cri.rv_tf }"/>
 			<c:param name="page" value="${cri.page }"/>
@@ -65,7 +65,7 @@
 			<c:param name="search" value="${cri.search}"/>
 			<c:param name="rv_id" value="${review.rv_id }"/>
 		</c:url>
-		<a href="${url}" class="btn btn-outline-danger">삭제</a>
+		<a href="${url}" class="btn btn-search-color">삭제</a>
 	</c:if>
 </body>
 </html>
