@@ -47,7 +47,7 @@
 			<c:forEach items="${list }" var="me">
 				<tbody>
 				<tr class="w3-hover-green" style="text-align: center; vertical-align: middle;">
-					<td><img src=""  alt="img" >${me.me_thumb }</td>
+					<td><img src="<c:url value="/uploads/${me.me_thumb }"/>"  alt="img" ></td>
 					<td>${me.me_title }</td>
 					<td>${me.me_category }</td>
 					<td>${me.me_price }</td>
