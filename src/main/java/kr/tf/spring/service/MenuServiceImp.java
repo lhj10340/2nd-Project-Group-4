@@ -20,7 +20,7 @@ public class MenuServiceImp implements MenuService{
 	@Override
 	public List<MenuVO> getMenuListByRestId(RestaurantVO rest) {
 		if (rest == null) {
-//			return null; // 디버깅용
+			return null; 
 		}
 		
 		return menuDao.getMenuListByRestId(rest);
@@ -34,7 +34,7 @@ public class MenuServiceImp implements MenuService{
 		}
 		
 		if (user == null) {
-//			return false; //나중에 주석 풀어주어야 함
+			return false; 
 		}
 		
 		
@@ -49,6 +49,16 @@ public class MenuServiceImp implements MenuService{
 			return false;
 		}
 		return menuDao.deleteMenuById(me_id);
+	}
+
+
+	@Override
+	public boolean updateMenu(MenuVO menu) {
+		if (menu == null) {
+			return false;
+		}
+		
+		return menuDao.updateMenu(menu);
 	}
 	
 }
