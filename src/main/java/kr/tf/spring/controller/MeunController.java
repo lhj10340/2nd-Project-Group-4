@@ -59,7 +59,7 @@ public class MeunController {
 		//menuVO 받아온 것에서 아이디랑 레스토랑 아이디 추가한 뒤 (set) db에 저장 후 성공 유무 반환 
 		//중복된 매뉴 확인해줄 것
 //		menu.setMe_re_id(rest.getRe_id());
-		menu.setMe_re_id(2); //디버깅용 값이 없어서 그냥 2넣어주었습니다.
+		menu.setMe_re_id(1); //디버깅용 값이 없어서 그냥 1넣어주었습니다.
 		boolean res = menuService.setNewMenu(menu, user);
 		
 		if (res) {
@@ -69,8 +69,43 @@ public class MeunController {
 			mo.addAttribute("msg", "오류.");
 			mo.addAttribute("url","/menu/menu");
 		}
+
+		return "/main/msg";
+	}
+	@GetMapping("/delete_menu")
+	public String delete_menu(Model mo, String me_id) {
+		
+		boolean res = menuService.deleteMenuById(me_id);
+		if (res) {
+			mo.addAttribute("msg", "메뉴 삭제 완료.");
+			mo.addAttribute("url","/menu/menu");
+		} else {
+			mo.addAttribute("msg", "오류.");
+			mo.addAttribute("url","/menu/menu");
+		}
+		
+		return "/main/msg";
+	}
+	
+	@PostMapping("/update_menu")
+	public String update_menu(Model mo, MenuVO menu, HttpSession session) {
+		UserVO user = (UserVO)session.getAttribute("user");//세션에서 유저 가져오고
+		RestaurantVO rest = restaurantService.findRestByUserId(user);//가져온 유저가 가지고있는 레스토랑 확인
+//		menu.setMe_re_id(rest.getRe_id());
+		menu.setMe_re_id(1); // 디버깅용
 		System.out.println(menu);
-		System.out.println("테스트중 메뉴 컨트롤러에 메뉴add >> 성공적으로 실행됨");
+		boolean res = true;
+		//menuService.updateMenuById(menu);
+			
+		if (res) {
+			mo.addAttribute("msg", "메뉴 수정 완료.");
+			mo.addAttribute("url","/menu/menu");
+		} else {
+			mo.addAttribute("msg", "오류.");
+			mo.addAttribute("url","/menu/menu");
+		}
+		
+		
 		return "/main/msg";
 	}
 	
