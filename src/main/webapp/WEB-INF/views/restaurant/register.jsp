@@ -32,6 +32,21 @@
 			<input type="text" name="re_name" id="re_name" value="" class="form-control-rest">
 		</div>
 		<div class="form-group">
+			<label for="re_category">어떤음식을 파는 곳 인가요?</label>
+			<select name="re_category" class="form-control-rest" required>
+				<option value="">선택해주세요:)</option>
+				<option value="한식">한식</option>
+				<option value="양식">양식</option>
+				<option value="중식">중식</option>
+				<option value="일식">일식</option>
+				<option value="디저트">디저트</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="re_day">영업일</label>
+			<input type="text" name="re_day" id="re_day" value="" placeholder="ex) 월~금 09:00 ~ 21:00 연중무휴" class="form-control-rest">
+		</div>
+		<div class="form-group">
 			<label for="phone1">가게연락처</label>
 			<br>
 			<input type="hidden" name="re_phone" id="re_phone" value="">
@@ -73,7 +88,7 @@
 			<input type="file" class="form-control-rest frm_file" name="fileList">
 			<input type="file" class="form-control-rest frm_file" name="fileList">
 			<input type="file" class="form-control-rest frm_file" name="fileList">
-			<img class="img_preview"/>
+			<img class="img_preview" width="100%"/>
 		</div>
 		<div class="form-group button-group">
 			<button type="submit" class="btn btn-search-color">매장등록</button>
@@ -97,7 +112,11 @@
 	function countText(val){
 		val = val.replace(/\s+/g, '');
 		var count = val.length; //문자수
+		var maxLength = 500;
 		$("#count").text(count);
+		if(count > maxLength){
+			$("#re_content").val(val.slice(0, maxLength));  
+		}
 	}
 	function frestaurantsubmit(f){
 		console.log(f);
@@ -110,8 +129,8 @@
 			// 정상적으로 검색이 완료됐으면 
 			var re_x, re_y = '';
 		     if (status === kakao.maps.services.Status.OK) {
-		    	 re_x = result[0].x;
-		    	 re_y = result[0].y;
+		    	 re_x = parseFloat(result[0].x);
+		    	 re_y = parseFloat(result[0].y);
 		    	 //LatLng
 		    	 $("#re_x").val(re_x);
 		    	 $("#re_y").val(re_y);
@@ -167,6 +186,8 @@
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('re_zip').value = data.zonecode;
                 document.getElementById("re_address").value = addr;
+                //좌표 가져오기
+                geocoderMap(addr);
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("re_address2").focus();
 
@@ -184,9 +205,6 @@
             width : '100%',
             height : '100%'
         }).embed(element_wrap);
-
-	    //좌표 가져오기
-        geocoderMap(addr);
         
 	    // iframe을 넣은 element를 보이게 한다.
         element_wrap.style.display = 'block';
@@ -194,7 +212,6 @@
     }
     
     function readURL(input) {
-		console.log(input);
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 

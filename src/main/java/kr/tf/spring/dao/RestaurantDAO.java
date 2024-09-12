@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.tf.spring.model.vo.FileVO;
 import kr.tf.spring.model.vo.RestaurantVO;
 
 public interface RestaurantDAO {
@@ -16,4 +17,6 @@ public interface RestaurantDAO {
 	RestaurantVO getReviewName(@Param("re_id")int restId);
 	
 	boolean restaurantRegistert(@Param("rest")RestaurantVO rest);
+
+	void insertFile(@Param("file")FileVO fileVo);
 }
