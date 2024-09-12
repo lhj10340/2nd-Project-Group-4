@@ -14,4 +14,6 @@ public interface MenuService {
 
 	boolean deleteMenuById(String me_id);
 
+	boolean updateMenu(MenuVO menu);
+
 }

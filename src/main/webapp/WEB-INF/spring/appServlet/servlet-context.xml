@@ -51,6 +51,7 @@
 	<beans:bean id="loginInterceptor" class="kr.tf.spring.interceptor.LoginInterceptor"/>
 	<beans:bean id="autoLoginInterceptor" class="kr.tf.spring.interceptor.AutoLoginInterceptor"/>
 
+
 	<interceptors>
 		
 		<!-- 관리자 이외의 인원이 관리자 권한으로 접근할 경우 사용할 interceptor -->
@@ -91,6 +92,7 @@
 		
 	</interceptors>
 	
+
 	<!-- uploadPath라는 bean을 등록 -->	
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg value="d:\\uploads"/>
