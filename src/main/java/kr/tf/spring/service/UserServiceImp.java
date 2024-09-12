@@ -215,7 +215,7 @@ public class UserServiceImp implements UserService{
 			user_.setUs_pw(user.getUs_pw());
 		} else {
 			String encPw = passwordEncoder.encode(user_.getUs_pw());
-			user.setUs_pw(encPw);
+			user_.setUs_pw(encPw);
 		}
 		
 		return userDao.updatePassword(user_);

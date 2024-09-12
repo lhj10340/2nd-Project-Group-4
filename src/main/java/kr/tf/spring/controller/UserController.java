@@ -115,9 +115,9 @@ public class UserController {
 		boolean res = userService.updatePassword(user, user_);
 		
 		if(res) {
-			mo.addAttribute("비밀번호 수정을 완료하였습니다.");
+			mo.addAttribute("msg", "비밀번호 수정을 완료하였습니다.");
 		} else {
-			mo.addAttribute("비밀번호 수정을 실패하였습니다.");
+			mo.addAttribute("msg", "비밀번호 수정을 실패하였습니다.");
 		}
 		mo.addAttribute("url", "/user/mypage");
 		

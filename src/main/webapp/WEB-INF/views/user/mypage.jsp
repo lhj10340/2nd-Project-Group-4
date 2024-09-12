@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,9 +45,11 @@ margin: auto;
 			<label for="gender"> 성별</label>
 			<input type="text" class="form-control" id="gender" name="us_gender" value="${user.us_gender }" readonly>
 		</div>
+		
 		<div class="form-group">
 			<label for="hbd"> 생년월일</label>
-			<input type="text" class="form-control" id="hbd" name="us_hbd" value="${user.us_hbd }" readonly>
+			<input type="text" class="form-control" id="hbd" name="us_hbd" 
+				value="<fmt:formatDate value="${user.us_hbd }" pattern="yyyy-MM-dd"/>" readonly>
 		</div>
 		<div class="form-group">
 			<label for="phone"> 전화번호</label>
