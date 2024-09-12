@@ -56,8 +56,8 @@
 	    <li class="nav-item">
 				<a class="nav-link text-white" href="<c:url value="/restaurant/registerList"/>"> 매장List</a>
 	    </li>
+	 </c:if>
 	   </ul>
-	    
 		
 <ul class="navbar-nav">
 
