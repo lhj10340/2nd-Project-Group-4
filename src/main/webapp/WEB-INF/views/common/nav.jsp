@@ -48,8 +48,8 @@
 	      <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" >매장관리</a>
 	      <div class="dropdown-menu"  style="position: inline-block;">
 	      	<a class="dropdown-item nav-link hover-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장등록 </a>
+	      	<a class="dropdown-item nav-link hover-link" href="<c:url value="/restaurant/update"/>">&nbsp;매장 정보 관리</a>
 	        <a class="dropdown-item nav-link hover-link" href="<c:url value="/menu/menu"/>">&nbsp;메뉴 정보 등록/수정 </a>
-	        <a class="dropdown-item nav-link hover-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장 정보 관리</a>
 	        <a class="dropdown-item nav-link hover-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장 리뷰/요청사항 </a>
 	       </div>
 	    </li>
@@ -60,13 +60,6 @@
 	</ul>
 		
 <ul class="navbar-nav">
-
-  <!-- us_auth == 8일 때 매장 관리 메뉴 -->
-	<c:if test="${user.us_auth == 8 or user.us_auth == 7}">
-    <li class="nav-item">
-      <a class="nav-link text-white" href="<c:url value='/admin/store'/>">매장 관리</a>
-    </li>
-  </c:if>
 
   <!-- us_auth == 9일 때 관리자 페이지 -->
   <c:if test="${user.us_auth == 9}">
