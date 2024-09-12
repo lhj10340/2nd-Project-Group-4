@@ -26,4 +26,4 @@ ul, ol {list-style: none;}
 .title-p{font-size: 42px; text-align: center;}
 .dropdown-item{color: #F9EBDE !important;}
 .dropdown-menu{background: #b07872 !important;}
-.nav-link:hover{background: #F9EBDE !important;color: #815854 !important;}
+.hover-link:hover{background: #F9EBDE !important;color: #815854 !important;}
