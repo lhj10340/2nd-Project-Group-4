@@ -52,8 +52,11 @@ public class HomeController {
 	
 	@PostMapping("/ajax/info")
 	@ResponseBody
-	public RestaurantVO ajaxInfo(@RequestParam("lat") String lat, @RequestParam("lng") String lng, HttpServletRequest req, HttpServletResponse res) {
-		RestaurantVO map = restaurantService.infoRest(lat, lng);
+	public RestaurantVO ajaxInfo(@RequestParam("re_id") String str_re_id, HttpServletRequest req, HttpServletResponse res) {
+		
+		Integer re_id = Integer.parseInt(str_re_id);
+		
+		RestaurantVO map = restaurantService.findRestById(re_id);
 		return map;
 	}
 	
