@@ -14,41 +14,41 @@
 <div class="form-div">
 	<p class="title-p">매장수정</p>
 	<form name="frestaurant" id="frestaurant" onsubmit="return frestaurantsubmit(this);" action="<c:url value="/restaurant/insert"/>"  method="POST" enctype="multipart/form-data" autocomplete="off">
-		<input type="hidden" name="re_us_id" value="${user.us_id}">
-		<input type="hidden" name="re_x" value="" id="re_x">
-		<input type="hidden" name="re_y" value="" id="re_y">
+		<input type="hidden" name="re_us_id" value="${rest.re_us_id}">
+		<input type="hidden" name="re_x" value="${rest.re_x}" id="re_x">
+		<input type="hidden" name="re_y" value="${rest.re_y}" id="re_y">
 		<div class="form-group">
 			<label for="re_name">매장명</label>
-			<input type="text" name="re_name" id="re_name" value="" class="form-control-rest">
+			<input type="text" name="re_name" id="re_name" value="${rest.re_name}" class="form-control-rest" readonly="readonly">
 		</div>
 		<div class="form-group">
 			<label for="re_category">어떤음식을 파는 곳 인가요?</label>
-			<select name="re_category" class="form-control-rest" >
-				<option value="">선택해주세요:)</option>
-				<option value="한식">한식</option>
-				<option value="양식">양식</option>
-				<option value="중식">중식</option>
-				<option value="일식">일식</option>
-				<option value="디저트">디저트</option>
+			<select name="re_category" class="form-control-rest">
+			    <option value="">선택해주세요:)</option>
+			    <option value="한식" ${rest.re_category eq '한식' ? 'selected' : ''}>한식</option>
+			    <option value="양식" ${rest.re_category eq '양식' ? 'selected' : ''}>양식</option>
+			    <option value="중식" ${rest.re_category eq '중식' ? 'selected' : ''}>중식</option>
+			    <option value="일식" ${rest.re_category eq '일식' ? 'selected' : ''}>일식</option>
+			    <option value="디저트" ${rest.re_category eq '디저트' ? 'selected' : ''}>디저트</option>
 			</select>
 		</div>
 		<div class="form-group">
 			<label for="re_state">영업상태</label>
-			<select name="re_state" id="re_state" class="form-control-rest" >
-				<option value="신규오픈">신규오픈</option>
-				<option value="영업중">영업중</option>
-				<option value="영업종료">영업종료</option>
-				<option value="폐업">폐업</option>
+			<select name="re_state" id="re_state" class="form-control-rest">
+			    <option value="신규오픈" ${rest.re_state eq '신규오픈' ? 'selected' : ''}>신규오픈</option>
+			    <option value="영업중" ${rest.re_state eq '영업중' ? 'selected' : ''}>영업중</option>
+			    <option value="영업종료" ${rest.re_state eq '영업종료' ? 'selected' : ''}>영업종료</option>
+			    <option value="폐업" ${rest.re_state eq '폐업' ? 'selected' : ''}>폐업</option>
 			</select>
 		</div>
 		<div class="form-group">
 			<label for="re_day">영업일</label>
-			<input type="text" name="re_day" id="re_day" value="" placeholder="ex) 월~금 09:00 ~ 21:00 연중무휴" class="form-control-rest">
+			<input type="text" name="re_day" id="re_day" value="${rest.re_day}" placeholder="ex) 월~금 09:00 ~ 21:00 연중무휴" class="form-control-rest">
 		</div>
 		<div class="form-group">
 			<label for="phone1">가게연락처</label>
 			<br>
-			<input type="hidden" name="re_phone" id="re_phone" value="">
+			<input type="hidden" name="re_phone" id="re_phone" value="${rest.re_phone}">
 			<input type="text" data-num="1" id="phone1" size="5" class="form-control-rest phone" onkeyup="getPhone();"><span class="hyphen">-</span> 
 			<input type="text" data-num="2" id="phone2" size="5" class="form-control-rest phone" onkeyup="getPhone();"><span class="hyphen">-</span> 
 			<input type="text" data-num="3" id="phone3" size="5" class="form-control-rest phone" onkeyup="getPhone();">
@@ -56,7 +56,7 @@
 		<div class="form-group">
 			<label for="re_zip">우편번호</label>
 			<br>
-			<input type="text" name="re_zip" id="re_zip" placeholder="우편번호" onfocus="getDaumPostcode()" required readonly class="form-control zip-class">
+			<input type="text" name="re_zip" value="${rest.re_zip}" id="re_zip" placeholder="우편번호" onfocus="getDaumPostcode()" required readonly class="form-control zip-class">
 			<input type="button" onclick="getDaumPostcode()" value="우편번호 찾기" class="btn btn-search-color">
 			<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
 				<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
@@ -64,20 +64,20 @@
 		</div>
 		<div class="form-group">
 			<label for="re_address">기본주소(도로명)</label>
-			<input type="text" name="re_address" id="re_address" placeholder="우편번호 찾기로 입력할 수 있어요:)" class="form-control-rest" required readonly>
+			<input type="text" name="re_address" id="re_address" value="${rest.re_address}" placeholder="우편번호 찾기로 입력할 수 있어요:)" class="form-control-rest" required readonly>
 		</div>
 		<div class="form-group">
 			<label for="re_address2">상세주소</label>
-			<input type="text" name="re_address2" id="re_address2" placeholder="상세주소" class="form-control-rest">
+			<input type="text" name="re_address2" id="re_address2" placeholder="상세주소" value="${rest.re_address2}" class="form-control-rest">
 			<input type="hidden" id="extraAddress" placeholder="참고항목">
 		</div>
 		<div class="form-group">
 			<label for="re_tag">매장태그(,로 구분되어 집니다. 여러 태그 작성시 ,를 이용해주세요. ex:맛집,분위기,데이트 )</label>
-			<input type="text" name="re_tag" id="re_tag" value="" placeholder="콤마(,)로 구분합니다." class="form-control-rest">
+			<input type="text" name="re_tag" id="re_tag" value="${rest.re_tag}" placeholder="콤마(,)로 구분합니다." class="form-control-rest">
 		</div>
 		<div class="form-group">
 			<label for="re_content">매장소개</label>
-			<textarea name="re_content" id="re_content" class="form-control-rest" maxlength="500" onkeyup="countText(this.value);" placeholder="간단하게 매장을 소개해주세요:)"></textarea>
+			<textarea name="re_content" id="re_content" class="form-control-rest" maxlength="500" onkeyup="countText(this.value);" placeholder="간단하게 매장을 소개해주세요:)" value="${rest.re_content}">${rest.re_content}</textarea>
 			<div class="text-count">
 				<span id="count">0</span> / 500
 			</div>
@@ -90,7 +90,7 @@
 			<img class="img_preview" width="100%"/>
 		</div>
 		<div class="form-group button-group">
-			<button type="submit" class="btn btn-search-color">매장등록</button>
+			<button type="submit" class="btn btn-search-color">매장수정</button>
 		</div>
 	</form>
 </div>
