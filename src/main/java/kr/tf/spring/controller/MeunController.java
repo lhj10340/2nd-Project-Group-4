@@ -32,6 +32,7 @@ public class MeunController {
 	public String menu(Model mo, HttpSession session) {
 		//로그인 유무 확인
 		UserVO user = (UserVO)session.getAttribute("user");
+
 		//로그인 된 유저 아이디로 가지고 있는 매장 확인
 		RestaurantVO rest = restaurantService.findRestByUserId(user);
 		//확인된 매장에 가지고 있는 매뉴를 긁어오기 

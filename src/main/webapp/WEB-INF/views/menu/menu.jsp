@@ -27,26 +27,62 @@
 	</div>
 	
 	<table class="w3-table-all">
-	    <thead>
-	        <tr class="w3-light-grey w3-hover-red">
-	            <th scope="col">이미지</th>
-	            <th scope="col">메뉴 명</th>
-	            <th scope="col">카테고리</th>
-	            <th scope="col">판매가</th>
-	            <th scope="col">메뉴 관리</th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	        <tr class="w3-hover-green" style="text-align: center; vertical-align: middle;">
-	         <td><img src="" alt="상품 이미지가 들어갈 예정"></td>
-	         <td>고등어 갈치 조림</td>
-	         <td>인기 메뉴</td>
-	         <td>100000</td>
-	         <td>
-	             <button class="w3-button w3-white w3-border w3-border-yellow w3-round-large">수정</button>
-	             <button class="w3-button w3-white w3-border w3-border-red w3-round-large">삭제</button>
-	         </td>
-	     </tr>
+		<thead>
+			<tr class="w3-light-grey w3-hover-red">
+				<th scope="col">이미지</th>
+				<th scope="col">메뉴 명</th>
+				<th scope="col">카테고리</th>
+				<th scope="col">판매가</th>
+				<th scope="col">대표 매뉴 여부</th>
+				<th scope="col">노출 설정</th>
+				<th scope="col">메뉴 관리</th>
+			</tr>
+		</thead>
+			
+			<!-- 위는 테스트용 아래는 리스트 돌려서 만들어 줄 내용 -->
+			
+			<c:forEach items="${list }" var="me">
+				<tbody>
+				<tr class="w3-hover-green" style="text-align: center; vertical-align: middle;">
+					<td><img src=""  alt="img" >${me.me_thumb }</td>
+					<td>${me.me_title }</td>
+					<td>${me.me_category }</td>
+					<td>${me.me_price }</td>
+					<td>
+						<div class="custom-control custom-switch">
+							<c:if test="${me.me_main_menu eq null }">
+								<input type="checkbox" class="custom-control-input" id="me_main_menu" name="me_main_menu" disabled>
+							</c:if>
+							<c:if test="${me.me_main_menu eq 'on' }">
+								<input type="checkbox" class="custom-control-input" id="me_main_menu" name="me_main_menu" checked disabled>
+							</c:if>
+							<label class="custom-control-label" for="me_main_menu">메인 매뉴</label>
+						</div>
+					</td>
+					<td>
+						<div class="custom-control custom-switch">
+							<c:if test="${me.me_show eq null }">
+								<input type="checkbox" class="custom-control-input" id="me_show" name="me_show" disabled>							
+							</c:if>
+							<c:if test="${me.me_show eq 'on'}">
+								<input type="checkbox" class="custom-control-input" id="me_show" name="me_show" checked disabled>						
+							</c:if>
+							<label class="custom-control-label" for="me_show">노출 여부</label>
+						</div>
+					</td>
+					<td>
+						<a class="w3-button w3-white w3-border w3-border-yellow w3-round-large" data-toggle="modal" data-target="#myModal-update-menu">수정</a>
+						<a href='<c:url value="/menu/delete_menu?me_id=${me.me_id }"/>' class="w3-button w3-white w3-border w3-border-red w3-round-large">삭제</a>
+					</td>
+				</tr>
+				</tbody>
+				
+				
+				
+				
+				
+				
+				<!-- update-menu modal -->
 	
 	     <!-- 위는 테스트용 아래는 리스트 돌려서 만들어 줄 내용 -->
 	     <c:forEach items="${list }" var="me">
