@@ -1,5 +1,6 @@
 package kr.tf.spring.service;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,45 @@ public class UserServiceImp implements UserService{
 		
 		return userDao.findById_InUserDB(us_id);
 	}
+	  // 이름으로 사용자 검색
+    @Override
+    public List<UserVO> findUsersByName(String name) {
+        return userDao.findUsersByName(name);
+    }
 
+    // ID로 사용자 정보 조회 
+    @Override
+    public UserVO findUserById(String id) {
+        return userDao.findUserById(id);
+    }
+    @Override
+    public boolean updateUser(UserVO user) {
+        int result = userDao.updateUser(user);
+        return result > 0;
+    }
+    @Override
+    public List<UserVO> getAllUsers() {
+        return userDao.getAllUsers(); // DAO를 통해 DB에서 모든 사용자 목록을 가져옴
+    }
+    
+    @Override
+    public boolean deleteUser(String us_id) {
+        int result = userDao.deleteUser(us_id);
+        return result > 0;
+    }
+
+    @Override
+    public boolean registerUser(UserVO user) {
+        try {
+            String encodedPassword = passwordEncoder.encode(user.getUs_pw());
+            user.setUs_pw(encodedPassword);
+            userDao.insertUser(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 	@Override
 	public boolean signup(UserVO user_) {
 		if (user_ == null) {
@@ -184,3 +223,4 @@ public class UserServiceImp implements UserService{
 
 
 }
+    

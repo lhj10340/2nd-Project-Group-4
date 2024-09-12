@@ -7,9 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.tf.spring.model.vo.RestaurantVO;
@@ -23,15 +25,13 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService restaurantService;
 	
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@GetMapping("/register")
 	public String reviewList(Model model) {
-		return "/restaurant/register";
+	    return "/restaurant/register";
 	}
-
 	
-	@PostMapping("/register")
-	public String restaurantRegister(Model model, RestaurantVO rest, MultipartFile [] fileList, 
-			HttpSession session) {
+	@PostMapping("/insert")
+	public String restaurantRegister(Model model, @ModelAttribute RestaurantVO rest, @RequestParam("fileList") MultipartFile [] fileList, HttpSession session) {
 		//MemberVO user = (MemberVO)session.getAttribute("user");
 		if(restaurantService.restaurantRegister(rest, fileList)) {
 			model.addAttribute("url", "/");
@@ -40,7 +40,6 @@ public class RestaurantController {
 			model.addAttribute("url", "/");
 			model.addAttribute("msg", "매장을 등록하지 못했습니다.");
 		}
-		
-		return "/main/message";
+		return "/main/msg";
 	}
 }
