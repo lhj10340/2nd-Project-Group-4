@@ -5,6 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script src="<c:url value="/resources/js/jquery.validate.min.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.additional-methods.min.js"/>"></script>
+
 </head>
 
 <style>
@@ -67,6 +71,20 @@
         }
     
     
+	.sticky {position: sticky;top: 0;}
+	.star-rating {display: flex;}	
+	.star {appearance: none;padding: 1px;}
+	.star::after {content: '☆';color: #f2be11;font-size: 20px;}
+	.star:hover::after,
+	.star:has(~ .star:hover)::after,
+	.star:checked::after,
+	.star:has(~ .star:checked)::after {content: '★';}
+	.star:hover ~ .star::after {content: '☆';}
+	
+	.error{
+	color: red;
+	}
+	
 </style>
 <body>
  
@@ -208,28 +226,28 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h1 class="modal-title">회원가입</h1>
+          <p class="modal-title" style="font-size: 36px">회원가입</p>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        <form action='<c:url value="/user/signup"/>' method="post" class="">
+        <form action='<c:url value="/user/signup"/>' method="post" class="" id="form">
         <!-- Modal body -->
         
         <div class="modal-body container">
         
    	 		<label for="id">ID & 비밀번호</label>
      	    <div class="form-group">
-        		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id" required>
+        		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id">
         	</div>
         	<div class="form-group">
-        		<input type="password" class="form-control" id="pw" placeholder="PASSWORD" name="us_pw" required>	
+        		<input type="password" class="form-control" id="pw" placeholder="PASSWORD" name="us_pw">	
         	</div>
         	<div class="form-group">
-        		<input type="password" class="form-control" id="pw2" placeholder="PASSWORD Check" required>
+        		<input type="password" class="form-control" id="pw2" placeholder="PASSWORD Check" name="us_pw2">
         	</div>
         	
         	<label for="demo">이메일 :</label>
 			<div class="input-group mb-3">
-			  <input type="text" class="form-control" placeholder="EMAIL" id="email" name="us_email" required>
+			  <input type="text" class="form-control" placeholder="EMAIL" id="email" name="us_email">
 			  <div class="input-group-append">
 			  	<select class="input-group-text" name="us_email">
 			  		<option>@naver.com</option>
@@ -241,10 +259,14 @@
 			  </div>
 			</div>
 			
+			<div>
+				<label id="email-error" class="error" for="email" style=""></label>
+			</div>
+			
 			<label for="id" style="margin-top: 10px;">이름</label>
    	 		
 	     	    <div class="form-group">
-	        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name" required>
+	        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name">
 	        	</div>
 			
 			<div class="d-flex">
@@ -299,7 +321,7 @@
    	 		<label for="id" style="margin-top: 10px;"> 전화번호 </label>
    	 		
      	    <div class="form-group">
-        		<input type="text" class="form-control" id="phone" placeholder="PHONE NUMBER 010-1234-1234" name="us_phone" required>
+        		<input type="text" class="form-control" id="phone" placeholder="PHONE NUMBER 010-1234-1234" name="us_phone">
         	</div>
         	
 		  <label for="comment"> 회원 한마디 </label>
@@ -467,6 +489,61 @@ function star_mk(score) {
   
 </div>
 
+
+<script type="text/javascript">
+
+				$('#form').validate({
+					rules : {
+						us_id : {
+							required : true,
+							regex : /^\w{8,13}$/
+						},
+						us_pw : {
+							required : true,
+							regex : /^[a-zA-Z0-9!@#$]{8,15}$/
+						},
+						us_pw2 : {
+							equalTo : pw
+						},
+						us_email : {
+							required : true,
+							email : true
+						}
+					},
+					messages : {
+						us_id : {
+							required : '필수 항목입니다.',
+							regex : '아이디는 영어, 숫자만 가능하며, 6~13자이어야 합니다.'
+						},
+						us_pw : {
+							required : '필수 항목입니다.',
+							regex : '비밀번호는 영어, 숫자, 특수문자(!@#$)만 가능하며, 6~15자이어야 합니다.'
+						},
+						us_pw2 : {
+							equalTo : '비번과 일치하지 않습니다.'
+						},
+						us_email : {
+							required : '필수 항목입니다.',
+							email : 'email 형식이 아닙니다'
+						}
+					},
+					submitHandler : function() {
+						var id = $("#id").val();
+						var res = checkId(id);
+						if(res == 0){
+							displayCheckId(res);
+							alert('이미 사용중인 아이디입니다.');
+							return false;
+						}
+						return true;
+					}
+				});
+				$.validator.addMethod('regex', function(value, element, regex) {
+					var re = new RegExp(regex);
+					return this.optional(element) || re.test(value);
+				}, "정규표현식을 확인하세요.");
+		
+</script>
 
 </body>
 </html>
