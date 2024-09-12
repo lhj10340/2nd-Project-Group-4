@@ -105,13 +105,7 @@
 	
 	</c:choose>
 	
-	<c:if test="${user.us_auth == 9}">
-		
-		   		    <li class="nav-item">
-				      <a class="nav-link text-white" href="<c:url value="/admin/tool"/>">관리자 페이지</a>
-				    </li>
-	
-	</c:if>
+
 	
 		</ul>
 	</nav>
