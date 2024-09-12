@@ -141,7 +141,7 @@
         		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id">
         	</div>
         	<div class="form-group">
-        		<input type="password" class="form-control" id="pw" placeholder="PASSWORD" name="us_pw">	
+        		<input type="password" class="form-control" id="us_pw" placeholder="PASSWORD" name="us_pw">	
         	</div>
         	<div class="form-group">
         		<input type="password" class="form-control" id="pw2" placeholder="PASSWORD Check" name="us_pw2">
@@ -161,9 +161,6 @@
 			  </div>
 			</div>
 			
-			<div>
-				<label id="email-error" class="error" for="email" style=""></label>
-			</div>
 			
 			<label for="id" style="margin-top: 10px;">이름</label>
    	 		
@@ -258,28 +255,20 @@
 							regex : /^[a-zA-Z0-9!@#$]{8,15}$/
 						},
 						us_pw2 : {
-							equalTo : pw
-						},
-						us_email : {
-							required : true,
-							email : true
+							equalTo : us_pw
 						}
 					},
 					messages : {
 						us_id : {
 							required : '필수 항목입니다.',
-							regex : '아이디는 영어, 숫자만 가능하며, 6~13자이어야 합니다.'
+							regex : '아이디는 영어, 숫자만 가능하며, 8~13자이어야 합니다.'
 						},
 						us_pw : {
 							required : '필수 항목입니다.',
-							regex : '비밀번호는 영어, 숫자, 특수문자(!@#$)만 가능하며, 6~15자이어야 합니다.'
+							regex : '비밀번호는 영어, 숫자, 특수문자(!@#$)만 가능하며, 8~15자이어야 합니다.'
 						},
 						us_pw2 : {
 							equalTo : '비번과 일치하지 않습니다.'
-						},
-						us_email : {
-							required : '필수 항목입니다.',
-							email : 'email 형식이 아닙니다'
 						}
 					},
 					submitHandler : function() {
