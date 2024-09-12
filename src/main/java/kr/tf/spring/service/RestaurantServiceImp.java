@@ -98,4 +98,12 @@ public class RestaurantServiceImp implements RestaurantService {
 		
 		return files;
 	}
+
+	@Override
+	public List<RestaurantVO> getAllRestaurant() {
+		
+		 return restaurantDao.getAllRestaurant();
+		
+	}
 }
+

@@ -85,13 +85,16 @@
 	    <li class="nav-item">
 				<a class="nav-link text-white" href="<c:url value="/restaurant/register"/>"> 매장등록 </a>
 	    </li>
+	    <li class="nav-item">
+				<a class="nav-link text-white" href="<c:url value="/restaurant/registerList"/>"> 매장List</a>
+	    </li>
 	   </ul>
 	    
 		
 <ul class="navbar-nav">
 
   <!-- us_auth == 8일 때 매장 관리 메뉴 -->
-  <c:if test="${user.us_auth == 8}">
+	<c:if test="${user.us_auth == 8 || user.us_auth == 7}">
     <li class="nav-item">
       <a class="nav-link text-white" href="<c:url value='/admin/store'/>">매장 관리</a>
     </li>
