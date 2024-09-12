@@ -10,6 +10,13 @@
 		.body-con{all: unset; margin-top: 0 !important; padding-bottom: 0px !important;}
 		.cage-icon{color : #F9EBDE!important;}
 		.img-box{width : 30%;}
+		.w3-bar-item{color: #815854;}
+		.stcky-div{width: 91%; margin-left: 1%;}
+		.sticky{background-color:#F9EBDE;}
+		#re_comment{border-radius: 5px; background-color: rgba(194, 150, 109, 0.5);margin-bottom: 10%;}
+		.review-prev-title{font-weight: bold; font-size: 20px;}
+		.reviewer{margin: 5%;}
+		.reviewer-div{margin-bottom: 5%;}
 	</style>
 </head>
 <body>
@@ -59,7 +66,7 @@
   
   <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
   
-  <div class="" style="width: 91%; margin-left: 1%">
+  <div class="stcky-div">
     <div class="w3-bar-item">
       <h1 id="re_name"></h1>
       <div class="star-rating rating">
@@ -99,26 +106,36 @@
     <div class="w3-bar-item">
       <i class="fa-solid fa-tags"></i>&nbsp;&nbsp;<span id="re_tag"></span>
     </div>
-    <div class="w3-bar-item" id="re_comment" 
-         style="border-radius: 5px; background-color: rgba(150, 50, 71, 0.4);">
-    </div>
-
-    <div class="w3-bar-item" id="mj-footer"></div>
-
-    <hr>
-
+    <div class="w3-bar-item" id="re_comment"></div>
     <!-- Review section -->
-    <a href="#" class="w3-bar-item w3-button">
-      여기에 대표 리뷰가 들어갈 것 같습니다.
-    </a>
-    <img src="<c:url value="/resources/img/user.png"/>" class="w3-circle" alt="여기에 유저 이미지 들어가요" style="width:50px;">
-    <i>작성자 이름</i>
-    <p>작성시간 :</p>
+    <div class="w3-bar-item">
+	   <!--  <a href="#" class="w3-bar-item w3-button">
+	      여기에 대표 리뷰가 들어갈 것 같습니다.
+	    </a> -->
+	    <p class="review-prev-title">리뷰 미리보기</p>
+	    <div class="reviewer-div">
+		    <img src="<c:url value="/resources/img/user.png"/>" class="w3-circle" alt="유저아이콘" style="width:50px;">
+		    <span class="reviewer">작성자 이름</span>
+	    </div>
+	    <div class="reviewer-content">
+	    	<span class="reviewer-title">리뷰제목</span>
+	    	<span class="rating"> ★★★★☆</span>
+	    	<p>작성일 : <span class="review-time"></span></p>
+	    	<p class="reviewer-content">
+	    		리뷰내용이 노출될건데리뷰내용이 노출될건데
+	    		리뷰내용이 노출될건데리뷰내용이 노출될건데
+	    		이미지도 보여주고
+	    		<img src="<c:url value="/resources/img/no_img.jpg"/>" alt="img box" width="100%">
+	    		어때
+	    		어때!!!!!
+	    	</p>
+	    </div>
+    </div>
 
     <hr>
 
     <div class="w3-container">
-      <button class="w3-button w3-right w3-khaki w3-round-large">
+      <button class="w3-right btn btn-search-color">
         상세 홈페이지
       </button>
     </div>
