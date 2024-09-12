@@ -9,6 +9,9 @@
 <title>매장수정</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/form.css" />">
+<style type="text/css">
+	.btn-del{color : #815854 !important;}
+</style>
 </head>
 <body>
 <div class="form-div">
@@ -17,6 +20,7 @@
 		<input type="hidden" name="re_us_id" value="${rest.re_us_id}">
 		<input type="hidden" name="re_x" value="${rest.re_x}" id="re_x">
 		<input type="hidden" name="re_y" value="${rest.re_y}" id="re_y">
+		<input type="hidden" name="re_id" value="${rest.re_id}">
 		<div class="form-group">
 			<label for="re_name">매장명</label>
 			<input type="text" name="re_name" id="re_name" value="${rest.re_name}" class="form-control-rest" readonly="readonly">
@@ -82,11 +86,21 @@
 				<span id="count">0</span> / 500
 			</div>
 		</div>
-		<div class="form-group">
-			<label>첨부파일 (첫 이미지는 대표이미지로 자동 설정됩니다!)</label>
-			<input type="file" class="form-control-rest frm_file" name="fileList">
-			<input type="file" class="form-control-rest frm_file" name="fileList">
-			<input type="file" class="form-control-rest frm_file" name="fileList">
+		<div class="form-group file-container">
+			<label>첨부파일(첫 이미지는 대표이미지로 자동 설정됩니다!)</label>
+			<c:forEach items="${list }" var="file">
+				<div class="form-control-rest" style="position: relative;">
+					<span>${file.fi_ori_id }</span>
+					<a 	class="btn-del" 
+						style="position: absolute; right:10px;"
+						href="javascript:void(0);"
+						data-num="${file.fi_id}"
+					>X</a>
+				</div>
+			</c:forEach>
+			<c:forEach begin="1" end="${3 - list.size() }">
+				<input type="file" class="form-control-rest frm_file" name="fileList">
+			</c:forEach>
 			<img class="img_preview" width="100%"/>
 		</div>
 		<div class="form-group button-group">
@@ -274,6 +288,26 @@
     $(".frm_file").change(function() {
         readURL(this);
     });
+    
+ 	// 페이지 로드 시 연락처 값을 불러와서 필드에 나누기
+    var phone = $('#re_phone').val(); // hidden 필드에서 전체 연락처 값을 가져옴
+    if (phone) {
+        var phoneParts = phone.split('-'); // '-' 기준으로 나누기
+        if (phoneParts.length === 3) {
+            $('#phone1').val(phoneParts[0]); // 첫 번째 부분
+            $('#phone2').val(phoneParts[1]); // 두 번째 부분
+            $('#phone3').val(phoneParts[2]); // 세 번째 부분
+        }
+    }
+    
+    $('.btn-del').click(function(){
+		var fi_num = $(this).data('num');
+		$(this).parent().remove();
+		var input = `<input type="hidden" name="fi_nums" value="\${fi_num}">`
+		var file = `<input type="file" class="form-control" name="fileList">`;
+		$('.file-container').append(input);
+		$('.file-container').append(file);
+	});
 </script>
 </body>
 </html>

@@ -63,8 +63,8 @@
  		]]>
  	</insert>
  	<insert id="insertFile">
-		insert into file(fi_path, fi_ori_id, fi_re_id)
-		values(#{file.fi_path},#{file.fi_ori_id},#{file.fi_re_id})
+		insert into file(fi_path, fi_ori_id, fi_re_id, fi_num)
+		values(#{file.fi_path},#{file.fi_ori_id},#{file.fi_re_id}, #{file.fi_num)
 	</insert>
 	<select id="findRestByUserId" resultType="kr.tf.spring.model.vo.RestaurantVO">
 	select * from restaurant where re_us_id = #{user.us_id}
@@ -75,4 +75,29 @@
 	<select id="getAllRestaurant" resultType="kr.tf.spring.model.vo.RestaurantVO">
 		select * from restaurant
 	</select>
+	<select id="selectFile" resultType="kr.tf.spring.model.vo.FileVO">
+		select * from file where fi_id = #{fi_id}
+	</select>
+	<delete id="deleteFile">
+		delete from file where fi_id = #{fi_id}
+	</delete>
+	<update id="updateRestaurant">
+ 	<![CDATA[
+ 		update restaurant
+ 		set re_us_id = '${rest.re_us_id}',
+ 			re_x = '${rest.re_x}',
+ 			re_y = '${rest.re_y}',
+ 			re_phone = '${rest.re_phone}',
+ 			re_zip = ${rest.re_zip},
+ 			re_address = '${rest.re_address}',
+ 			re_address2 = '${rest.re_address2}',
+ 			re_tag = '${rest.re_tag}',
+ 			re_content = '${rest.re_content}',
+ 			re_category = '${rest.re_category}',
+ 			re_day = '${rest.re_day}',
+ 			re_state = '${rest.re_state}',
+ 			re_update = NOW()
+ 			where re_id = #{rest.re_id};
+ 		]]>
+ 	</update>
 </mapper>
