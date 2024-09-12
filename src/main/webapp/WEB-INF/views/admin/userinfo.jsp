@@ -10,13 +10,13 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #F9EBDE; /* 살구 색상 */
             margin: 0;
             padding: 20px;
         }
 
         h2 {
-            color: #333;
+            color: #815854; /* 갈색 색상 */
         }
 
         .container {
@@ -60,13 +60,16 @@
             border: none;
             border-radius: 4px;
             color: #fff;
-            background-color: #007bff;
             cursor: pointer;
             margin-right: 10px;
         }
 
-        .button-group button:hover {
-            background-color: #0056b3;
+        .button-group button.edit {
+            background-color: #815854; /* 갈색 색상 */
+        }
+
+        .button-group button.edit:hover {
+            background-color: #6d4c41; /* 더 어두운 갈색 색상 */
         }
 
         .button-group button.delete {
@@ -105,7 +108,6 @@
         function goBack() {
             window.location.href = '${pageContext.request.contextPath}/admin/user';
         }
-
     </script>
 </head>
 <body>
@@ -176,7 +178,7 @@
             </div>
 
             <div class="button-group">
-                <button type="submit" id="editButton" onclick="toggleEdit()">수정</button>
+                <button type="button" id="editButton" class="edit" onclick="toggleEdit()">수정</button>
                 <button type="button" class="delete" onclick="confirmDelete()">삭제</button>
                 <button type="button" class="back" onclick="goBack()">뒤로가기</button>
             </div>

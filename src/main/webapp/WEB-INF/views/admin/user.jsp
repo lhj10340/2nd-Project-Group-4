@@ -9,13 +9,13 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #F9EBDE; /* 살구색 배경 */
             margin: 0;
             padding: 20px;
         }
 
         h1 {
-            color: #333;
+            color: #815854; /* 갈색 제목 */
             text-align: center;
             margin-bottom: 20px;
         }
@@ -48,14 +48,14 @@
             padding: 10px 20px;
             border: none;
             border-radius: 4px;
-            background-color: #007bff;
+            background-color: #815854; /* 갈색 버튼 */
             color: #fff;
             font-size: 16px;
             cursor: pointer;
         }
 
         .search-form button:hover {
-            background-color: #0056b3;
+            background-color: #6a4c41; /* 갈색 버튼 호버 색상 */
         }
 
         .user-table-container {
@@ -75,12 +75,22 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #F9EBDE; /* 살구색 헤더 배경 */
+            color: #815854; /* 갈색 헤더 텍스트 */
             font-weight: bold;
         }
 
         tbody tr:hover {
             background-color: #f1f1f1;
+        }
+
+        a {
+            color: #815854; /* 갈색 링크 */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -116,7 +126,7 @@
                             <td>${user.us_email}</td>
                             <td>${user.us_hbd}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/admin/user/info?id=${user.us_id}" style="color: #007bff; text-decoration: none;">상세 정보</a>
+                                <a href="${pageContext.request.contextPath}/admin/user/info?id=${user.us_id}">상세 정보</a>
                             </td>
                         </tr>
                     </c:forEach>
