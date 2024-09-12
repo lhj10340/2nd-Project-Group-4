@@ -22,17 +22,6 @@ public class RestaurantServiceImp implements RestaurantService {
 	String uploadPath;
 
 	@Override
-	public RestaurantVO infoRest(String lat, String lng) {
-		if(lat == null || lng == null) return null;
-		
-		RestaurantVO restaurant = restaurantDao.getInfoRest(lat, lng);
-		
-		if(restaurant == null) return null;
-		
-		return restaurant;
-	}
-
-	@Override
 	public List<RestaurantVO> searchList(String sfl, String stx, String sort) {
 		return restaurantDao.getSearchList(sfl, stx, sort);
 	}

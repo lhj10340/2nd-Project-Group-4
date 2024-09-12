@@ -21,4 +21,5 @@ public class RestaurantVO {
 	private String re_category;
 	private String re_content;
 	private double re_score;
+	private String re_day;
 }

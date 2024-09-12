@@ -84,9 +84,10 @@
 	// 좌표와 마커이미지를 받아 마커를 생성하여 리턴하는 함수입니다
 	function createMarker(position, image) {
 	    var marker = new kakao.maps.Marker({
-	        position: position,
+	        position: position[0],
 	        image: image,
-	        clickable: true
+	        clickable: true,
+	        title: position[1]
 	    });
 	    
 	    kakao.maps.event.addListener(marker, 'click', function() {	
@@ -98,7 +99,6 @@
 	   
 	// 맛집가게 마커를 생성하고 맛집가게 마커 배열에 추가하는 함수입니다
 	function createRestaurantMarkers() {
-	    
 	    for (var i = 0; i < restaurantPositions.length; i++) {  
 	        
 	        var imageSize = new kakao.maps.Size(22, 26),
@@ -106,7 +106,6 @@
 	                spriteOrigin: new kakao.maps.Point(10, 0),    
 	                spriteSize: new kakao.maps.Size(36, 98)  
 	            };     
-	        
 	        // 마커이미지와 마커를 생성합니다
 	        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
 	            marker = createMarker(restaurantPositions[i], markerImage);  
@@ -125,11 +124,11 @@
 	
 	function click_marker(marker){
 		closeOverlay(); //커스텀 오버레이 기존에 켜진거 지우기
+		var getRe_id = marker.getTitle(); 
 		var getLat = marker.getPosition().getLat();
        	var getLng = marker.getPosition().getLng();
-       	
        	//가게정보array
-       	var restaurant = ajaxInfo(getLat, getLng);
+       	var restaurant = ajaxInfo(getRe_id);
        	// 커스텀 오버레이에 표시할 내용입니다     
 		// HTML 문자열 또는 Dom Element 입니다 
 		var content = '<div class="wrap overlay_content">' + 
@@ -177,7 +176,7 @@
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
 	        		view.push(data[i]);
-		        	list.push(new kakao.maps.LatLng(parseFloat(data[i].re_y), parseFloat(data[i].re_x)));
+		        	list.push([new kakao.maps.LatLng(data[i].re_y, data[i].re_x), data[i].re_id]);
 	        	} //가져온 정보값을 카카오 위치좌표 객체로 변환 후 list array에 담음
 	        }
         });
@@ -186,13 +185,13 @@
 	}
 	
 	//마커 클릭시 해당 좌표의 맛집 정보를 가져오기 위해 호출되는 함수입니다.
-	function ajaxInfo(lat, lng){
+	function ajaxInfo(re_id){
 		var restaurant = [];
 		$.ajax({
 	        url: "<c:url value="/ajax/info"/>",
 			type: "post",
 			dataType : "json",
-			data : {lat: lat, lng: lng},
+			data : {re_id: re_id},
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
 	        	restaurant = [data.re_id, data.re_name, data.re_address, data.re_phone, data.re_score];
@@ -213,7 +212,7 @@
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
-	        		markers.push(new kakao.maps.LatLng(parseFloat(data[i].re_y), parseFloat(data[i].re_x)));
+	        		markers.push(new kakao.maps.LatLng(data[i].re_y, data[i].re_x));
 	        		list.push(data[i]);
 	        	} //가져온 정보값을 카카오 위치좌표 객체로 변환 후 list array에 담음
 	        }
