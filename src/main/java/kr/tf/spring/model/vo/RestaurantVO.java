@@ -1,4 +1,4 @@
-package kr.tf.spring.model.vo;
+ package kr.tf.spring.model.vo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
