@@ -190,7 +190,7 @@
         </div>
         
         <!-- from start -->
-        <form action='<c:url value="/menu/add_menu"/>' method="post">
+        <form action='<c:url value="/menu/add_menu"/>' method="post" enctype="multipart/form-data">
 		        <!-- Modal body -->
 		        <div class="modal-body">
 			          
@@ -216,7 +216,7 @@
 					<p>
 					<p>메뉴 섬네일:</p>
 					<div class="custom-file mb-3">
-						<input type="file" class="custom-file-input" id="customFile" name="me_thumb">
+						<input type="file" class="custom-file-input" id="customFile" name="thumb">
 						<label class="custom-file-label" for="customFile">파일을 선택해 주세요</label>
 					</div>
 					
