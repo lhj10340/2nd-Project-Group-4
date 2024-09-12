@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.tf.spring.model.dto.LoginDTO;
 import kr.tf.spring.model.vo.RestaurantVO;
+import kr.tf.spring.model.vo.ReviewVO;
 import kr.tf.spring.model.vo.UserVO;
 import kr.tf.spring.service.RestaurantService;
 import kr.tf.spring.service.UserService;
@@ -55,7 +56,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "/main/home";
+		return "/main/home";	// 매인
+		//return "/admin/adminHome"; // 테스트용
 	}
 
 	
@@ -93,8 +95,19 @@ public class HomeController {
 	public Map<String, Object> restaurantData(@RequestBody RestaurantVO re){
 		Map<String, Object> map = new HashMap<String, Object>();
 		RestaurantVO rest = restaurantService.findRestById(re.getRe_id());
-		System.out.println("왔나 안왔나 확인");
 		map.put("rest", rest);
+		return map;
+	}
+
+	
+	@PostMapping("/ajax/rv_data")
+	@ResponseBody
+	public Map<String, Object> restaurantData(@RequestBody ReviewVO rv){
+		Map<String, Object> map = new HashMap<String, Object>();
+		//get rv_data 만들어 주세용
+		System.out.println("리뷰를 보내주세용");
+		System.out.println(rv);
+		map.put("rv", "test");
 		return map;
 	}
 	
