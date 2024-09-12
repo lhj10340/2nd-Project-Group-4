@@ -112,6 +112,14 @@ public class UserController {
 		return "/user/mypage";
 	}
 	
+	@GetMapping("/nav")
+	public String getNav(Model model, HttpSession session) {
+	    UserVO user = (UserVO) session.getAttribute("user");  // 세션에서 로그인 정보 가져오기
+	    if (user != null) {
+	        model.addAttribute("us_auth", user.getUs_auth());  // us_auth 값을 모델에 추가
+	    }
+	    return "common/nav";  // nav.jsp로 이동
+	}
 	
 	
 }

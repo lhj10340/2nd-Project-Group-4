@@ -56,20 +56,31 @@
 	    </li>
 	   </ul>
 	    
-	<ul class="navbar-nav">
 	
-	 <!-- Dropdown -->
-	    <li class="nav-item dropdown">
-	      <a class="nav-link dropdown-toggle text-white" href="<c:url value="/"/>" id="navbardrop" data-toggle="dropdown">
-	        ...
-	      </a>
-	      <div class="dropdown-menu">
-	        <a class="dropdown-item text-white" href="#"> ... </a>
-	        <a class="dropdown-item text-white" href="#"> ... </a>
-	        <a class="dropdown-item text-white" href="#"> ... </a>
-	      </div>
-	    </li>
-	
+<ul class="navbar-nav">
+
+  <!-- us_auth == 8일 때 매장 관리 메뉴 -->
+  <c:if test="${user.us_auth == 8}">
+    <li class="nav-item">
+      <a class="nav-link text-white" href="<c:url value='/admin/store'/>">매장 관리</a>
+    </li>
+  </c:if>
+
+  <!-- us_auth == 1일 때 마이페이지 -->
+  <c:if test="${user.us_auth == 1}">
+    <li class="nav-item">
+      <a class="nav-link text-white" href="<c:url value='/user/mypage'/>">마이 페이지</a>
+    </li>
+  </c:if>
+
+  <!-- us_auth == 9일 때 관리자 페이지 -->
+  <c:if test="${user.us_auth == 9}">
+    <li class="nav-item">
+      <a class="nav-link text-white" href="<c:url value='/admin/adminhome'/>">관리자 페이지</a>
+    </li>
+  </c:if>
+	    
+				
 	<c:choose>
 	
 	<c:when test="${user==null}">
