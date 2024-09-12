@@ -41,7 +41,7 @@
  	<select id="getReviewName" resultType="kr.tf.spring.model.vo.RestaurantVO">
  		select re_id, re_name, re_address, re_phone, re_score from restaurant where re_id = #{re_id};
  	</select>
- 	<insert id="restaurantRegistert">
+ 	<insert id="restaurantRegistert" keyProperty="rest.re_id" useGeneratedKeys="true">
  	<![CDATA[
  		insert into restaurant
  		set re_name = '${rest.re_name}',
@@ -62,7 +62,10 @@
  		]]>
  	</insert>
  	<insert id="insertFile">
-		insert into file(fi_name, fi_ori_name, fi_re_id)
-		values(#{file.fi_name},#{file.fi_ori_name},#{file.fi_re_id})
+		insert into file(fi_path, fi_ori_id, fi_re_id)
+		values(#{file.fi_path},#{file.fi_ori_id},#{file.fi_re_id})
 	</insert>
+	<select id="selectFileRestaurant" resultType="kr.tf.spring.model.vo.FileVO">
+		select * from file where fi_re_id = ${re_id} order by fi_id ASC
+	</select>
 </mapper>

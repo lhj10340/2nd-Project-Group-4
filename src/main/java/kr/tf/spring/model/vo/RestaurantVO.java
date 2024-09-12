@@ -11,7 +11,7 @@ public class RestaurantVO {
 	private String re_x;
 	private String re_y;
 	private String re_name;
-	private int re_zip;
+	private String re_zip;
 	private String re_address;
 	private String re_address2;
 	private String re_state;

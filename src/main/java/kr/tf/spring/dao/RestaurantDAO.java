@@ -19,4 +19,6 @@ public interface RestaurantDAO {
 	boolean restaurantRegistert(@Param("rest")RestaurantVO rest);
 
 	void insertFile(@Param("file")FileVO fileVo);
+	
+	List<FileVO> selectFileRestaurant(@Param("re_id")int re_id);
 }
