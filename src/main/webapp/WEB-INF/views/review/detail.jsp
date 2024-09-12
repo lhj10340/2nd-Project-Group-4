@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,18 +9,22 @@
 	<c:if test="${review ne null }">
 		<h1>리뷰 상세</h1>
 
-		<div class="form-group">
-			<label for="title">제목: </label>
-			<div class="form-control">${review.rv_title }</div>
+		<div class="form-group" style="display: flex; align-items: center;">
+			<label for="title" style="width: 50px; margin-right: 10px;">제목: </label>
+			<div class="form-control" style="flex: 1;">${review.rv_title}</div>
 		</div>
-		<div class="form-group">
-			<label for="title">작성자: </label>
-			<div class="form-control">${review.rv_us_id }</div>
+		<form action="">
+			<div class="form-group" style="display: flex; align-items: center;">
+				<label for="title" style="width: 50px; margin-right: 10px;">작성자: </label>
+				<div class="form-control" style="flex: 1; margin-right: 100px;">${review.rv_us_id}</div>
+				<label for="title" style="width: 50px; margin-right: 10px;">작성일: </label>
+				<div class="form-control" style="flex: 1;">${review.rv_date }</div>
+			</div>
+			<div class="form-group" style="display: flex; align-items: center;">
+			<label for="title" style="width: 50px; margin-right: 10px;">매장명: </label>
+			<div class="form-control" style="flex: 1;">${review.rv_name}</div>
 		</div>
-			<div class="form-group">
-			<label for="title">작성일: </label>
-			<div class="form-control">${review.rv_date }</div>
-		</div>
+		</form>
 		<div class="form-group">
 			<label for="content">내용: </label>
 			<div class="form-control" style="min-height: 400px; height: auto">${review.rv_content }</div>
@@ -29,8 +33,8 @@
 			<div class="form-group">
 				<label>사진첨부:</label>
 				<c:forEach items="${list }" var="image">
-					<a href="<c:url value="/download${image.im_name }"/>" class="form-control" 
-						download="${image.im_ori_name }">${image.im_ori_name }</a>
+					<a href="<c:url value="/download${image.im_name }"/>"
+						class="form-control" download="${image.im_ori_name }">${image.im_ori_name }</a>
 				</c:forEach>
 			</div>
 		</c:if>
