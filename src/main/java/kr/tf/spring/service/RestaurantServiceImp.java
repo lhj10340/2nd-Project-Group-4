@@ -66,12 +66,12 @@ public class RestaurantServiceImp implements RestaurantService {
 		}
 		
 		try {
-			String fi_ori_name = file.getOriginalFilename();
+			String fi_ori_id = file.getOriginalFilename();
 			//첨부파일을 서버에 업로드 후 경로가 포함된 파일명을 가져옴
-			String fi_name = 
-			UploadFileUtils.uploadFile(uploadPath, fi_ori_name, file.getBytes());
+			String fi_path = 
+			UploadFileUtils.uploadFile(uploadPath, fi_ori_id, file.getBytes());
 			//DB에 첨부파일 정보를 추가
-			FileVO fileVo = new FileVO(fi_name, fi_ori_name, re_id);
+			FileVO fileVo = new FileVO(fi_path, fi_ori_id, re_id);
 			restaurantDao.insertFile(fileVo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,5 +87,13 @@ public class RestaurantServiceImp implements RestaurantService {
 		//restaurant 은 re_us_id 를 유저 아이디로 가지고있어서 그걸 찾아오는 작업이에용
 		
 		return restaurantDao.findRestByUserId(user);
+	public List<FileVO> selectFileRestaurant(Integer re_id) {
+		if(re_id == null) return null;
+		
+		List<FileVO> files = restaurantDao.selectFileRestaurant(re_id);
+		
+		if(files == null) return null;
+		
+		return files;
 	}
 }

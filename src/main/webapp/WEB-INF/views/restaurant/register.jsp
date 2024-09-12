@@ -214,7 +214,6 @@
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
             var $wrap = $(input).parent();
             if($wrap.find('.img_preview').length==0){
                 $wrap.append("<div><img class='img_preview'/></div>");

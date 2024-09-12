@@ -22,4 +22,6 @@ public interface RestaurantDAO {
 	void insertFile(@Param("file")FileVO fileVo);
 
 	RestaurantVO findRestByUserId(@Param("user")UserVO user);
+	
+	List<FileVO> selectFileRestaurant(@Param("re_id")int re_id);
 }
