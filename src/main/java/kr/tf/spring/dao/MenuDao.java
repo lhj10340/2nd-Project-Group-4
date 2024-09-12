@@ -11,4 +11,6 @@ public interface MenuDao {
 
 	List<MenuVO> getMenuListByRestId(@Param("rest")RestaurantVO rest);
 
+	boolean setMenuInDB(@Param("menu")MenuVO menu);
+
 }

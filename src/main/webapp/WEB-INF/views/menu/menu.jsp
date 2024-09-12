@@ -150,7 +150,7 @@
 					</div>
 					<p>
 						<label>가격</label>
-						<input class="w3-input" type="number" name="price"></p>
+						<input class="w3-input" type="number" name="me_price"></p>
 					<p>
 					<p>메뉴 섬네일:</p>
 					<div class="custom-file mb-3">
