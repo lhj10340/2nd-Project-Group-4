@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -59,7 +58,7 @@ public class UserController {
 
 	
 	@GetMapping("/signup")
-	public String signup(Model mo, UserVO user) {
+	public String signup() {
 		// 화면 (없음)
 		return "/user/signup";
 	}
@@ -105,10 +104,8 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/mypage/{us_id}")
-	public String mypage(Model mo, @PathVariable("us_id")String us_id) {
-		
-	
+	@GetMapping("/mypage")
+	public String mypage() {
 		return "/user/mypage";
 	}
 	
@@ -119,6 +116,19 @@ public class UserController {
 	        model.addAttribute("us_auth", user.getUs_auth());  // us_auth 값을 모델에 추가
 	    }
 	    return "common/nav";  // nav.jsp로 이동
+	@PostMapping("/mypage")
+	public String mypagePost(Model mo, HttpSession session, UserVO user_) {
+		UserVO user = (UserVO)session.getAttribute("user");
+		boolean res = userService.updatePassword(user, user_);
+		
+		if(res) {
+			mo.addAttribute("msg", "비밀번호 수정을 완료하였습니다.");
+		} else {
+			mo.addAttribute("msg", "비밀번호 수정을 실패하였습니다.");
+		}
+		mo.addAttribute("url", "/user/mypage");
+		
+		return "/main/msg";
 	}
 	
 	

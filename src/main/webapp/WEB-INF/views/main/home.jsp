@@ -307,7 +307,7 @@
   
   <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
   
-  <div class="container">
+  <div class="" style="width: 91%; margin-left: 1%">
     <div class="w3-bar-item">
       <h1 id="re_name"></h1>
       <div class="star-rating rating">
@@ -340,14 +340,18 @@
     <div class="w3-bar-item">
       <i class="fa-solid fa-clock"></i>&nbsp;&nbsp;<span id="re_state"></span>
     </div>
+    <div class="w3-bar-item w3-button">
+      <i class="fa-solid fa-spoon"></i>&nbsp;&nbsp;<span class="" id="re_menu">메뉴 확인 하기</span>
+    </div>
     <div class="w3-bar-item">
-      <i class="fa-solid fa-spoon"></i>&nbsp;&nbsp;<span id="re_menu"></span>
+      <i class="fa-solid fa-store"></i>&nbsp;&nbsp;<span id="re_category"></span>
     </div>
     <div class="w3-bar-item">
       <i class="fa-solid fa-tags"></i>&nbsp;&nbsp;<span id="re_tag"></span>
     </div>
     <div class="w3-bar-item" id="re_comment" 
-         style="border-radius: 5px; background-color: rgba(150, 50, 71, 0.4);"></div>
+         style="border-radius: 5px; background-color: rgba(150, 50, 71, 0.4);">
+    </div>
 
     <div class="w3-bar-item" id="mj-footer"></div>
 
@@ -371,6 +375,7 @@
 
   </div>
 </div>
+<!-- sidebar done -->
 
 <script type="text/javascript">
   function w3_open() {
@@ -407,7 +412,8 @@
         $('#re_comment').text(data.rest.re_content);
         $('#re_address').text(data.rest.re_address);
         $('#re_phone').text(data.rest.re_phone);
-        $('#re_state').text(data.rest.re_state);
+        $('#re_state').text(data.rest.re_state + ' / ' + data.rest.re_day);
+        $('#re_category').text(data.rest.re_category);
         $('#re_tag').text(data.rest.re_tag);
         
         var score = data.rest.re_score;

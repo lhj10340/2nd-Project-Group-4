@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.tf.spring.dao.MenuDao">
+ 	
+ 	<select id="getMenuListByRestId" resultType="kr.tf.spring.model.vo.MenuVO">
+ 	SELECT * FROM menu where me_re_id = #{rest.re_id}
+ 	</select>
+ 	
+ 	
+</mapper>

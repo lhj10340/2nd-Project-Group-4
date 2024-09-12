@@ -37,4 +37,6 @@ public interface UserDAO {
 	List<UserVO> getAllUsers();
 	
 
+	boolean updatePassword(@Param("us")UserVO user_);
+
 }

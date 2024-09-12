@@ -36,6 +36,37 @@
     .star:hover ~ .star::after {
       content: '☆';
     }
+		  /* 기존 토글 네비게이션 바 크기와 버튼 위치를 유지하기 위한 스타일 */
+			.navbar {
+            font-size: 20px;
+            justify-content: space-between;
+        }
+        .nav-item {
+            margin: 0 10px; /* 버튼 사이의 간격 유지 */
+        }
+        .navbar-brand img {
+            width: 80px;
+            height: 35px;
+        }
+        /* 사이드바 토글 버튼의 위치와 크기 */
+        .w3-sidebar {
+            display: none;
+            z-index: 999;
+            left: 0;
+            width: 25%;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            background-color: #fff;
+            overflow: auto;
+        }
+        .w3-button.w3-display-topright {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+    
+    
 </style>
 <body>
  
