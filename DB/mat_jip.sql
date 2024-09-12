@@ -57,7 +57,7 @@ CREATE TABLE `review` (
     `rv_date`		datetime NULL DEFAULT CURRENT_TIMESTAMP,
 	`rv_score`		DECIMAL(2,1)	NOT NULL,
     `rv_tf`			varchar(1)	NULL,
-    `rv_receipt` varchar(10) NULL,
+    `rv_receipt`	varchar(10) NULL,
 	`rv_ thumb`		longtext	NULL
 );
 
