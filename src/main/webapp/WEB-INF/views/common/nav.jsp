@@ -71,13 +71,6 @@
     </li>
   </c:if>
 
-  <!-- us_auth == 1일 때 마이페이지 -->
-  <c:if test="${user.us_auth == 1}">
-    <li class="nav-item">
-      <a class="nav-link text-white" href="<c:url value='/user/mypage'/>">마이 페이지</a>
-    </li>
-  </c:if>
-
   <!-- us_auth == 9일 때 관리자 페이지 -->
   <c:if test="${user.us_auth == 9}">
     <li class="nav-item">
