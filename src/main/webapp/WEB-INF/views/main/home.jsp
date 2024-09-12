@@ -9,11 +9,11 @@
 	<style type="text/css">
 		.body-con{all: unset; margin-top: 0 !important; padding-bottom: 0px !important;}
 		.cage-icon{color : #F9EBDE!important;}
-		.img-box{width : 30%;}
+		.img-box{ width: calc(100% / 3);}
 		.w3-bar-item{color: #815854;}
 		.stcky-div{width: 91%; margin-left: 1%;}
 		.sticky{background-color:#F9EBDE;}
-		#re_comment{border-radius: 5px; background-color: rgba(194, 150, 109, 0.5);margin-bottom: 10%;}
+		#re_comment{border-radius: 5px; background-color: rgba(194, 150, 109, 0.3);margin-bottom: 10%;}
 		.review-prev-title{font-weight: bold; font-size: 20px;}
 		.reviewer{margin: 5%;}
 		.reviewer-div{margin-bottom: 5%;}
@@ -131,10 +131,7 @@
 	    	</p>
 	    </div>
     </div>
-
-    <hr>
-
-    <div class="w3-container">
+    <div class="w3-container w3-bar-item">
       <button class="w3-right btn btn-search-color">
         상세 홈페이지
       </button>
@@ -233,7 +230,7 @@
 	 			cage_icon = '<i class="fa-solid fa-bowl-food cage-icon"></i>';
 	 		break;
 	 		case '중식':
-	 			cage_icon = '<i class="fa-regular fa-plate-wheat cage-icon"></i>';
+	 			cage_icon = '<i class="fa-regular fa-plate-wheat"></i>';
 	     	break;
 	 		case '양식':
 	 			cage_icon = '<i class="fa-solid fa-burger cage-icon"></i>';
@@ -462,7 +459,7 @@
       success : function (data) {
         $('#re_name').text(data.rest.re_name);
         $('#re-score').text(data.rest.re_score);
-        $('#re_comment').text(data.rest.re_content);
+        $('#re_comment').html(nl2br(data.rest.re_content));
         $('#re_address').text(data.rest.re_address);
         $('#re_phone').text(data.rest.re_phone);
         $('#re_state').text(data.rest.re_state + ' / ' + data.rest.re_day);
@@ -478,10 +475,9 @@
         	$(".sticky-photo").empty();
 	        for(var i=0;  i < files.length; i++){
 	        	file_path = basePath + files[i]['fi_path'];
-	        	console.log(file_path);
-	        	content += '<img src="'+file_path+'" alt="img box"  class="img-box">';
+	        	content += '<img src="'+file_path+'" alt="img box" class="img-box">';
 	        }
-        } else { //dlalwlrk djqtdmaus...
+        } else { //이미지가 없으면
         	file_path  = '<c:url value="/resources/img/no_img.jpg"/>';
         	content += '<img src="'+file_path+'" alt="img box"  class="img-box">';
         }
@@ -535,6 +531,10 @@
       }
     });
   }
+ 
+function nl2br(str) {
+	return str.replace(/\n/g, '<br>');
+}
 </script>
 </body>
 </html>
