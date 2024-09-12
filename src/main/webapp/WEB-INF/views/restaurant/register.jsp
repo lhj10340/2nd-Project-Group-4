@@ -8,24 +8,13 @@
 <meta charset="UTF-8">
 <title>매장등록</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<style type="text/css">
-	.zip-class {width: 30% !important; display: inline-flex !important;}
-	.form-div {color:#815854;}
-	.form-control-rest {background-color:#fcf5ed;display: block;width: 100%; padding: .375rem .75rem;font-size: 1rem;
-    font-weight: 400;line-height: 1.5;color: #815854;background-clip: padding-box;border: 1px solid #fff;
-    border-radius: .25rem;transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
-    label {font-weight: bold; font-size: 15px;}
-    .phone {width: 30% !important;display: inline-flex !important;}
-    .hyphen {margin-left: 2%;margin-right: 2%;}
-    textarea {height: 6.25em !important;resize: none;}                                                                       
-    .button-group {text-align: center;}
-    .frm_file{margin-bottom: 5px;}
-</style>
+<link rel="stylesheet" href="<c:url value="/resources/css/rest.css" />">
 </head>
 <body>
 <div class="form-div">
+	<p class="title-p">매장등록</p>
 	<form name="frestaurant" id="frestaurant" onsubmit="return frestaurantsubmit(this);" action="<c:url value="/restaurant/insert"/>"  method="POST" enctype="multipart/form-data" autocomplete="off">
-		<input type="hidden" name="re_us_id" value="test1234">
+		<input type="hidden" name="re_us_id" value="${user.us_id}">
 		<input type="hidden" name="re_x" value="" id="re_x">
 		<input type="hidden" name="re_y" value="" id="re_y">
 		<div class="form-group">

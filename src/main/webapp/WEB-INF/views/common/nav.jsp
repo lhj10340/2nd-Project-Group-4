@@ -43,7 +43,7 @@
 	    </li>
 
 	    
-	<c:if test="${user.us_auth >= 7 or user == null}"><!-- 조건 user == null은 디버깅용 > 나중에 발견하면 삭제해 주세요 -->
+	<c:if test="${user.us_auth >= 7 and user.us_auth != 9}">
 	    <li class="nav-item dropdown"  >
 	      <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" >매장관리</a>
 	      <div class="dropdown-menu "  style="position: inline-block;">
