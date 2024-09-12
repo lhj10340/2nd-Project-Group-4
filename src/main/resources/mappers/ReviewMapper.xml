@@ -92,4 +92,21 @@
 	<select id="selectImageList" resultType="ImageVO">
 		select * from image where im_rv_id = #{rv_id}
 	</select>
+	
+	<delete id="deleteImage">
+		delete from image where im_num = #{im_num}
+	</delete>
+	
+	<update id="updateReview">
+		update review
+		set
+			rv_title = #{review.rv_title},
+			rv_content = #{review.rv_content}
+		where
+			rv_id = #{review.rv_id}
+	</update>
+	
+	<delete id="deleteReview">
+		delete from review where rv_id = #{rv_id}
+	</delete>
 </mapper>

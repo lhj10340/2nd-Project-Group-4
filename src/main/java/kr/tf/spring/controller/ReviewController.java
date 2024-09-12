@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.tf.spring.service.ReviewService;
@@ -128,4 +126,47 @@ public class ReviewController {
     	model.addAttribute("cri", cri);
     	return "/review/detail";
     }
+    
+	@GetMapping("/update")
+	public String update(Model model, Integer rv_id, ReviewCriteria cri) {
+		//게시글 가져옴
+		ReviewVO review = reviewService.getReview(rv_id);
+		//첨부파일 가져옴
+		List<ImageVO> imageList = reviewService.getImageList(rv_id);
+		//화면에 전송 
+		model.addAttribute("review", review);
+		model.addAttribute("list", imageList);
+		model.addAttribute("cri", cri);
+		return "/review/update";
+	}
+	@PostMapping("/update")
+	public String updateReview(Model model, ReviewVO review, 
+			int []im_nums, MultipartFile[] imageList, ReviewCriteria cri, HttpSession session) {
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		if(reviewService.updateReview(review, im_nums, imageList, user)) {
+			model.addAttribute("url", "/review/detail?rv_id="+review.getRv_id()+"&"+cri);
+			model.addAttribute("msg", "게시글을 수정했습니다.");
+		}else {
+			model.addAttribute("url", "/review/detail?rv_id="+review.getRv_id()+"&"+cri);
+			model.addAttribute("msg", "게시글을 수정하지 못했습니다.");
+		}
+		return "/main/msg";
+	}
+	@GetMapping("/delete")
+	public String delete(Model model, HttpSession session, int rv_id, ReviewCriteria cri) {
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		if(reviewService.deleteReview(rv_id, user)) {
+			model.addAttribute("url", "/review/list");
+			model.addAttribute("msg", "게시글을 삭제했습니다.");
+		}else {
+			model.addAttribute("url", "/review/detail?rv_id="+rv_id+"&"+cri);
+			model.addAttribute("msg", "게시글을 삭제하지 못했습니다.");
+		}
+		return "/main/msg";
+	}
+	
+	
 }

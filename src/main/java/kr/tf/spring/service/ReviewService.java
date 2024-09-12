@@ -1,7 +1,5 @@
 package kr.tf.spring.service;
 
-import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -108,4 +106,84 @@ public class ReviewService {
 		return reviewDao.selectImageList(rv_id);
 	}
 	
+	public boolean updateReview(ReviewVO review, int[] im_nums, MultipartFile[] imageList, UserVO user) {
+		if(review == null ) {
+			return false;
+		}
+		if(user == null) {
+			return false;
+		}
+		
+		//작성자인지 확인 
+		if(!checkWriter(review.getRv_id(), user.getUs_id())) {
+			return false;
+		}
+		
+		boolean res;
+		
+		try {
+			res = reviewDao.updateReview(review);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		if(!res) {
+			return false;
+		}
+		
+		//첨부파일 삭제
+		if(im_nums != null) {
+			for(int im_num : im_nums) {
+				deleteImage(im_num);
+			}
+		}
+		//첨부파일 추가
+		if(imageList == null || imageList.length == 0) {
+			return true;
+		}
+		for(MultipartFile file : imageList) {
+			uploadFile(file, review.getRv_id());
+		}
+		return true;
+	}
+
+	private boolean checkWriter(int rv_id, String us_id) {
+		ReviewVO review = reviewDao.selectReview(rv_id);
+		if(review == null) {
+			return false;
+		}
+		return review.getRv_us_id().equals(us_id);
+	}
+
+	private void deleteImage(int im_num) {
+		//첨부파일 정보를 가져옴
+		ImageVO image = reviewDao.selectImage(im_num);
+		deleteImage(image);
+	}
+	private void deleteImage(ImageVO image) {
+		if(image == null) {
+			return;
+		}
+		//첨부파일을 서버에서 삭제
+		UploadFileUtils.delteFile(uploadPath, image.getIm_name());
+		//첨부파일 정보를 DB에서 삭제
+		reviewDao.deleteImage(image.getIm_num());
+	}
+
+	public boolean deleteReview(int rv_id, UserVO user) {
+		if(user == null) {
+			return false;
+		}
+		if(!checkWriter(rv_id, user.getUs_id())) {
+			return false;
+		}
+		//서버에서 첨부파일 삭제
+		List<ImageVO> list = reviewDao.selectImageList(rv_id);
+		for(ImageVO image : list) {
+			deleteImage(image);
+		}
+		//DB에서 첨부파일 삭제(구현할 필요가 없음. 왜? 게시글 삭제 시 DB에서 해당 첨부파일을 삭제하기로 했기 때문)
+		
+		return reviewDao.deleteReview(rv_id);
+	}
 }
