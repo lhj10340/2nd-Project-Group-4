@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>매장등록</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" href="<c:url value="/resources/css/rest.css" />">
+<link rel="stylesheet" href="<c:url value="/resources/css/form.css" />">
 </head>
 <body>
 <div class="form-div">

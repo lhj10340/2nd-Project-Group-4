@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="<c:url value="/resources/css/mypage.css" />">
-<link rel="stylesheet" href="<c:url value="/resources/css/rest.css" />">
+<link rel="stylesheet" href="<c:url value="/resources/css/form.css" />">
 </head>
 <body>
 <div class="form-div">
@@ -20,11 +20,8 @@
 				    <c:when test="${user.us_auth == 1}">
 				        일반회원
 				    </c:when>
-				    <c:when test="${user.us_auth == 7}">
+				    <c:when test="${user.us_auth == 7 or user.us_auth == 8}">
 				       사업자
-				    </c:when>
-				    <c:when test="${user.us_auth == 8}">
-				        사업자
 				    </c:when>
 				    <c:when test="${user.us_auth == 9}">
 				        관리자
