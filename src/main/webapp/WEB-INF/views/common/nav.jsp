@@ -53,19 +53,16 @@
 	        <a class="dropdown-item nav-link hover-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장 리뷰/요청사항 </a>
 	       </div>
 	    </li>
+	    <li class="nav-item">
+				<a class="nav-link text-white" href="<c:url value="/restaurant/registerList"/>"> 매장List</a>
+	    </li>
 	 </c:if>
-    
-    
-
-   
-
-	   </ul>
-	    
+	</ul>
 		
 <ul class="navbar-nav">
 
   <!-- us_auth == 8일 때 매장 관리 메뉴 -->
-  <c:if test="${user.us_auth == 8}">
+	<c:if test="${user.us_auth == 8 or user.us_auth == 7}">
     <li class="nav-item">
       <a class="nav-link text-white" href="<c:url value='/admin/store'/>">매장 관리</a>
     </li>
@@ -108,13 +105,7 @@
 	
 	</c:choose>
 	
-	<c:if test="${user.us_auth == 9}">
-		
-		   		    <li class="nav-item">
-				      <a class="nav-link text-white" href="<c:url value="/admin/tool"/>">관리자 페이지</a>
-				    </li>
-	
-	</c:if>
+
 	
 		</ul>
 	</nav>

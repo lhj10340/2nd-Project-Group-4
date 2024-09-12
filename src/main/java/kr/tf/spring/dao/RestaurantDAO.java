@@ -24,4 +24,6 @@ public interface RestaurantDAO {
 	RestaurantVO findRestByUserId(@Param("user")UserVO user);
 	
 	List<FileVO> selectFileRestaurant(@Param("re_id")int re_id);
+	
+    List<RestaurantVO> getAllRestaurant(); // 매장정보를 디비에서 가져옵니다 
 }

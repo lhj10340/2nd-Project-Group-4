@@ -72,4 +72,7 @@
 	<select id="selectFileRestaurant" resultType="kr.tf.spring.model.vo.FileVO">
 		select * from file where fi_re_id = ${re_id} order by fi_id ASC
 	</select>
+	<select id="getAllRestaurant" resultType="kr.tf.spring.model.vo.RestaurantVO">
+		select * from restaurant
+	</select>
 </mapper>

@@ -28,7 +28,7 @@ public class MenuServiceImp implements MenuService{
 	@Override
 	public List<MenuVO> getMenuListByRestId(RestaurantVO rest) {
 		if (rest == null) {
-			return null;
+			return null; 
 		}
 		
 		return menuDao.getMenuListByRestId(rest);
@@ -42,7 +42,7 @@ public class MenuServiceImp implements MenuService{
 		}
 		
 		if (user == null) {
-			return false;
+			return false; 
 		}
 		
 		if(me_thumb != null) {
@@ -51,6 +51,26 @@ public class MenuServiceImp implements MenuService{
 		}
 		
 		return menuDao.setMenuInDB(menu);
+	}
+
+
+	@Override
+	public boolean deleteMenuById(String me_id) {
+		
+		if (me_id == null) {
+			return false;
+		}
+		return menuDao.deleteMenuById(me_id);
+	}
+
+
+	@Override
+	public boolean updateMenu(MenuVO menu) {
+		if (menu == null) {
+			return false;
+		}
+		
+		return menuDao.updateMenu(menu);
 	}
 	
 	

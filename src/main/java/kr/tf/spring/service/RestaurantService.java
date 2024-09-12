@@ -19,4 +19,6 @@ public interface RestaurantService {
 
 	RestaurantVO findRestByUserId(UserVO user);
 	List<FileVO> selectFileRestaurant(Integer re_id);
+
+	List<RestaurantVO> getAllRestaurant();
 }

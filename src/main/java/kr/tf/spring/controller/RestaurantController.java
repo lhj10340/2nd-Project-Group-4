@@ -1,5 +1,7 @@
 package kr.tf.spring.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -42,4 +44,16 @@ public class RestaurantController {
 		}
 		return "/main/msg";
 	}
+	
+	
+	
+	@RequestMapping("/registerList")
+	public String registerList(Model model) {
+	    List<RestaurantVO> restaurantList = restaurantService.getAllRestaurant(); 
+	    model.addAttribute("restaurantList", restaurantList); 
+	    return "/restaurant/registerList"; 
+	}
+
+	
+	
 }

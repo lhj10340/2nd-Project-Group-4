@@ -15,5 +15,21 @@
 	  ]]>
 	</insert>
 
+	<delete id="deleteMenuById">
+	delete from menu where me_id = #{me_id}
+	</delete>
 
+	<update id="updateMenu">
+	update menu
+	set
+		me_title = #{menu.me_title},
+		me_category = #{menu.me_category},
+		me_main_menu = #{menu.me_main_menu},
+		me_show = #{menu.me_show},
+		me_price = #{menu.me_price},
+		me_thumb = #{menu.me_thumb}
+	where
+		me_id = #{menu.me_id}
+	</update>
+	
 </mapper>

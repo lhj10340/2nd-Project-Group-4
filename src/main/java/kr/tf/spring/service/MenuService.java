@@ -14,4 +14,8 @@ public interface MenuService {
 
 	boolean setNewMenu(MenuVO menu, UserVO user, MultipartFile me_thumb);
 
+	boolean deleteMenuById(String me_id);
+
+	boolean updateMenu(MenuVO menu);
+
 }
