@@ -19,12 +19,6 @@
 .fixed-size {
 	resize: none; /* 사용자가 크기를 조정하지 못하도록 설정 */
 }
-
-.content {
-	resize: none;
-}
-
-textarea {resize: none;}
 </style>
 </head>
 <body>
@@ -71,10 +65,11 @@ textarea {resize: none;}
 
 		<div class="form-group mt-3">
 			<label for="content">내용: </label>
-			<textarea class="content" id="content" name="content" maxlength="200" onkeyup="countText(this.value);"></textarea>
-			<div class="text-count">
+			<!-- <textarea type="text" class="form-control" id="content" name="rv_content"></textarea> -->
+			<textarea class="content" id="content" name="rv_content" maxlength="200" onkeyup="countText(this.value);"></textarea>
+			<!-- <div class="text-count">
 				<span id="count">0</span> / 200
-			</div>
+			</div> -->
 		</div>
 		
 		<div class="form-group">
@@ -121,7 +116,7 @@ textarea {resize: none;}
 		    }
 		});
         
-		function countText(val){
+		/* function countText(val){
 			val = val.replace(/\s+/g, '');
 			var count = val.length; //문자수
 			var maxLength = 200;
@@ -129,7 +124,7 @@ textarea {resize: none;}
 			if(count > maxLength){
 				$("#content").val(val.slice(0, maxLength));  
 			}
-		}
+		} */
 	</script>
 </body>
 </html>
