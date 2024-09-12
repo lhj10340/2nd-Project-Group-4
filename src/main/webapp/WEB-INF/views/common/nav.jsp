@@ -21,48 +21,87 @@
 <body>
  
 <!-- user 정보는 로그인 시 세션에서 뿌리게 되었음 user 사용 가능함 -->
-<nav class="navbar navbar-expand-sm"  
-	style="font-size: 20px;  justify-content: space-between;">
-  <ul class="navbar-nav">
-  	 <li class="nav-item">
-      <a class="navbar-brand" href="<c:url value="/"/>">
-      	<img width = 80px; height = 35px src="<c:url value="/resources/img/twitter_header_photo_1.png"/>">
-      </a>
-    </li>
+	<nav class="navbar navbar-expand-sm sticky"  
+		style="font-size: 20px;  justify-content: space-between;">
+	  <ul class="navbar-nav">
+	  	 <li class="nav-item">
+	      <a class="navbar-brand" href="<c:url value="/"/>">
+	      	<img width = 80px; height = 35px src="<c:url value="/resources/img/twitter_header_photo_1.png"/>">
+	      </a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link text-white" href="<c:url value="/"/>"> 전체리뷰 </a>
+	    </li>
+	    <li class="nav-item">
+				<a class="nav-link text-white" href="<c:url value="/restaurant/register"/>"> 매장등록 </a>
+	    </li>
+	   </ul>
+	    
+		
+<ul class="navbar-nav">
+
+  <!-- us_auth == 8일 때 매장 관리 메뉴 -->
+  <c:if test="${user.us_auth == 8}">
     <li class="nav-item">
-      <a class="nav-link text-white" href="<c:url value="/"/>"> 전체리뷰 </a>
+      <a class="nav-link text-white" href="<c:url value='/admin/store'/>">매장 관리</a>
     </li>
+  </c:if>
+
+  <!-- us_auth == 1일 때 마이페이지 -->
+  <c:if test="${user.us_auth == 1}">
     <li class="nav-item">
-			<a class="nav-link text-white" href="<c:url value="/restaurant/register"/>"> 매장등록 </a>
+      <a class="nav-link text-white" href="<c:url value='/user/mypage'/>">마이 페이지</a>
     </li>
-   </ul>
-    
-    <ul class="navbar-nav">
-		<c:choose>
-			<c:when test="${user==null}">
-			    <li class="nav-item">
-			    	<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-signup" style="color: white;">회원가입</a>
-			    </li>
-			    <li class="nav-item">
-		    		<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-login" style="color: white;">로그인</a>
-			    </li>
-			</c:when>		    
-			<c:otherwise>
-		 		<li class="nav-item">
-					<a class="nav-link text-white" href="<c:url value="/user/mypage"/>">마이 페이지</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-white" href="<c:url value="/user/logout"/>">로그아웃</a>
-				</li>
-			</c:otherwise>
-		</c:choose>
-		<c:if test="${user.us_auth == 9}">
-		 	<li class="nav-item">
-		      <a class="nav-link text-white" href="<c:url value="/admin/tool"/>">관리자 페이지</a>
-		    </li>
-		</c:if>
-	</ul>
-</nav>
+  </c:if>
+
+  <!-- us_auth == 9일 때 관리자 페이지 -->
+  <c:if test="${user.us_auth == 9}">
+    <li class="nav-item">
+      <a class="nav-link text-white" href="<c:url value='/admin/adminhome'/>">관리자 페이지</a>
+    </li>
+  </c:if>
+	    
+				
+	<c:choose>
+	
+	<c:when test="${user==null}">
+	
+	    <li class="nav-item">
+	    	<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-signup" style="color: white;">회원가입</a>
+	    </li>
+	    
+	    
+	    <li class="nav-item">
+    		<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-login" style="color: white;">로그인</a>
+	    </li>
+			    
+	</c:when>		    
+		
+	<c:otherwise>
+	   		    
+ 		<li class="nav-item">
+			<a class="nav-link text-white" href="<c:url value="/user/mypage"/>">마이 페이지</a>
+		</li>
+	   		    
+		<li class="nav-item">
+			<a class="nav-link text-white" href="<c:url value="/user/logout"/>">로그아웃</a>
+		</li>
+			    
+	</c:otherwise>
+	
+	</c:choose>
+	
+	<c:if test="${user.us_auth == 9}">
+		
+		   		    <li class="nav-item">
+				      <a class="nav-link text-white" href="<c:url value="/admin/tool"/>">관리자 페이지</a>
+				    </li>
+	
+	</c:if>
+	
+		</ul>
+	</nav>
+
 
 
 <c:if test="${user == null }">

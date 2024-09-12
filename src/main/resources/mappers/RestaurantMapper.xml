@@ -65,6 +65,9 @@
 		insert into file(fi_path, fi_ori_id, fi_re_id)
 		values(#{file.fi_path},#{file.fi_ori_id},#{file.fi_re_id})
 	</insert>
+	<select id="findRestByUserId" resultType="kr.tf.spring.model.vo.RestaurantVO">
+	select * from restaurant where re_us_id = #{user.us_id}
+	</select>
 	<select id="selectFileRestaurant" resultType="kr.tf.spring.model.vo.FileVO">
 		select * from file where fi_re_id = ${re_id} order by fi_id ASC
 	</select>

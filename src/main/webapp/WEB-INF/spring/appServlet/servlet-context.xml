@@ -44,12 +44,13 @@
 		<beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
 		
+
 	<beans:bean id="adminInterceptor" class="kr.tf.spring.interceptor.AdminInterceptor"/>
 	<beans:bean id="userInterceptor" class="kr.tf.spring.interceptor.UserInterceptor"/>
 	<beans:bean id="guestInterceptor" class="kr.tf.spring.interceptor.GuestInterceptor"/>
 	<beans:bean id="loginInterceptor" class="kr.tf.spring.interceptor.LoginInterceptor"/>
 	<beans:bean id="autoLoginInterceptor" class="kr.tf.spring.interceptor.AutoLoginInterceptor"/>
-	
+
 	<interceptors>
 		
 		<!-- 관리자 이외의 인원이 관리자 권한으로 접근할 경우 사용할 interceptor -->

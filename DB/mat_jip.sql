@@ -38,7 +38,7 @@ CREATE TABLE `restaurant` (
 	`re_state`	varchar(15)	NULL,
 	`re_time`	datetime	NULL,
 	`re_day`	text	NULL,
-	`re_score`	int	NULL,
+	`re_score`	DECIMAL	NULL,
 	`re_update`	datetime	NULL,
 	`re_category`	varchar(30)	NULL,
 	`re_views`	int	NULL,
@@ -95,6 +95,9 @@ CREATE TABLE `menu` (
 	`me_id`	int auto_increment primary key	NOT NULL,
 	`me_re_id`	int	NOT NULL,
 	`me_title`	varchar(30)	NULL,
+	`me_category` varchar(30) NULL,
+	`me_main_menu` varchar(5) NULL DEFAULT 'false',
+	`me_show` varchar(5) NULL DEFAULT 'false',
 	`me_price`	int	NULL,
 	`me_thumb`	longtext	NULL
 );

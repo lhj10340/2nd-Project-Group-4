@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.tf.spring.model.vo.FileVO;
 import kr.tf.spring.model.vo.RestaurantVO;
+import kr.tf.spring.model.vo.UserVO;
 
 public interface RestaurantService {
 	List<RestaurantVO> searchList(String sfl, String stx, String sort);
@@ -16,5 +17,6 @@ public interface RestaurantService {
 
 	boolean restaurantRegister(RestaurantVO rest, MultipartFile[] fileList);
 
+	RestaurantVO findRestByUserId(UserVO user);
 	List<FileVO> selectFileRestaurant(Integer re_id);
 }
