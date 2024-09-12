@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="<c:url value='/resources/css/form.css' />">
 </head>
 <body>
 	<h1>메뉴 관리</h1>
@@ -246,11 +246,9 @@
 <script>
 // 파일 입력시 파일 명 변경 도와주는 스크립트
 	$(".custom-file-input").on("change", function() {
-	  var fileName = $(this).val().split("\\").pop();
-	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	    var fileName = $(this).val().split("\\").pop();
+	    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 	});
-</script>
-	
-	
+	</script>
 </body>
 </html>
