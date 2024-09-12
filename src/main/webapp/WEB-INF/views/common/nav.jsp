@@ -5,6 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script src="<c:url value="/resources/js/jquery.validate.min.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.additional-methods.min.js"/>"></script>
+
 </head>
 
 <style>
@@ -17,11 +21,16 @@
 	.star:checked::after,
 	.star:has(~ .star:checked)::after {content: '★';} 
 	.star:hover ~ .star::after {content: '☆';}
+	
+	.error{
+	color: red;
+	}
+	
 </style>
 <body>
  
 <!-- user 정보는 로그인 시 세션에서 뿌리게 되었음 user 사용 가능함 -->
-	<nav class="navbar navbar-expand-sm sticky"  
+	<nav class="navbar navbar-expand-sm"  
 		style="font-size: 20px;  justify-content: space-between;">
 	  <ul class="navbar-nav">
 	  	 <li class="nav-item">
@@ -30,11 +39,26 @@
 	      </a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/"/>"> 전체리뷰 </a>
+	      <a class="nav-link text-white" href="<c:url value="/review/list"/>"> 전체리뷰 </a>
 	    </li>
-	    <li class="nav-item">
-				<a class="nav-link text-white" href="<c:url value="/restaurant/register"/>"> 매장등록 </a>
+
+	    
+	<c:if test="${user.us_auth >= 7 or user == null}"><!-- 조건 user == null은 디버깅용 > 나중에 발견하면 삭제해 주세요 -->
+	    <li class="nav-item dropdown"  >
+	      <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" >매장관리</a>
+	      <div class="dropdown-menu "  style="position: inline-block;">
+	      	<a class="dropdown-item nav-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장등록 </a>
+	        <a class="dropdown-item nav-link" href="<c:url value="/menu/menu"/>">&nbsp;메뉴 정보 등록/수정 </a>
+	        <a class="dropdown-item nav-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장 정보 관리</a>
+	        <a class="dropdown-item nav-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장 리뷰/요청사항 </a>
+	       </div>
 	    </li>
+	 </c:if>
+    
+    
+
+   
+
 	   </ul>
 	    
 		
@@ -158,28 +182,28 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h1 class="modal-title">회원가입</h1>
+          <p class="modal-title" style="font-size: 36px">회원가입</p>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-        <form action='<c:url value="/user/signup"/>' method="post" class="">
+        <form action='<c:url value="/user/signup"/>' method="post" class="" id="form">
         <!-- Modal body -->
         
         <div class="modal-body container">
         
    	 		<label for="id">ID & 비밀번호</label>
      	    <div class="form-group">
-        		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id" required>
+        		<input type="text" class="form-control" id="id" placeholder="ID" name="us_id">
         	</div>
         	<div class="form-group">
-        		<input type="password" class="form-control" id="pw" placeholder="PASSWORD" name="us_pw" required>	
+        		<input type="password" class="form-control" id="us_pw" placeholder="PASSWORD" name="us_pw">	
         	</div>
         	<div class="form-group">
-        		<input type="password" class="form-control" id="pw2" placeholder="PASSWORD Check" required>
+        		<input type="password" class="form-control" id="pw2" placeholder="PASSWORD Check" name="us_pw2">
         	</div>
         	
         	<label for="demo">이메일 :</label>
 			<div class="input-group mb-3">
-			  <input type="text" class="form-control" placeholder="EMAIL" id="email" name="us_email" required>
+			  <input type="text" class="form-control" placeholder="EMAIL" id="email" name="us_email">
 			  <div class="input-group-append">
 			  	<select class="input-group-text" name="us_email">
 			  		<option>@naver.com</option>
@@ -191,10 +215,11 @@
 			  </div>
 			</div>
 			
+			
 			<label for="id" style="margin-top: 10px;">이름</label>
    	 		
 	     	    <div class="form-group">
-	        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name" required>
+	        		<input type="text" class="form-control" id="name" placeholder="name" name="us_name">
 	        	</div>
 			
 			<div class="d-flex">
@@ -249,7 +274,7 @@
    	 		<label for="id" style="margin-top: 10px;"> 전화번호 </label>
    	 		
      	    <div class="form-group">
-        		<input type="text" class="form-control" id="phone" placeholder="PHONE NUMBER 010-1234-1234" name="us_phone" required>
+        		<input type="text" class="form-control" id="phone" placeholder="PHONE NUMBER 010-1234-1234" name="us_phone">
         	</div>
         	
 		  <label for="comment"> 회원 한마디 </label>
@@ -270,5 +295,53 @@
     </div>
   </div>
 </c:if>
+
+<script type="text/javascript">
+
+				$('#form').validate({
+					rules : {
+						us_id : {
+							required : true,
+							regex : /^\w{8,13}$/
+						},
+						us_pw : {
+							required : true,
+							regex : /^[a-zA-Z0-9!@#$]{8,15}$/
+						},
+						us_pw2 : {
+							equalTo : us_pw
+						}
+					},
+					messages : {
+						us_id : {
+							required : '필수 항목입니다.',
+							regex : '아이디는 영어, 숫자만 가능하며, 8~13자이어야 합니다.'
+						},
+						us_pw : {
+							required : '필수 항목입니다.',
+							regex : '비밀번호는 영어, 숫자, 특수문자(!@#$)만 가능하며, 8~15자이어야 합니다.'
+						},
+						us_pw2 : {
+							equalTo : '비번과 일치하지 않습니다.'
+						}
+					},
+					submitHandler : function() {
+						var id = $("#id").val();
+						var res = checkId(id);
+						if(res == 0){
+							displayCheckId(res);
+							alert('이미 사용중인 아이디입니다.');
+							return false;
+						}
+						return true;
+					}
+				});
+				$.validator.addMethod('regex', function(value, element, regex) {
+					var re = new RegExp(regex);
+					return this.optional(element) || re.test(value);
+				}, "정규표현식을 확인하세요.");
+		
+</script>
+
 </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.tf.spring.dao.RestaurantDAO;
@@ -50,4 +51,28 @@ public class MeunController {
 		mo.addAttribute("list", list);
 		return "/menu/menu";
 	}
+	
+	@PostMapping("/add_menu")
+	public String add_menu(Model mo, HttpSession session, MenuVO menu) {
+		UserVO user = (UserVO)session.getAttribute("user");//세션에서 유저 가져오고
+		RestaurantVO rest = restaurantService.findRestByUserId(user);//가져온 유저가 가지고있는 레스토랑 확인
+		//menuVO 받아온 것에서 아이디랑 레스토랑 아이디 추가한 뒤 (set) db에 저장 후 성공 유무 반환 
+		//중복된 매뉴 확인해줄 것
+//		menu.setMe_re_id(rest.getRe_id());
+		menu.setMe_re_id(2); //디버깅용 값이 없어서 그냥 2넣어주었습니다.
+		boolean res = menuService.setNewMenu(menu, user);
+		
+		if (res) {
+			mo.addAttribute("msg", "새로운 매뉴 추가 완료.");
+			mo.addAttribute("url","/menu/menu");
+		} else {
+			mo.addAttribute("msg", "오류.");
+			mo.addAttribute("url","/menu/menu");
+		}
+		System.out.println(menu);
+		System.out.println("테스트중 메뉴 컨트롤러에 메뉴add >> 성공적으로 실행됨");
+		return "/main/msg";
+	}
+	
+	
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.tf.spring.dao.ReviewDAO">
+    <!-- 모든 리뷰 선택, rv_tf 기준으로 정렬 -->
+    <select id="selectCommunityList" resultType="kr.tf.spring.model.vo.ReviewVO">
+        SELECT * FROM review ORDER BY rv_tf
+    </select>	
+    
+    <!-- 페이지네이션이 있는 모든 리뷰 선택 -->
+    <select id="getAllReviews" parameterType="kr.tf.spring.pagination.ReviewCriteria" resultType="kr.tf.spring.model.vo.ReviewVO">
+        SELECT * FROM review 
+        ORDER BY rv_id DESC
+        LIMIT #{cri.pageStart}, #{cri.perPageNum}
+    </select>
+
+    <!-- 필터링된 리뷰 목록 선택, 페이지네이션 포함 -->
+    <select id="selectReviewList" parameterType="kr.tf.spring.pagination.ReviewCriteria" resultType="kr.tf.spring.model.vo.ReviewVO">
+        SELECT * FROM review 
+        WHERE 1 = 1 
+        <choose>
+        	<when test="cri.rv_tf != null and cri.rv_tf != ''">
+		        and rv_tf = #{cri.rv_tf}
+        	</when>
+        </choose>
+        <choose>
+            <when test="cri.type == 'title'">
+                AND rv_title LIKE CONCAT('%', #{cri.search}, '%')
+            </when>
+            <when test="cri.type == 'id'">
+                AND rv_us_id = #{cri.search}
+            </when>
+            <otherwise>
+                AND (rv_title LIKE CONCAT('%', #{cri.search}, '%') OR rv_us_id = #{cri.search})
+            </otherwise>
+        </choose>
+        ORDER BY rv_id DESC
+        LIMIT #{cri.pageStart}, #{cri.perPageNum}
+    </select>
+    <select id="selectReviewTotalCount" resultType="int">
+  		select count(*) from review
+  		WHERE 1 = 1 
+        <choose>
+        	<when test="cri.rv_tf != null and cri.rv_tf != ''">
+		        and rv_tf = #{cri.rv_tf}
+        	</when>
+        </choose>
+		<choose>
+        	<when test="cri.type == 'title'">
+        	and rv_title like concat('%', #{cri.search}, '%')
+        	</when>
+        	<when test="cri.type == 'id'">
+        	and rv_us_id = #{cri.search}
+        	</when>
+        	<otherwise>
+        	and (rv_title like concat('%', #{cri.search}, '%') or rv_us_id = #{cri.search})
+        	</otherwise>
+        </choose>
+    </select>
+    <insert id="insertReview" keyProperty="review.rv_id" useGeneratedKeys="true">
+    	insert into review(rv_title, rv_content, rv_tf, rv_us_id, rv_score)
+    	values(#{review.rv_title},#{review.rv_content},#{review.rv_tf},#{review.rv_us_id},#{review.rv_score})
+    </insert>
+    <insert id="insertImage">
+    	insert into file(im_name, im_ori_name, im_rv_id)
+    	values(#{image.im_name},#{image.im_ori_name},#{image.im_rv_id})
+    </insert>
+    <select id="selectReview" resultType="ReviewVO">
+    	select * from review where rv_id = #{rv_id}
+    </select>
+    <select id="selectImageList" resultType="ImageVO">
+    	select * from image where im_rv_id = #{rv_id}
+    </select>
+</mapper>

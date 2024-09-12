@@ -51,7 +51,7 @@ public class UserController {
 			mo.addAttribute("url","/");
 		}
 		
-		mo.addAttribute("user", user);
+		mo.addAttribute("user", user); 
 		
 		return "/main/msg";
 	}
