@@ -44,9 +44,9 @@
 
 	    
 	<c:if test="${user.us_auth >= 7 and user.us_auth != 9}">
-	    <li class="nav-item dropdown"  >
+	    <li class="nav-item dropdown">
 	      <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" >매장관리</a>
-	      <div class="dropdown-menu "  style="position: inline-block;">
+	      <div class="dropdown-menu"  style="position: inline-block;">
 	      	<a class="dropdown-item nav-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장등록 </a>
 	        <a class="dropdown-item nav-link" href="<c:url value="/menu/menu"/>">&nbsp;메뉴 정보 등록/수정 </a>
 	        <a class="dropdown-item nav-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장 정보 관리</a>
