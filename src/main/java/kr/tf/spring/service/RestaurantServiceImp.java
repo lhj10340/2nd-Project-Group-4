@@ -105,5 +105,58 @@ public class RestaurantServiceImp implements RestaurantService {
 		 return restaurantDao.getAllRestaurant();
 		
 	}
+
+	@Override
+	public boolean updateRestaurant(RestaurantVO rest, int[] fi_nums, MultipartFile[] fileList, UserVO user) {
+		if(rest == null ) {
+			return false;
+		}
+		if(user == null) {
+			return false;
+		}
+		
+		boolean res;
+		
+		try {
+			res = restaurantDao.updateRestaurant(rest);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		if(!res) {
+			return false;
+		}
+		
+		//첨부파일 삭제
+		if(fi_nums != null) {
+			for(int fi_id : fi_nums) {
+				deleteFile(fi_id);
+			}
+		}
+		//첨부파일 추가
+		if(fileList == null || fileList.length == 0) {
+			return true;
+		}
+		for(MultipartFile file : fileList) {
+			uploadFile(file, rest.getRe_id());
+		}
+		return true;
+	}
+
+	private void deleteFile(int fi_id) {
+		//첨부파일 정보를 가져옴
+		FileVO file = restaurantDao.selectFile(fi_id);
+		deleteFile(file);
+	}
+	
+	private void deleteFile(FileVO file) {
+		if(file == null) {
+			return;
+		}
+		//첨부파일을 서버에서 삭제
+		UploadFileUtils.delteFile(uploadPath, file.getFi_path());
+		//첨부파일 정보를 DB에서 삭제
+		restaurantDao.deleteFile(file.getFi_id());
+	}
 }
 
