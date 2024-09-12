@@ -115,19 +115,16 @@
 	    <p class="review-prev-title">리뷰 미리보기</p>
 	    <div class="reviewer-div">
 		    <img src="<c:url value="/resources/img/user.png"/>" class="w3-circle" alt="유저아이콘" style="width:50px;">
-		    <span class="reviewer">작성자 이름</span>
+		    <span class="reviewer" id="rv_us_id">작성자 이름</span>
 	    </div>
 	    <div class="reviewer-content">
-	    	<span class="reviewer-title">리뷰제목</span>
+	    	<span class="reviewer-title" id="rv_title">리뷰제목</span>
 	    	<span class="rating"> ★★★★☆</span>
-	    	<p>작성일 : <span class="review-time"></span></p>
-	    	<p class="reviewer-content">
-	    		리뷰내용이 노출될건데리뷰내용이 노출될건데
-	    		리뷰내용이 노출될건데리뷰내용이 노출될건데
-	    		이미지도 보여주고
+	    	<p>작성일 : <span class="review-time" id="rv_date"></span></p>
+	    	<p class="reviewer-content" id="rv_content">
+				
 	    		<img src="<c:url value="/resources/img/no_img.jpg"/>" alt="img box" width="100%">
-	    		어때
-	    		어때!!!!!
+
 	    	</p>
 	    </div>
     </div>
@@ -513,18 +510,26 @@
 
   function get_review(re_id) {
     alert(re_id);
-    
-    let rv = { rv_re_id : re_id };
+    //전송할때는 rv_, 받은 데이터는 rv로 가정하겠습니다.
+    let rv_ = { rv_re_id : re_id };
 
     $.ajax({
       async : false, 
       url : '<c:url value="/ajax/rv_data"/>', 
       type : 'post', 
-      data : JSON.stringify(rv), 
+      data : JSON.stringify(rv_), 
       contentType : "application/json; charset=utf-8",
       dataType : "json", 
       success : function (data) {
+		//rv를전송받음
         console.log(data);
+        console.log(data.rv);
+
+		$('#rv_us_id').text(data.rv.rv_us_id);//작성자
+		$('#rv_title').text(data.rv.rv_title);//리뷰 제목
+		$('#rv_date').text(data.rv.rv_date); // 형식 맞춰줘야하긴 해요 저장할 때 형식 맞춰주었으면 상관 없어용
+		$('#rv_content').text(data.rv.rv_content); // 아마 사진도 없어질 것 같아요
+
       }, 
       error : function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR);
