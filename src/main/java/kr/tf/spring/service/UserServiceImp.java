@@ -164,4 +164,23 @@ public class UserServiceImp implements UserService{
 	}
 
 
+	@Override
+	public boolean updatePassword(UserVO user, UserVO user_) {
+		if(user == null || user_ == null) {
+			return false;
+		}
+		
+		user_.setUs_id(user.getUs_id());
+		
+		if(user_.getUs_pw().length()==0) {
+			user_.setUs_pw(user.getUs_pw());
+		} else {
+			String encPw = passwordEncoder.encode(user_.getUs_pw());
+			user.setUs_pw(encPw);
+		}
+		
+		return userDao.updatePassword(user_);
+	}
+
+
 }

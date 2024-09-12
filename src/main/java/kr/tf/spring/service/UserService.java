@@ -13,4 +13,6 @@ public interface UserService {
 
 	UserVO getUserByCookie(String sid);
 
+	boolean updatePassword(UserVO user, UserVO user_);
+
 }

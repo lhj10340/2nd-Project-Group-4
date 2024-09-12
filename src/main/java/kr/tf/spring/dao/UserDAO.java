@@ -20,4 +20,6 @@ public interface UserDAO {
 
 	void reset_us_failed(@Param("us_id")String us_id);
 
+	boolean updatePassword(@Param("us")UserVO user_);
+
 }

@@ -6,22 +6,35 @@
 <head>
 <meta charset="UTF-8">
 
+<style type="text/css">
+
+.form-group{
+width: 400px;
+margin: auto;
+}
+
+</style>
+
 </head>
 <body>
 
-	<h1>마이페이지</h1>
-	<form action="<c:url value="/mypage"/>" method="post" id="form">
+	<p style="font-size: 42px; text-align: center;">마이페이지</p>
+	
+	<form action="<c:url value="/user/mypage"/>" method="post" id="form">
 		<div class="form-group">
 			<label for="id">아이디</label>
-			<input type="text" class="form-control" id="id" name="me_id" value="${user.us_id }" readonly>
+			<input type="text" class="form-control" id="id" name="us_id" value="${user.us_id }" readonly>
 		</div>
 		<div class="form-group">
 			<label for="pw"> 비밀번호</label>
-			<input type="password" class="form-control" id="pw" name="me_pw">
+			<input type="password" class="form-control" id="pw" name="us_pw">
 		</div>
 		<div class="form-group">
 			<label for="pw2"> 비밀번호 확인</label>
-			<input type="password" class="form-control" id="pw2" name="me_pw2">
+			<input type="password" class="form-control" id="pw2" name="us_pw2">
+		</div>
+		<div class="form-group mt-2 mb-2">
+			<button type="submit" class="btn btn-outline-success">비밀번호 변경</button>
 		</div>
 		<div class="form-group">
 			<label for="auth"> 권한(1: 회원 / 7: 사업자 등록 대기 / 8: 사업자 / 9: 관리자)</label>
@@ -37,17 +50,17 @@
 		</div>
 		<div class="form-group">
 			<label for="phone"> 전화번호</label>
-			<input type="text" class="form-control" id="phone" name="us_phone" value="${user.us_phone }" >
+			<input type="text" class="form-control" id="phone" name="us_phone" value="${user.us_phone }" readonly>
 		</div>
 		<div class="form-group">
 			<label for="email"> 이메일</label>
-			<input type="text" class="form-control" id="email" name="me_email" value="${user.us_email }" >
+			<input type="text" class="form-control" id="email" name="us_email" value="${user.us_email }" readonly>
 		</div>
 		<div class="form-group">
 			<label for="say"> 유저 한마디</label>
-			<textarea class="form-control" id="say" name="us_say">${user.us_say }</textarea>
+			<textarea class="form-control" id="say" name="us_say" readonly>${user.us_say }</textarea>
 		</div>
-		<button type="submit" class="btn btn-outline-success col-12">회원정보 수정</button>
+		<br>
 	</form>
 	
 </body>
