@@ -62,7 +62,7 @@
 </div>
 
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left sticky" 
-     style="display:none; z-index: 999; left: 0;" id="mySidebar">
+     style="display:none; z-index: 2; left: 0;" id="mySidebar">
   
   <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
   
