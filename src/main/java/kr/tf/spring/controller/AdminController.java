@@ -107,12 +107,6 @@ public class AdminController {
         return "/admin/user";
     }
     
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-    
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute UserVO user, Model model) {
         // 날짜 형식 설정
