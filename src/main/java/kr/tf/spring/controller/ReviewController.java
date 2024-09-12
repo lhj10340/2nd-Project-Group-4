@@ -31,19 +31,32 @@ public class ReviewController {
     ReviewService reviewService;
 	
     @GetMapping("/list")
-    public String list(Model model, ReviewCriteria cri) {	
-    	//리뷰 게시판 리스트를 가져옴
-    	List<ReviewVO> list = reviewService.getCommunityList();
-    	//현재 페이지 정보를 주면서 게시글 리스트를 가져오라고 시킴
-    	cri.setPerPageNum(2);	//지금은 페이지가 별로 없어서 2개로 설정
-    	List<ReviewVO> reviewList = reviewService.getReviewList(cri);
-    	
-    	//현재 페이지 정보를 주면서 페이지네이션 정보를 가져오라고 시킴
-    	PageMaker pm = reviewService.getPageMaker(cri);
-    	//화면에 전송
-    	model.addAttribute("list", list);
-    	model.addAttribute("reviewList", reviewList);
-    	model.addAttribute("pm", pm);
+    public String list(Model model, ReviewCriteria cri) {
+        // 'rv_tf'가 제공되지 않은 경우 모든 리뷰를 가져옴
+        List<ReviewVO> list;
+        List<ReviewVO> reviewList;
+        
+        cri.setPerPageNum(5);
+
+        // 'rv_tf'가 null이거나 빈 값인지 확인
+        if (cri.getRv_tf() == null || cri.getRv_tf().isEmpty()) {
+            // 'rv_tf'가 설정되지 않은 경우 모든 리뷰를 가져옴
+            list = reviewService.getCommunityList();
+            reviewList = reviewService.getAllReviewList(cri);
+        } else {
+            // 필터링된 리뷰를 가져옴
+            list = reviewService.getCommunityList();
+            reviewList = reviewService.getReviewList(cri);
+        }
+
+        // 페이지네이션 정보 가져오기
+        PageMaker pm = reviewService.getPageMaker(cri);
+
+        // 화면에 데이터 전송
+        model.addAttribute("list", list);
+        model.addAttribute("reviewList", reviewList);
+        model.addAttribute("pm", pm);
+
         return "/review/list";
     }
     
@@ -69,7 +82,7 @@ public class ReviewController {
                 if (!Arrays.asList(allowedExtensions).contains(extension)) {
                     model.addAttribute("url", "/review/insert?rv_tf=" + review.getRv_tf());
                     model.addAttribute("msg", "JPG, JPEG, PNG 파일만 업로드할 수 있습니다.");
-                    return "/main/message";  // 유효하지 않은 파일이 있으면 메시지 반환
+                    return "/main/msg";  // 유효하지 않은 파일이 있으면 메시지 반환
                 }
             }
         }
@@ -83,7 +96,7 @@ public class ReviewController {
 			model.addAttribute("url", "/review/insert?rv_tf="+review.getRv_tf());
 			model.addAttribute("msg", "리뷰를 등록하지 못했습니다.");
 		}
-    	return "/main/message";
+    	return "/main/msg";
 	}
     
     @GetMapping("/detail")

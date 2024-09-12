@@ -37,6 +37,13 @@ public class ReviewService {
 		return reviewDao.selectReviewList(cri);
 	}
 
+	public List<ReviewVO> getAllReviewList(ReviewCriteria cri) {
+		if (cri == null) {
+			return null;
+		}
+		return reviewDao.getAllReviews(cri);
+	}
+	
 	public PageMaker getPageMaker(ReviewCriteria cri) {
 		if (cri == null) {
 			return null;
@@ -100,4 +107,5 @@ public class ReviewService {
 	public List<ImageVO> getImageList(Integer rv_id) {
 		return reviewDao.selectImageList(rv_id);
 	}
+	
 }

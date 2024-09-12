@@ -6,26 +6,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap"
-	rel="stylesheet">
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style type="text/css">
+	.zip-class {width: 30% !important; display: inline-flex !important;}
+	.form-div {color:#815854;}
+	.form-control-rest {background-color:#fcf5ed;display: block;width: 100%;height: calc(1.5em + .75rem + 2px);padding: .375rem .75rem;font-size: 1rem;
+    font-weight: 400;line-height: 1.5;color: #815854;background-clip: padding-box;border: 1px solid #fff;
+    border-radius: .25rem;transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+    label {font-weight: bold; font-size: 15px;}
+    .phone {width: 30% !important;display: inline-flex !important;}
+    .hyphen {margin-left: 2%;margin-right: 2%;}
+    textarea {height: 6.25em !important;resize: none;}                                                                       
+    .button-group {text-align: center;}
+</style>
 </head>
 <body>
 	<h1>리뷰 게시판</h1>
 	<div class="mb-3">
-		<a href="<c:url value='/review/list' />" class="btn btn-outline-info">전체 리뷰</a>
-		<a href="<c:url value='/review/list?rv_tf=0' />"class="btn btn-outline-info">일반 리뷰</a> 
-		<a href="<c:url value='/review/list?rv_tf=1' />"class="btn btn-outline-info">영수증 리뷰</a>
+		<a href="<c:url value='/review/list' />" class="btn <c:if test="${empty param.rv_tf}">btn-info text-white</c:if> btn-outline-info">전체 리뷰</a>
+		<a href="<c:url value='/review/list?rv_tf=0' />" class="btn <c:if test="${param.rv_tf eq '0'}">btn-info text-white</c:if> btn-outline-info">일반 리뷰</a> 
+    	<a href="<c:url value='/review/list?rv_tf=1' />" class="btn <c:if test="${param.rv_tf eq '1'}">btn-info text-white</c:if> btn-outline-info">영수증 리뷰</a>
 	</div>
-	<%-- <c:if test="${pm.cri.rv_tf eq 0 || pm.cri.rv_tf eq 1 }"> --%>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -72,8 +73,11 @@
 					<c:url var="url" value="/review/list">
 						<c:param name="rv_tf" value="${pm.cri.rv_tf }" />
 						<c:param name="page" value="${pm.startPage - 1 }" />
+						<c:param name="type" value="${pm.cri.type }"/>
+						<c:param name="search" value="${pm.cri.search}"/>
 					</c:url>
-					<li class="page-item"><a class="page-link" href="${url }">이전</a>
+					<li class="page-item">
+						<a class="page-link" href="${url }">이전</a>
 					</li>
 				</c:if>
 				<c:forEach begin="${pm.startPage }" end="${pm.endPage }" var="i">
@@ -127,7 +131,6 @@
 		</form>
 		<a href="<c:url value="/review/insert?rv_tf=${pm.cri.rv_tf }"/>"
 			class="btn btn-outline-info btn-insert mb-5">리뷰 등록</a>
-	<%-- </c:if> --%>
 	<script type="text/javascript">
 		$('.btn-insert').click(function() {
 			if ('' != '${user.us_id}') {

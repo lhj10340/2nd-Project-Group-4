@@ -16,5 +16,5 @@ public class ReviewVO {
 	private String rv_content;
 	private Date rv_date; 
 	private double rv_score;
-	private int rv_tf;
+	private String rv_tf;
 }

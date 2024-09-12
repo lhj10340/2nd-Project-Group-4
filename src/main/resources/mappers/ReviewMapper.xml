@@ -3,31 +3,49 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.tf.spring.dao.ReviewDAO">
+    <!-- 모든 리뷰 선택, rv_tf 기준으로 정렬 -->
     <select id="selectCommunityList" resultType="kr.tf.spring.model.vo.ReviewVO">
-        select * from review order by rv_tf
-    </select>
+        SELECT * FROM review ORDER BY rv_tf
+    </select>	
     
+    <!-- 페이지네이션이 있는 모든 리뷰 선택 -->
+    <select id="getAllReviews" parameterType="kr.tf.spring.pagination.ReviewCriteria" resultType="kr.tf.spring.model.vo.ReviewVO">
+        SELECT * FROM review 
+        ORDER BY rv_id DESC
+        LIMIT #{cri.pageStart}, #{cri.perPageNum}
+    </select>
+
+    <!-- 필터링된 리뷰 목록 선택, 페이지네이션 포함 -->
     <select id="selectReviewList" parameterType="kr.tf.spring.pagination.ReviewCriteria" resultType="kr.tf.spring.model.vo.ReviewVO">
-        select * from review 
-        where rv_tf = #{cri.rv_tf}
+        SELECT * FROM review 
+        WHERE 1 = 1 
         <choose>
-        	<when test="cri.type == 'title'">
-        	and rv_title like concat('%', #{cri.search}, '%')
+        	<when test="cri.rv_tf != null and cri.rv_tf != ''">
+		        and rv_tf = #{cri.rv_tf}
         	</when>
-        	<when test="cri.type == 'id'">
-        	and rv_us_id = #{cri.search}
-        	</when>
-        	<otherwise>
-        	and (rv_title like concat('%', #{cri.search}, '%') or rv_us_id = #{cri.search})
-        	</otherwise>
         </choose>
-        
-        order by rv_id desc
-        limit #{cri.pageStart}, #{cri.perPageNum}
+        <choose>
+            <when test="cri.type == 'title'">
+                AND rv_title LIKE CONCAT('%', #{cri.search}, '%')
+            </when>
+            <when test="cri.type == 'id'">
+                AND rv_us_id = #{cri.search}
+            </when>
+            <otherwise>
+                AND (rv_title LIKE CONCAT('%', #{cri.search}, '%') OR rv_us_id = #{cri.search})
+            </otherwise>
+        </choose>
+        ORDER BY rv_id DESC
+        LIMIT #{cri.pageStart}, #{cri.perPageNum}
     </select>
     <select id="selectReviewTotalCount" resultType="int">
   		select count(*) from review
-  		where rv_tf = #{cri.rv_tf}
+  		WHERE 1 = 1 
+        <choose>
+        	<when test="cri.rv_tf != null and cri.rv_tf != ''">
+		        and rv_tf = #{cri.rv_tf}
+        	</when>
+        </choose>
 		<choose>
         	<when test="cri.type == 'title'">
         	and rv_title like concat('%', #{cri.search}, '%')

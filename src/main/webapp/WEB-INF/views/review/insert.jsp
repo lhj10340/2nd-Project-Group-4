@@ -58,6 +58,17 @@
         tabsize: 2,
         height: 400
       });
+      	
+      document.getElementById('reviewForm').addEventListener('submit', function(event) {
+          var receipt = document.getElementById('receipt').value.trim();
+          
+          // 영수증 번호가 입력되어 있으면 rv_tf 값을 1로 설정
+          if (receipt !== '') {
+            document.getElementById('rv_tf').value = '1';
+          } else {
+            document.getElementById('rv_tf').value = '0';
+          }
+        });
     </script>
 </body>
 </html>

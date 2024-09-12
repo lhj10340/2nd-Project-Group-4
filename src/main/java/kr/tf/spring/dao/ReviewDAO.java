@@ -23,4 +23,9 @@ public interface ReviewDAO {
 	ReviewVO selectReview(@Param("rv_id")Integer rv_id);
 
 	List<ImageVO> selectImageList(@Param("rv_id")Integer rv_id);
+
+	List<ReviewVO> getAllReviews(@Param("cri")ReviewCriteria cri);
+
+	int selectTotalReviewCount();
+
 }
