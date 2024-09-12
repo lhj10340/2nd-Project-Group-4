@@ -510,18 +510,21 @@
 
   function get_review(re_id) {
     alert(re_id);
-    
-    let rv = { rv_re_id : re_id };
+    //전송할때는 rv_, 받은 데이터는 rv로 가정하겠습니다.
+    let rv_ = { rv_re_id : re_id };
 
     $.ajax({
       async : false, 
       url : '<c:url value="/ajax/rv_data"/>', 
       type : 'post', 
-      data : JSON.stringify(rv), 
+      data : JSON.stringify(rv_), 
       contentType : "application/json; charset=utf-8",
       dataType : "json", 
       success : function (data) {
+		//rv를전송받음
         console.log(data);
+        console.log(data.rv);
+
 		$('#rv_us_id').text(data.rv.rv_us_id);//작성자
 		$('#rv_title').text(data.rv.rv_title);//리뷰 제목
 		$('#rv_date').text(data.rv.rv_date); // 형식 맞춰줘야하긴 해요 저장할 때 형식 맞춰주었으면 상관 없어용

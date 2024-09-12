@@ -107,5 +107,15 @@ public class ReviewService {
 	public List<ImageVO> getImageList(Integer rv_id) {
 		return reviewDao.selectImageList(rv_id);
 	}
+
+	public ReviewVO getReviewByRestId(ReviewVO rv_) {
+		//널 체크 해주고
+		if(rv_ == null){
+			return null;
+		}
+
+		
+		return reviewDao.getReviewByRestId(rv_);
+	}
 	
 }
