@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.spring.dao.CommentDAO">
+	<insert id="insertComment">
+		insert into comment(co_id, co_content, co_us_id, co_rv_id)
+		select
+			ifnull(max(co_id) + 1, 1),
+			#{comment.co_content},
+			#{comment.co_us_id},
+			#{comment.co_rv_id},
+			ifnull(max(co_id) + 1, 1)
+		from
+			comment
+	</insert>
+	<select id="seelctCommentList" resultType="CommentVO">
+		select * from comment
+		where co_rv_id = #{cri.search}
+		order by co_id asc
+		limit
+		#{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="selectCommentTotalCount" resultType="int">
+		select count(*)
+		from comment where co_rv_id = #{cri.search}
+	</select>
+	<delete id="deleteComment">
+		delete from comment where co_id = #{co_id}
+	</delete>
+	<select id="selectComment" resultType="CommentVO">
+		select * from comment
+		where co_id = #{co_id}
+	</select>
+	<update id="updateComment">
+		update comment set co_content = #{comment.co_content}
+		where co_id = #{comment.co_id}
+	</update>
+</mapper>
