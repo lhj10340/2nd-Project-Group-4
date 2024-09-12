@@ -25,8 +25,8 @@
 <div class="form-div">
 	<form name="frestaurant" id="frestaurant" onsubmit="frestaurantsubmit(this);" action="<c:url value="/restaurant/insert"/>"  method="POST" enctype="multipart/form-data" autocomplete="off">
 		<input type="hidden" name="re_us_id" value="test1234">
-		<input type="hidden" name="re_x" value="" id="re_x">
-		<input type="hidden" name="re_y" value="" id="re_y">
+		<input type="text" name="re_x" value="" id="re_x">
+		<input type="text" name="re_y" value="" id="re_y">
 		<div class="form-group">
 			<label for="re_name">매장명</label>
 			<input type="text" name="re_name" id="re_name" value="" class="form-control-rest">
