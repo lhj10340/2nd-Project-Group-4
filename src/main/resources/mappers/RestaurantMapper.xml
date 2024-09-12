@@ -57,9 +57,15 @@
  			re_address2 = '${rest.re_address2}',
  			re_tag = '${rest.re_tag}',
  			re_content = '${rest.re_content}',
+ 			re_category = '${rest.re_category}',
+ 			re_day = '${rest.re_day}',
  			re_score = 0,
  			re_views = 0,
  			re_time = NOW();
  		]]>
  	</insert>
+ 	<insert id="insertFile">
+		insert into file(fi_name, fi_ori_name, fi_re_id)
+		values(#{file.fi_name},#{file.fi_ori_name},#{file.fi_re_id})
+	</insert>
 </mapper>
