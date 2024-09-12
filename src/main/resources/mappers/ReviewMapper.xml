@@ -72,4 +72,9 @@
     <select id="selectImageList" resultType="ImageVO">
     	select * from image where im_rv_id = #{rv_id}
     </select>
+
+    <select id="getReviewByRestId" resultType="ReviewVO">
+    select * from review where rv_re_id = #{rv.rv_re_id} limit 1
+    </select>
+
 </mapper>

@@ -28,4 +28,6 @@ public interface ReviewDAO {
 
 	int selectTotalReviewCount();
 
+    ReviewVO getReviewByRestId(@Param("rv")ReviewVO rv_);
+
 }
