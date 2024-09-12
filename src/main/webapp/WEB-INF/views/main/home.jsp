@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="<c:url value="/resources/css/map.css" />">
 	<style type="text/css">
 		.body-con{all: unset; margin-top: 0 !important; padding-bottom: 0px !important;}
+		.cage-icon{color : #F9EBDE!important;}
 	</style>
 </head>
 <body>
@@ -129,12 +130,35 @@
        	var getLng = marker.getPosition().getLng();
        	//가게정보array
        	var restaurant = ajaxInfo(getRe_id);
+       	console.log(restaurant);
+       	var category = restaurant[5];
+       	if(category == null ) category = "미지정";
+       	var cage_icon = '<i class="fa-regular fa-rectangle-xmark cage-icon"></i>';
+       	switch(category){
+       		case '한식':
+       			cage_icon = '<i class="fa-solid fa-bowl-food cage-icon"></i>';
+       		break;
+       		case '중식':
+       			cage_icon = '<i class="fa-regular fa-plate-wheat cage-icon"></i>';
+           	break;
+       		case '양식':
+       			cage_icon = '<i class="fa-solid fa-burger cage-icon"></i>';
+           	break;
+       		case '일식':
+       			cage_icon = '<i class="fa-solid fa-fish-fins cage-icon"></i>';
+           	break;
+       		case '디저트':
+       			cage_icon = '<i class="fa-solid fa-cookie-bite cage-icon"></i>';
+           	break;
+       		default : cage_icon;
+       	}
+       	
        	// 커스텀 오버레이에 표시할 내용입니다     
 		// HTML 문자열 또는 Dom Element 입니다 
 		var content = '<div class="wrap overlay_content">' + 
            '    <div class="info">' + 
            '        <div class="title">' + 
-           '           	'+ restaurant[1] + 
+           '           	'+ cage_icon + " " + restaurant[1] + 
            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
            '        </div>' + 
            '        <div class="body">' + 
@@ -194,7 +218,7 @@
 			data : {re_id: re_id},
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
-	        	restaurant = [data.re_id, data.re_name, data.re_address, data.re_phone, data.re_score];
+	        	restaurant = [data.re_id, data.re_name, data.re_address, data.re_phone, data.re_score, data.re_category];
 	        }
         });
 		return restaurant;
