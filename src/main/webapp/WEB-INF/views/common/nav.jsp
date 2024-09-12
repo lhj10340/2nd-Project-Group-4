@@ -15,7 +15,7 @@
 	.star:hover::after,
 	.star:has(~ .star:hover)::after,
 	.star:checked::after,
-	.star:has(~ .star:checked)::after {content: '★';}
+	.star:has(~ .star:checked)::after {content: '★';} 
 	.star:hover ~ .star::after {content: '☆';}
 </style>
 <body>
