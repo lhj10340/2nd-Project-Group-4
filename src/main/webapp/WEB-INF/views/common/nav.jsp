@@ -8,109 +8,61 @@
 </head>
 
 <style>
-	.sticky{
-		position: sticky;
-		top: 0;
-	}
-	.star-rating {
-      display: flex;
-    }
-
-    .star {
-      appearance: none;
-      padding: 1px;
-    }
-
-    .star::after {
-      content: '☆';
-      color: hsl(60, 80%, 45%);
-      font-size: 20px;
-    }
-
-    .star:hover::after,
-    .star:has(~ .star:hover)::after,
-    .star:checked::after,
-    .star:has(~ .star:checked)::after {
-      content: '★';
-    }
-
-    .star:hover ~ .star::after {
-      content: '☆';
-    }
+	.sticky {position: sticky;top: 0;}
+	.star-rating {display: flex;}	
+	.star {appearance: none;padding: 1px;}
+	.star::after {content: '☆';color: #f2be11;font-size: 20px;}
+	.star:hover::after,
+	.star:has(~ .star:hover)::after,
+	.star:checked::after,
+	.star:has(~ .star:checked)::after {content: '★';}
+	.star:hover ~ .star::after {content: '☆';}
 </style>
 <body>
  
 <!-- user 정보는 로그인 시 세션에서 뿌리게 되었음 user 사용 가능함 -->
-	<nav class="navbar navbar-expand-sm"  
-		style="font-size: 20px;  justify-content: space-between;">
-	  <ul class="navbar-nav">
-	  	 <li class="nav-item">
-	      <a class="navbar-brand" href="<c:url value="/"/>">
-	      	<img width = 80px; height = 35px src="<c:url value="/resources/img/twitter_header_photo_1.png"/>">
-	      </a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href="<c:url value="/"/>"> 전체리뷰 </a>
-	    </li>
-	    <li class="nav-item">
-				<a class="nav-link text-white" href="<c:url value="/restaurant/register"/>"> 매장등록 </a>
-	    </li>
-	   </ul>
-	    
-	<ul class="navbar-nav">
-	
-	 <!-- Dropdown -->
-	    <li class="nav-item dropdown">
-	      <a class="nav-link dropdown-toggle text-white" href="<c:url value="/"/>" id="navbardrop" data-toggle="dropdown">
-	        ...
-	      </a>
-	      <div class="dropdown-menu">
-	        <a class="dropdown-item text-white" href="#"> ... </a>
-	        <a class="dropdown-item text-white" href="#"> ... </a>
-	        <a class="dropdown-item text-white" href="#"> ... </a>
-	      </div>
-	    </li>
-	
-	<c:choose>
-	
-	<c:when test="${user==null}">
-	
-	    <li class="nav-item">
-	    	<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-signup" style="color: white;">회원가입</a>
-	    </li>
-	    
-	    
-	    <li class="nav-item">
-    		<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-login" style="color: white;">로그인</a>
-	    </li>
-			    
-	</c:when>		    
-		
-	<c:otherwise>
-	   		    
- 		<li class="nav-item">
-			<a class="nav-link text-white" href="<c:url value="/user/mypage"/>">마이 페이지</a>
-		</li>
-	   		    
-		<li class="nav-item">
-			<a class="nav-link text-white" href="<c:url value="/user/logout"/>">로그아웃</a>
-		</li>
-			    
-	</c:otherwise>
-	
-	</c:choose>
-	
-	<c:if test="${user.us_auth == 9}">
-		
-		   		    <li class="nav-item">
-				      <a class="nav-link text-white" href="<c:url value="/admin/tool"/>">관리자 페이지</a>
-				    </li>
-	
-	</c:if>
-	
-		</ul>
-	</nav>
-
+<nav class="navbar navbar-expand-sm"  
+	style="font-size: 20px;  justify-content: space-between;">
+  <ul class="navbar-nav">
+  	 <li class="nav-item">
+      <a class="navbar-brand" href="<c:url value="/"/>">
+      	<img width = 80px; height = 35px src="<c:url value="/resources/img/twitter_header_photo_1.png"/>">
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white" href="<c:url value="/"/>"> 전체리뷰 </a>
+    </li>
+    <li class="nav-item">
+			<a class="nav-link text-white" href="<c:url value="/restaurant/register"/>"> 매장등록 </a>
+    </li>
+   </ul>
+    
+    <ul class="navbar-nav">
+		<c:choose>
+			<c:when test="${user==null}">
+			    <li class="nav-item">
+			    	<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-signup" style="color: white;">회원가입</a>
+			    </li>
+			    <li class="nav-item">
+		    		<a type="button" class="nav-link" data-toggle="modal" data-target="#myModal-login" style="color: white;">로그인</a>
+			    </li>
+			</c:when>		    
+			<c:otherwise>
+		 		<li class="nav-item">
+					<a class="nav-link text-white" href="<c:url value="/user/mypage"/>">마이 페이지</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-white" href="<c:url value="/user/logout"/>">로그아웃</a>
+				</li>
+			</c:otherwise>
+		</c:choose>
+		<c:if test="${user.us_auth == 9}">
+		 	<li class="nav-item">
+		      <a class="nav-link text-white" href="<c:url value="/admin/tool"/>">관리자 페이지</a>
+		    </li>
+		</c:if>
+	</ul>
+</nav>
 
 
 <c:if test="${user == null }">
@@ -278,182 +230,6 @@
       </div>
     </div>
   </div>
-  
 </c:if>
-
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-left sticky" style="display:none; z-index: 999; left: 0;" id="mySidebar">
-  <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
-
-	<div class="container">
-	  <div class="w3-bar-item" >
-	  		<h1 id="re_name"></h1>
-	  		  	  <div class="star-rating">
-				    <input type="radio" class="star star1" value="1" disabled>
-				    <input type="radio" class="star star2" value="2" disabled>
-				    <input type="radio" class="star star3" value="3" disabled>
-				    <input type="radio" class="star star4" value="4" disabled>
-				    <input type="radio" class="star star5" value="5" disabled>
-					<label id="re-score" style="margin-left: 4px;font-size: 20px;"></label>
-				  </div>
-	  </div>
-	  <!-- img box -->
-		<div class="w3-container">
-			<img src="test.jpg" alt="img box" style="width:100px;">
-			<img src="test.jpg" alt="img box" style="width:100px;">
-			<img src="test.jpg" alt="img box" style="width:100px;">
-		</div>
-	  <hr>
-
-	  
-		<!-- re_content 자리 -->
-		<div class="w3-bar-item"><i class="fa-duotone fa-solid fa-location-arrow"></i>&nbsp;<span id="re_address"></span></div>
-		<div class="w3-bar-item"><i class="fa-solid fa-phone"></i>&nbsp;&nbsp;<span id="re_phone"></span></div>
-		<div class="w3-bar-item"><i class="fa-solid fa-clock"></i>&nbsp;&nbsp;<span id="re_state"></span></div>
-		<div class="w3-bar-item"><i class="fa-solid fa-spoon"></i>&nbsp;&nbsp;<span id="re_menu"></span></div>
-		<div class="w3-bar-item"><i class="fa-solid fa-tags"></i>&nbsp;&nbsp;<span id="re_tag"></span></div>
-		<div class="w3-bar-item" id="re_comment" style="border-radius: 5px; background-color: rgba(150, 50, 71, 0.4);"></div>
-		
-		
-		<div class="w3-bar-item" id="mj-footer"></div>
-		
-		<hr>
-  			<a href="#" class="w3-bar-item w3-button">여기에 대표 리뷰가 들어갈 것 같습니다.</a>
-			<img src="test.jpg" class="w3-circle" alt="여기에 유저 이미지 들어가요" style="width:50px;"><i>작성자 이름</i>
-  			<p>작성시간 : </p>
-		<hr>
-		
-		
-		<div class="w3-container">
-			<button class="w3-button w3-right w3-khaki w3-round-large">상세 홈페이지</button>
-		</div>
-				  
-	  
-
-<script>
-//왼쪽에 창띄워서 사이드바로 여러가지 정보를 보여주며 간이 창으로 만들어서 여러가지 무언가를 띄워줄 수 있게 만들어주자
-
-
-
-function w3_open() {
-  document.getElementById("main").style.marginLeft = "30%";
-  document.getElementById("mySidebar").style.width = "30%";
-  document.getElementById("mySidebar").style.display = "block";
-  get_atag_number(re_id)
-  ajax_get_res(re_id);
-}
-function w3_close() {
-  document.getElementById("main").style.marginLeft = "0%";
-  document.getElementById("mySidebar").style.display = "none";
-}
-
-function get_atag_number() {
-	//모듈 형식으로 제작(sample w3c.css)
-	//(re_id를 기반으로 json파일 형식으로 BD값 가져오자)
-	//mj-title, mj-body, mj-footer 형식으로 꾸며주자
-	//$('#mj-title').text('매장명 받아올 ajax ' + re_id);
-}
-
-</script>
-
-<!-- test -->
-
-<script type="text/javascript">
-// ajax 들어갈 자리 스크롤 가능해야함
-// model scroll에서 뜯어오자
-function ajax_get_res(re_id) {
-	
-	let re = {
-			re_id : re_id
-		}
-	
-	$.ajax({
-		async : false, //비동기 : true(비동기), false(동기)
-		url : '<c:url value="/ajax/res_data"/>', 
-		type : 'post', 
-		data : JSON.stringify(re), 
-		contentType : "application/json; charset=utf-8",
-		dataType : "json", 
-		success : function (data){
-			$('#re_name').text(data.rest.re_name);
-			$('#re-score').text(data.rest.re_score);
-			$('#re_comment').text(data.rest.re_content);
-			$('#re_address').text(data.rest.re_address);
-			$('#re_phone').text(data.rest.re_phone);
-			$('#re_state').text(data.rest.re_state);
-			//메뉴는 어렵겠죠?
-			$('#re_tag').text(data.rest.re_tag);
-			var score = data.rest.re_score;
-			star_reset();
-			star_mk(score);
-
-			//get_review(re_id);
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-			console.log(jqXHR);
-		}
-	});
-}
-function star_reset() {
-	$('.star5').prop('checked',false);
-	$('.star5').prop('checked',false);
-	$('.star5').prop('checked',false);
-	$('.star5').prop('checked',false);
-	$('.star5').prop('checked',false);
-}
-
-function star_mk(score) {
-	if(score == 5){
-		$('.star5').prop('checked',true);
-	} else if(score >= 4){
-		$('.star4').prop('checked',true);
-	}else if(score >= 3){
-		$('.star3').prop('checked',true);
-	}else if(score >= 2){
-		$('.star2').prop('checked',true);
-	}else if(score >= 1){
-		$('.star1').prop('checked',true);
-	}else{
-		$('.star1').prop('checked',false);
-	}
-}
-
-function get_review(re_id) {
-	alert(re_id);
-	
-	var rv_re_id = re_id
-	
-	let rv = {
-		rv_re_id : rv_re_id
-	}
-	
-	$.ajax({
-		async : false, //비동기 : true(비동기), false(동기)
-		url : '<c:url value="/ajax/rv_data"/>', 
-		type : 'post', 
-		data : JSON.stringify(rv), 
-		contentType : "application/json; charset=utf-8",
-		dataType : "json", 
-		success : function (data){
-			console.log(data)
-
-
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-			console.log(jqXHR);
-		}
-	});
-	
-}
-
-</script>
-
-	  
-
-	</div>
-
-  
-</div>
-
-
 </body>
 </html>

@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <html>
 <head>
 	<title>Home</title>
@@ -64,10 +63,8 @@
 	//지도 생성
 	var map = new kakao.maps.Map(container, options);
 	
-	
 	// 마커가 표시될 좌표 배열입니다
 	var restaurantPositions = ajaxList();
-	
 
 	var markerImageSrc = '<c:url value="/resources/img/category.png"/>';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
 	    restaurantMarkers = [], // 맛집가게 마커 객체를 가지고 있을 배열입니다
@@ -175,7 +172,7 @@
 		$.ajax({
 	        url: "<c:url value="/ajax/list"/>",
 			type: "post",
-			dataType : 'json',
+			dataType : "json",
 			async: false, //동기식 , 비동기식 설정
 	        success: function (data) {
 	        	for (var i = 0; i < data.length; i++) {  
@@ -253,7 +250,7 @@
 			for (var i = 0; i < list.length; i++) {
 				content += '<li class="item">';
 				content += '	<span class="markerbg">';
-				content += '		<img src="\http://hansusu.cafe24.com/data/apms/background/main.jpg"\>';
+				content += '		<img src="http://hansusu.cafe24.com/data/apms/background/main.jpg"\>';
 				content += '	</span>';
 				content += '	<div class="info">';
 				content += '		<h5>'+list[i]['re_name']+' (<i class="fa-solid fa-star rating"></i>'+list[i]['re_score']+')</h5>';
@@ -282,8 +279,162 @@
 		$(this).removeClass('off');	
 	});
 </script>
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left sticky" 
+     style="display:none; z-index: 999; left: 0;" id="mySidebar">
+  
+  <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
+  
+  <div class="container">
+    <div class="w3-bar-item">
+      <h1 id="re_name"></h1>
+      <div class="star-rating rating">
+        <input type="radio" class="star star1" value="1" disabled>
+        <input type="radio" class="star star2" value="2" disabled>
+        <input type="radio" class="star star3" value="3" disabled>
+        <input type="radio" class="star star4" value="4" disabled>
+        <input type="radio" class="star star5" value="5" disabled>
+        <label id="re-score" style="margin-left: 4px;font-size: 20px;"></label>
+      </div>
+    </div>
 
+    <!-- Image box -->
+    <div class="w3-container">
+      <img src="test.jpg" alt="img box" style="width:100px;">
+      <img src="test.jpg" alt="img box" style="width:100px;">
+      <img src="test.jpg" alt="img box" style="width:100px;">
+    </div>
 
+    <hr>
 
+    <!-- Content placeholders -->
+    <div class="w3-bar-item">
+      <i class="fa-duotone fa-solid fa-location-arrow"></i>&nbsp;
+      <span id="re_address"></span>
+    </div>
+    <div class="w3-bar-item">
+      <i class="fa-solid fa-phone"></i>&nbsp;&nbsp;<span id="re_phone"></span>
+    </div>
+    <div class="w3-bar-item">
+      <i class="fa-solid fa-clock"></i>&nbsp;&nbsp;<span id="re_state"></span>
+    </div>
+    <div class="w3-bar-item">
+      <i class="fa-solid fa-spoon"></i>&nbsp;&nbsp;<span id="re_menu"></span>
+    </div>
+    <div class="w3-bar-item">
+      <i class="fa-solid fa-tags"></i>&nbsp;&nbsp;<span id="re_tag"></span>
+    </div>
+    <div class="w3-bar-item" id="re_comment" 
+         style="border-radius: 5px; background-color: rgba(150, 50, 71, 0.4);"></div>
+
+    <div class="w3-bar-item" id="mj-footer"></div>
+
+    <hr>
+
+    <!-- Review section -->
+    <a href="#" class="w3-bar-item w3-button">
+      여기에 대표 리뷰가 들어갈 것 같습니다.
+    </a>
+    <img src="test.jpg" class="w3-circle" alt="여기에 유저 이미지 들어가요" style="width:50px;">
+    <i>작성자 이름</i>
+    <p>작성시간 :</p>
+
+    <hr>
+
+    <div class="w3-container">
+      <button class="w3-button w3-right w3-khaki w3-round-large">
+        상세 홈페이지
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  function w3_open() {
+    document.getElementById("main").style.marginLeft = "30%";
+    document.getElementById("mySidebar").style.width = "30%";
+    document.getElementById("mySidebar").style.display = "block";
+    get_atag_number(re_id);
+    ajax_get_res(re_id);
+  }
+
+  function w3_close() {
+    document.getElementById("main").style.marginLeft = "0%";
+    document.getElementById("mySidebar").style.display = "none";
+  }
+
+  function get_atag_number() {
+    // Sample module to fetch data using re_id
+    // $('#mj-title').text('매장명 받아올 ajax ' + re_id);
+  }
+
+  function ajax_get_res(re_id) {
+    let re = { re_id : re_id };
+
+    $.ajax({
+      async : false, 
+      url : '<c:url value="/ajax/res_data"/>', 
+      type : 'post', 
+      data : JSON.stringify(re), 
+      contentType : "application/json; charset=utf-8",
+      dataType : "json", 
+      success : function (data) {
+        $('#re_name').text(data.rest.re_name);
+        $('#re-score').text(data.rest.re_score);
+        $('#re_comment').text(data.rest.re_content);
+        $('#re_address').text(data.rest.re_address);
+        $('#re_phone').text(data.rest.re_phone);
+        $('#re_state').text(data.rest.re_state);
+        $('#re_tag').text(data.rest.re_tag);
+        
+        var score = data.rest.re_score;
+        star_reset();
+        star_mk(score);
+      }, 
+      error : function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+      }
+    });
+  }
+
+  function star_reset() {
+    $('.star5, .star4, .star3, .star2, .star1').prop('checked', false);
+  }
+
+  function star_mk(score) {
+    if (score >= 5) {
+      $('.star5').prop('checked', true);
+    } else if (score >= 4) {
+      $('.star4').prop('checked', true);
+    } else if (score >= 3) {
+      $('.star3').prop('checked', true);
+    } else if (score >= 2) {
+      $('.star2').prop('checked', true);
+    } else if (score >= 1) {
+      $('.star1').prop('checked', true);
+    }
+  }
+
+  function get_review(re_id) {
+    alert(re_id);
+    
+    let rv = { rv_re_id : re_id };
+
+    $.ajax({
+      async : false, 
+      url : '<c:url value="/ajax/rv_data"/>', 
+      type : 'post', 
+      data : JSON.stringify(rv), 
+      contentType : "application/json; charset=utf-8",
+      dataType : "json", 
+      success : function (data) {
+        console.log(data);
+      }, 
+      error : function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+      }
+    });
+  }
+</script>
 </body>
 </html>

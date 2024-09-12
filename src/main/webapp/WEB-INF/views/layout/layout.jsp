@@ -21,12 +21,9 @@
 <body>
 	<div id="main">
     <tiles:insertAttribute name="nav"/>
-
-   
-	    <div class="container body-con">
-	        <tiles:insertAttribute name="body" />
-	    </div>
-
+    <div class="container body-con">
+        <tiles:insertAttribute name="body" />
+    </div>
     <tiles:insertAttribute name="foo" />
      </div>                                       
 </body>
