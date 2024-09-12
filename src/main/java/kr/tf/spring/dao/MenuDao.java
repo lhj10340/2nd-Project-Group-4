@@ -13,4 +13,6 @@ public interface MenuDao {
 
 	boolean setMenuInDB(@Param("menu")MenuVO menu);
 
+	boolean deleteMenuById(@Param("me_id")String me_id);
+
 }

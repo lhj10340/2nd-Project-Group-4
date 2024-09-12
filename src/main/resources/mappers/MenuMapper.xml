@@ -5,7 +5,7 @@
 <mapper namespace="kr.tf.spring.dao.MenuDao">
  	
  	<select id="getMenuListByRestId" resultType="kr.tf.spring.model.vo.MenuVO">
- 	SELECT * FROM menu where me_re_id = #{rest.re_id}
+ 	SELECT * FROM menu where me_re_id = 1
  	</select>
  	
  	<insert id="setMenuInDB">
@@ -13,5 +13,8 @@
  	value (#{menu.me_re_id}, #{menu.me_title}, #{menu.me_category}, #{menu.me_main_menu}, #{menu.me_show}, #{menu.me_price},#{menu.me_thumb})
  	</insert>
 
+	<delete id="deleteMenuById">
+	delete from menu where me_id = #{me_id}
+	</delete>
 
 </mapper>
