@@ -38,7 +38,7 @@ CREATE TABLE `restaurant` (
 	`re_state`	varchar(15)	NULL,
 	`re_time`	datetime	NULL,
 	`re_day`	text	NULL,
-	`re_score`	int	NULL,
+	`re_score`	DECIMAL	NULL,
 	`re_update`	datetime	NULL,
 	`re_category`	varchar(30)	NULL,
 	`re_views`	int	NULL,
@@ -50,13 +50,14 @@ DROP TABLE IF EXISTS `review`;
 
 CREATE TABLE `review` (
 	`rv_id`			int auto_increment primary key	NOT NULL,
-	`rv_re_id`		int			NOT NULL,
-	`rv_us_id`		varchar(20)	NOT NULL,
-	`rv_title`		varchar(50)	NOT NULL,
-	`rv_content`	longtext	NOT NULL,
-    `rv_date`		datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`rv_re_id`		int			NULL,
+	`rv_us_id`		varchar(20)	NULL,
+	`rv_title`		varchar(50)	NULL,
+	`rv_content`	longtext	NULL,
+    `rv_date`		datetime NULL DEFAULT CURRENT_TIMESTAMP,
 	`rv_score`		DECIMAL(2,1)	NOT NULL,
-    `rv_tf`			tinyint(1)	NOT NULL,
+    `rv_tf`			varchar(1)	NULL,
+    `rv_receipt` varchar(10) NULL,
 	`rv_ thumb`		longtext	NULL
 );
 

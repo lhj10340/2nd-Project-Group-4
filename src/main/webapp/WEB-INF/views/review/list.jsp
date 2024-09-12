@@ -132,13 +132,17 @@
 		<a href="<c:url value="/review/insert?rv_tf=${pm.cri.rv_tf }"/>"
 			class="btn btn-outline-info btn-insert mb-5">리뷰 등록</a>
 	<script type="text/javascript">
-		$('.btn-insert').click(function() {
+		$('.btn-insert').click(function(e) {
+			e.preventDefault(); // 기본 동작을 막음
+	
+			// 로그인 여부 확인 (로그인 상태 체크: '${user.us_id}' 사용)
 			if ('' != '${user.us_id}') {
-				return;
-			}
-			e.preventDefault();
-			if (confirm("로그인이 필요한 서비스입니다.\n로그인 하시겠습니까?")) {
-				location.href = "<c:url value="/login"/>";
+				// 로그인된 경우 리뷰 등록 페이지로 이동
+				location.href = "<c:url value='/review/insert?rv_tf=${pm.cri.rv_tf }'/>";
+			} else {
+				// 로그인되지 않은 경우 모달 표시
+				alert("로그인이 필요한 서비스입니다.");
+				$('#myModal-login').modal('show'); // Bootstrap 모달 표시
 			}
 		});
 	</script>

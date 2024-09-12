@@ -37,7 +37,7 @@
  	   </div>
  	   <div class="form-group mt-3">
 			<label for="receipt">영수증 번호: </label>
-			<textarea type="text" class="form-control" id="receipt" name="rv_content"></textarea>
+			<textarea type="text" class="form-control" id="receipt" name=""></textarea>
 		</div>
 		<div class="form-group mt-3">
 			<label for="content">내용: </label>
