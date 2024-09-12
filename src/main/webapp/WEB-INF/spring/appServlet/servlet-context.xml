@@ -51,6 +51,7 @@
 	<beans:bean id="loginInterceptor" class="kr.tf.spring.interceptor.LoginInterceptor"/>
 	<beans:bean id="autoLoginInterceptor" class="kr.tf.spring.interceptor.AutoLoginInterceptor"/>
 
+
 	<interceptors>
 		
 		<!-- 관리자 이외의 인원이 관리자 권한으로 접근할 경우 사용할 interceptor -->
@@ -63,15 +64,15 @@
 		<!-- 비회원(로그인x)이 회원 권한(리뷰 작성)으로 접근할 경우 사용할 interceptor -->
 		
 		<interceptor>
-			<mapping path=""/>
+			<mapping path="/review/insert"/>
 			<beans:ref bean="userInterceptor"/>
 		</interceptor>
 		
 		<!-- 회원이 이미 진행한 기능(로그인, 회원가입)으로 접근할 경우 사용할 interceptor -->
 		
 		<interceptor>
-			<mapping path="/login"/>
-			<mapping path="/signup"/>
+			<mapping path="/user/login"/>
+			<mapping path="/user/signup"/>
 			<beans:ref bean="guestInterceptor"/>
 		</interceptor>
 		
@@ -91,6 +92,7 @@
 		
 	</interceptors>
 	
+
 	<!-- uploadPath라는 bean을 등록 -->	
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg value="d:\\uploads"/>

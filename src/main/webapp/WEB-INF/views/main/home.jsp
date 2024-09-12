@@ -9,7 +9,14 @@
 	<style type="text/css">
 		.body-con{all: unset; margin-top: 0 !important; padding-bottom: 0px !important;}
 		.cage-icon{color : #F9EBDE!important;}
-		.img-box{width : 30%;}
+		.img-box{ width: calc(100% / 3);}
+		.w3-bar-item{color: #815854;}
+		.stcky-div{width: 91%; margin-left: 1%;}
+		.sticky{background-color:#F9EBDE;}
+		#re_comment{border-radius: 5px; background-color: rgba(194, 150, 109, 0.3);margin-bottom: 10%;}
+		.review-prev-title{font-weight: bold; font-size: 20px;}
+		.reviewer{margin: 5%;}
+		.reviewer-div{margin-bottom: 5%;}
 	</style>
 </head>
 <body>
@@ -55,11 +62,11 @@
 </div>
 
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left sticky" 
-     style="display:none; z-index: 999; left: 0;" id="mySidebar">
+     style="display:none; z-index: 2; left: 0;" id="mySidebar">
   
-  <button class="w3-button w3-display-topright" onclick="w3_close()">&times;</button>
+  <button class="info close" onclick="w3_close()">&times;</button>
   
-  <div class="" style="width: 91%; margin-left: 1%">
+  <div class="stcky-div">
     <div class="w3-bar-item">
       <h1 id="re_name"></h1>
       <div class="star-rating rating">
@@ -99,26 +106,33 @@
     <div class="w3-bar-item">
       <i class="fa-solid fa-tags"></i>&nbsp;&nbsp;<span id="re_tag"></span>
     </div>
-    <div class="w3-bar-item" id="re_comment" 
-         style="border-radius: 5px; background-color: rgba(150, 50, 71, 0.4);">
-    </div>
-
-    <div class="w3-bar-item" id="mj-footer"></div>
-
-    <hr>
-
+    <div class="w3-bar-item" id="re_comment"></div>
     <!-- Review section -->
-    <a href="#" class="w3-bar-item w3-button">
-      여기에 대표 리뷰가 들어갈 것 같습니다.
-    </a>
-    <img src="<c:url value="/resources/img/user.png"/>" class="w3-circle" alt="여기에 유저 이미지 들어가요" style="width:50px;">
-    <i>작성자 이름</i>
-    <p>작성시간 :</p>
-
-    <hr>
-
-    <div class="w3-container">
-      <button class="w3-button w3-right w3-khaki w3-round-large">
+    <div class="w3-bar-item">
+	   <!--  <a href="#" class="w3-bar-item w3-button">
+	      여기에 대표 리뷰가 들어갈 것 같습니다.
+	    </a> -->
+	    <p class="review-prev-title">리뷰 미리보기</p>
+	    <div class="reviewer-div">
+		    <img src="<c:url value="/resources/img/user.png"/>" class="w3-circle" alt="유저아이콘" style="width:50px;">
+		    <span class="reviewer">작성자 이름</span>
+	    </div>
+	    <div class="reviewer-content">
+	    	<span class="reviewer-title">리뷰제목</span>
+	    	<span class="rating"> ★★★★☆</span>
+	    	<p>작성일 : <span class="review-time"></span></p>
+	    	<p class="reviewer-content">
+	    		리뷰내용이 노출될건데리뷰내용이 노출될건데
+	    		리뷰내용이 노출될건데리뷰내용이 노출될건데
+	    		이미지도 보여주고
+	    		<img src="<c:url value="/resources/img/no_img.jpg"/>" alt="img box" width="100%">
+	    		어때
+	    		어때!!!!!
+	    	</p>
+	    </div>
+    </div>
+    <div class="w3-container w3-bar-item">
+      <button class="w3-right btn btn-search-color">
         상세 홈페이지
       </button>
     </div>
@@ -202,12 +216,11 @@
 		var getRe_id = marker.getTitle(); 
 		var getLat = marker.getPosition().getLat();
 	 	var getLng = marker.getPosition().getLng();
-	 	//가게정보array
-	 	var restaurant = ajaxInfo(getRe_id);
+	 	var restaurant = ajaxInfo(getRe_id); //가게정보
 	 	var category = restaurant[5];
 	 	var basePath = '<c:url value="/uploads" />';
 	  var img_path = basePath + restaurant[6];
-	  if(typeof restaurant[6] == "undefined" || restaurant[6] == null || restaurant[6] == ""){
+	  if(restaurant[6] == "no_img.jpg"){
 			img_path  = '<c:url value="/resources/img/no_img.jpg"/>';
 		}
 	 	if(category == null ) category = "미지정";
@@ -217,7 +230,7 @@
 	 			cage_icon = '<i class="fa-solid fa-bowl-food cage-icon"></i>';
 	 		break;
 	 		case '중식':
-	 			cage_icon = '<i class="fa-regular fa-plate-wheat cage-icon"></i>';
+	 			cage_icon = '<i class="fa-regular fa-plate-wheat"></i>';
 	     	break;
 	 		case '양식':
 	 			cage_icon = '<i class="fa-solid fa-burger cage-icon"></i>';
@@ -298,7 +311,15 @@
 	        success: function (data) {
 	        	var rest = data.restaurant;
 	        	var files = data.files;
-	        	restaurant = [rest.re_id, rest.re_name, rest.re_address, rest.re_phone, rest.re_score, rest.re_category, files[0].fi_path];
+	        	
+	        	var fi_path = '';
+	        	
+	        	if(typeof files == "undefined" || files == null || files == ""){
+	        		fi_path = 'no_img.jpg';
+	        	} else {
+	        		fi_path = files[0].fi_path;
+	        	}
+	        	restaurant = [rest.re_id, rest.re_name, rest.re_address, rest.re_phone, rest.re_score, rest.re_category, fi_path];
 	        }
 	  });
 		return restaurant;
@@ -438,7 +459,7 @@
       success : function (data) {
         $('#re_name').text(data.rest.re_name);
         $('#re-score').text(data.rest.re_score);
-        $('#re_comment').text(data.rest.re_content);
+        $('#re_comment').html(nl2br(data.rest.re_content));
         $('#re_address').text(data.rest.re_address);
         $('#re_phone').text(data.rest.re_phone);
         $('#re_state').text(data.rest.re_state + ' / ' + data.rest.re_day);
@@ -454,10 +475,9 @@
         	$(".sticky-photo").empty();
 	        for(var i=0;  i < files.length; i++){
 	        	file_path = basePath + files[i]['fi_path'];
-	        	console.log(file_path);
-	        	content += '<img src="'+file_path+'" alt="img box"  class="img-box">';
+	        	content += '<img src="'+file_path+'" alt="img box" class="img-box">';
 	        }
-        } else { //dlalwlrk djqtdmaus...
+        } else { //이미지가 없으면
         	file_path  = '<c:url value="/resources/img/no_img.jpg"/>';
         	content += '<img src="'+file_path+'" alt="img box"  class="img-box">';
         }
@@ -511,6 +531,10 @@
       }
     });
   }
+ 
+function nl2br(str) {
+	return str.replace(/\n/g, '<br>');
+}
 </script>
 </body>
 </html>

@@ -8,23 +8,13 @@
 <meta charset="UTF-8">
 <title>매장등록</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<style type="text/css">
-	.zip-class {width: 30% !important; display: inline-flex !important;}
-	.form-div {color:#815854;}
-	.form-control-rest {background-color:#fcf5ed;display: block;width: 100%;height: calc(1.5em + .75rem + 2px);padding: .375rem .75rem;font-size: 1rem;
-    font-weight: 400;line-height: 1.5;color: #815854;background-clip: padding-box;border: 1px solid #fff;
-    border-radius: .25rem;transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
-    label {font-weight: bold; font-size: 15px;}
-    .phone {width: 30% !important;display: inline-flex !important;}
-    .hyphen {margin-left: 2%;margin-right: 2%;}
-    textarea {height: 6.25em !important;resize: none;}                                                                       
-    .button-group {text-align: center;}
-</style>
+<link rel="stylesheet" href="<c:url value="/resources/css/form.css" />">
 </head>
 <body>
 <div class="form-div">
-	<form name="frestaurant" id="frestaurant" onsubmit="frestaurantsubmit(this);" action="<c:url value="/restaurant/insert"/>"  method="POST" enctype="multipart/form-data" autocomplete="off">
-		<input type="hidden" name="re_us_id" value="test1234">
+	<p class="title-p">매장등록</p>
+	<form name="frestaurant" id="frestaurant" onsubmit="return frestaurantsubmit(this);" action="<c:url value="/restaurant/insert"/>"  method="POST" enctype="multipart/form-data" autocomplete="off">
+		<input type="hidden" name="re_us_id" value="${user.us_id}">
 		<input type="hidden" name="re_x" value="" id="re_x">
 		<input type="hidden" name="re_y" value="" id="re_y">
 		<div class="form-group">
@@ -33,13 +23,22 @@
 		</div>
 		<div class="form-group">
 			<label for="re_category">어떤음식을 파는 곳 인가요?</label>
-			<select name="re_category" class="form-control-rest" required>
+			<select name="re_category" class="form-control-rest" >
 				<option value="">선택해주세요:)</option>
 				<option value="한식">한식</option>
 				<option value="양식">양식</option>
 				<option value="중식">중식</option>
 				<option value="일식">일식</option>
 				<option value="디저트">디저트</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="re_state">영업상태</label>
+			<select name="re_state" id="re_state" class="form-control-rest" >
+				<option value="신규오픈">신규오픈</option>
+				<option value="영업중">영업중</option>
+				<option value="영업종료">영업종료</option>
+				<option value="폐업">폐업</option>
 			</select>
 		</div>
 		<div class="form-group">
@@ -50,9 +49,9 @@
 			<label for="phone1">가게연락처</label>
 			<br>
 			<input type="hidden" name="re_phone" id="re_phone" value="">
-			<input type="text" data-num="1" size="5" class="form-control-rest phone" onkeyup="getPhone();"><span class="hyphen">-</span> 
-			<input type="text" data-num="2" size="5" class="form-control-rest phone" onkeyup="getPhone();"><span class="hyphen">-</span> 
-			<input type="text" data-num="3" size="5" class="form-control-rest phone" onkeyup="getPhone();">
+			<input type="text" data-num="1" id="phone1" size="5" class="form-control-rest phone" onkeyup="getPhone();"><span class="hyphen">-</span> 
+			<input type="text" data-num="2" id="phone2" size="5" class="form-control-rest phone" onkeyup="getPhone();"><span class="hyphen">-</span> 
+			<input type="text" data-num="3" id="phone3" size="5" class="form-control-rest phone" onkeyup="getPhone();">
 		</div>
 		<div class="form-group">
 			<label for="re_zip">우편번호</label>
@@ -84,7 +83,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label>첨부파일:</label>
+			<label>첨부파일 (첫 이미지는 대표이미지로 자동 설정됩니다!)</label>
 			<input type="file" class="form-control-rest frm_file" name="fileList">
 			<input type="file" class="form-control-rest frm_file" name="fileList">
 			<input type="file" class="form-control-rest frm_file" name="fileList">
@@ -119,8 +118,54 @@
 		}
 	}
 	function frestaurantsubmit(f){
-		console.log(f);
-		//return false;
+		if(!f.re_name.value){
+			alert("매장이름을 알려주세요!");
+			f.re_name.focus();
+			return false;
+		}
+		
+	    if (!$("select[name=re_category]").val()) {
+	        alert("선택한 항목이 없습니다. 선택해 주세요!");
+	        $("select[name=re_category]").focus();
+	        return false;
+	    }
+		if(!f.re_day.value){
+			alert("영업일을 작성해주셔야해요!");
+			f.re_day.focus();
+			return false;
+		}
+		
+		if(!$("#phone1").val() || !$("#phone2").val() || !$("#phone3").val()){
+			alert("연락처를 모두 입력해볼까요?");
+			$("#phone1").focus();
+			return false;
+		}
+		
+		if(!f.re_zip.value){
+			alert("우편번호는 우편번호 찾기로 작성할 수 있어요!");
+			f.re_zip.focus();
+			return false;
+		}
+		
+		if(!f.re_address2.value){
+			alert("상세주소를 알려주세요!");
+			f.re_address2.focus();
+			return false;
+		}
+		
+		var filesSelected = false;
+		$('input[type="file"]').each(function() {
+            if (this.files.length > 0) {
+                filesSelected = true;
+                return false; // Exit the loop if at least one file is selected
+            }
+        });
+		
+		if(!filesSelected){
+			alert("매장 이미지를 한장 이상 올려주세요!");
+			return false;
+		}
+		//return ture;
 	}
 	
 	function geocoderMap(addr){

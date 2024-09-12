@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.tf.spring.dao.MenuDao;
 import kr.tf.spring.model.vo.MenuVO;
 import kr.tf.spring.model.vo.RestaurantVO;
+import kr.tf.spring.model.vo.UserVO;
 
 @Service
 public class MenuServiceImp implements MenuService{
@@ -19,10 +20,45 @@ public class MenuServiceImp implements MenuService{
 	@Override
 	public List<MenuVO> getMenuListByRestId(RestaurantVO rest) {
 		if (rest == null) {
-			return null;
+			return null; 
 		}
 		
 		return menuDao.getMenuListByRestId(rest);
+	}
+
+
+	@Override
+	public boolean setNewMenu(MenuVO menu, UserVO user) {
+		if (menu == null) {
+			return false;
+		}
+		
+		if (user == null) {
+			return false; 
+		}
+		
+		
+		return menuDao.setMenuInDB(menu);
+	}
+
+
+	@Override
+	public boolean deleteMenuById(String me_id) {
+		
+		if (me_id == null) {
+			return false;
+		}
+		return menuDao.deleteMenuById(me_id);
+	}
+
+
+	@Override
+	public boolean updateMenu(MenuVO menu) {
+		if (menu == null) {
+			return false;
+		}
+		
+		return menuDao.updateMenu(menu);
 	}
 	
 }

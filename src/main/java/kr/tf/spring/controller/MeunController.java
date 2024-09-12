@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.tf.spring.dao.RestaurantDAO;
 import kr.tf.spring.model.vo.MenuVO;
 import kr.tf.spring.model.vo.RestaurantVO;
 import kr.tf.spring.model.vo.UserVO;
@@ -31,8 +31,10 @@ public class MeunController {
 	public String menu(Model mo, HttpSession session) {
 		//로그인 유무 확인
 		UserVO user = (UserVO)session.getAttribute("user");
+
 		//로그인 된 유저 아이디로 가지고 있는 매장 확인
 		RestaurantVO rest = restaurantService.findRestByUserId(user);
+
 		//확인된 매장에 가지고 있는 매뉴를 긁어오기 
 		//매뉴는 자기가 가지고 있는 매장의 정보를 가지고 있어요 list 로 가져올게용
 		List<MenuVO> list = menuService.getMenuListByRestId(rest);
@@ -50,4 +52,59 @@ public class MeunController {
 		mo.addAttribute("list", list);
 		return "/menu/menu";
 	}
+	
+	@PostMapping("/add_menu")
+	public String add_menu(Model mo, HttpSession session, MenuVO menu) {
+		UserVO user = (UserVO)session.getAttribute("user");//세션에서 유저 가져오고
+		RestaurantVO rest = restaurantService.findRestByUserId(user);//가져온 유저가 가지고있는 레스토랑 확인
+		//menuVO 받아온 것에서 아이디랑 레스토랑 아이디 추가한 뒤 (set) db에 저장 후 성공 유무 반환 
+		menu.setMe_re_id(rest.getRe_id());
+		boolean res = menuService.setNewMenu(menu, user);
+		
+		if (res) {
+			mo.addAttribute("msg", "새로운 매뉴 추가 완료.");
+			mo.addAttribute("url","/menu/menu");
+		} else {
+			mo.addAttribute("msg", "오류.");
+			mo.addAttribute("url","/menu/menu");
+		}
+
+		return "/main/msg";
+	}
+	@GetMapping("/delete_menu")
+	public String delete_menu(Model mo, String me_id) {
+		
+		boolean res = menuService.deleteMenuById(me_id);
+		if (res) {
+			mo.addAttribute("msg", "메뉴 삭제 완료.");
+			mo.addAttribute("url","/menu/menu");
+		} else {
+			mo.addAttribute("msg", "오류.");
+			mo.addAttribute("url","/menu/menu");
+		}
+		
+		return "/main/msg";
+	}
+	
+	@PostMapping("/update_menu")
+	public String update_menu(Model mo, MenuVO menu, HttpSession session) {
+		UserVO user = (UserVO)session.getAttribute("user");//세션에서 유저 가져오고
+		RestaurantVO rest = restaurantService.findRestByUserId(user);//가져온 유저가 가지고있는 레스토랑 확인
+		menu.setMe_re_id(rest.getRe_id());
+		boolean res = menuService.updateMenu(menu);
+
+			
+		if (res) {
+			mo.addAttribute("msg", "메뉴 수정 완료.");
+			mo.addAttribute("url","/menu/menu");
+		} else {
+			mo.addAttribute("msg", "오류.");
+			mo.addAttribute("url","/menu/menu");
+		}
+		
+		
+		return "/main/msg";
+	}
+	
+	
 }

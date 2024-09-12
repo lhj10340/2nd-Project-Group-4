@@ -11,4 +11,10 @@ public interface MenuDao {
 
 	List<MenuVO> getMenuListByRestId(@Param("rest")RestaurantVO rest);
 
+	boolean setMenuInDB(@Param("menu")MenuVO menu);
+
+	boolean deleteMenuById(@Param("me_id")String me_id);
+
+	boolean updateMenu(@Param("menu")MenuVO menu);
+
 }
