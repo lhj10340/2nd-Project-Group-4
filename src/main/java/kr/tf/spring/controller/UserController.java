@@ -116,6 +116,8 @@ public class UserController {
 	        model.addAttribute("us_auth", user.getUs_auth());  // us_auth 값을 모델에 추가
 	    }
 	    return "common/nav";  // nav.jsp로 이동
+	}
+	
 	@PostMapping("/mypage")
 	public String mypagePost(Model mo, HttpSession session, UserVO user_) {
 		UserVO user = (UserVO)session.getAttribute("user");
