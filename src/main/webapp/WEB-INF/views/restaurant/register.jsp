@@ -43,6 +43,15 @@
 			</select>
 		</div>
 		<div class="form-group">
+			<label for="re_state">영업상태</label>
+			<select name="re_state" id="re_state" class="form-control-rest" required>
+				<option value="신규오픈">신규오픈</option>
+				<option value="영업중">영업중</option>
+				<option value="영업종료">영업종료</option>
+				<option value="폐업">폐업</option>
+			</select>
+		</div>
+		<div class="form-group">
 			<label for="re_day">영업일</label>
 			<input type="text" name="re_day" id="re_day" value="" placeholder="ex) 월~금 09:00 ~ 21:00 연중무휴" class="form-control-rest">
 		</div>
