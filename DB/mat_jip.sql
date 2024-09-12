@@ -118,8 +118,8 @@ CREATE TABLE `menu` (
 	`me_re_id`	int	NOT NULL,
 	`me_title`	varchar(30)	NULL,
 	`me_category` varchar(30) NULL,
-	`me_main_menu` varchar(5) NULL DEFAULT 'false',
-	`me_show` varchar(5) NULL DEFAULT 'false',
+	`me_main_menu` varchar(5) NULL,
+	`me_show` varchar(5) NULL,
 	`me_price`	int	NULL,
 	`me_thumb`	longtext	NULL
 );
