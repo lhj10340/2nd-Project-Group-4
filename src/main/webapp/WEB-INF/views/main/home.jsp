@@ -202,12 +202,11 @@
 		var getRe_id = marker.getTitle(); 
 		var getLat = marker.getPosition().getLat();
 	 	var getLng = marker.getPosition().getLng();
-	 	//가게정보array
-	 	var restaurant = ajaxInfo(getRe_id);
+	 	var restaurant = ajaxInfo(getRe_id); //가게정보
 	 	var category = restaurant[5];
 	 	var basePath = '<c:url value="/uploads" />';
 	  var img_path = basePath + restaurant[6];
-	  if(typeof restaurant[6] == "undefined" || restaurant[6] == null || restaurant[6] == ""){
+	  if(restaurant[6] == "no_img.jpg"){
 			img_path  = '<c:url value="/resources/img/no_img.jpg"/>';
 		}
 	 	if(category == null ) category = "미지정";
@@ -298,7 +297,15 @@
 	        success: function (data) {
 	        	var rest = data.restaurant;
 	        	var files = data.files;
-	        	restaurant = [rest.re_id, rest.re_name, rest.re_address, rest.re_phone, rest.re_score, rest.re_category, files[0].fi_path];
+	        	
+	        	var fi_path = '';
+	        	
+	        	if(typeof files == "undefined" || files == null || files == ""){
+	        		fi_path = 'no_img.jpg';
+	        	} else {
+	        		fi_path = files[0].fi_path;
+	        	}
+	        	restaurant = [rest.re_id, rest.re_name, rest.re_address, rest.re_phone, rest.re_score, rest.re_category, fi_path];
 	        }
 	  });
 		return restaurant;
