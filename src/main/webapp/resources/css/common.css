@@ -20,7 +20,7 @@ ul, ol {list-style: none;}
 .time_box .time {margin-left: 10px;}
 .closed {color: #dc3545;font-style: italic;}
 .fa-copyright {font-family: "Font Awesome 5 Free";font-weight: 900;}
-.footer-con {display: flex;justify-content: space-between;}
+.footer-con {display: flex;justify-content: space-between;} 
 .navbar{background-color:#815854 !important;}
 .btn-search-color{background: rgba(129, 88, 84, 0.8); color: #F9EBDE !important;}
 .title-p{font-size: 42px; text-align: center;}
