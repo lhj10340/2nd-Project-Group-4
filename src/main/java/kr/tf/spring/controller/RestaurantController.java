@@ -53,6 +53,11 @@ public class RestaurantController {
 	    model.addAttribute("restaurantList", restaurantList); 
 	    return "/restaurant/registerList"; 
 	}
+	
+	@GetMapping("/update")
+	public String reviewUpdate(Model model) {
+	    return "/restaurant/update";
+	}
 
 	
 	
