@@ -87,6 +87,8 @@ public class RestaurantServiceImp implements RestaurantService {
 		//restaurant 은 re_us_id 를 유저 아이디로 가지고있어서 그걸 찾아오는 작업이에용
 		
 		return restaurantDao.findRestByUserId(user);
+	}
+	
 	public List<FileVO> selectFileRestaurant(Integer re_id) {
 		if(re_id == null) return null;
 		
