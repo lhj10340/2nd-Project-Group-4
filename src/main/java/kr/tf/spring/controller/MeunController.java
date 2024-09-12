@@ -31,8 +31,10 @@ public class MeunController {
 	public String menu(Model mo, HttpSession session) {
 		//로그인 유무 확인
 		UserVO user = (UserVO)session.getAttribute("user");
+
 		//로그인 된 유저 아이디로 가지고 있는 매장 확인
-		RestaurantVO rest = restaurantService.findRestByUserId(user); // 세션에 저장 안하면 우케 받아요?
+		RestaurantVO rest = restaurantService.findRestByUserId(user);
+
 		//확인된 매장에 가지고 있는 매뉴를 긁어오기 
 		//매뉴는 자기가 가지고 있는 매장의 정보를 가지고 있어요 list 로 가져올게용
 		List<MenuVO> list = menuService.getMenuListByRestId(rest);
