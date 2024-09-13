@@ -84,6 +84,6 @@ public class RestaurantController {
 			model.addAttribute("url", "/restaurant/registerList");
 			model.addAttribute("msg", "매장정보를 변경하지 못했습니다.");
 		}
-		return "/main/message";
+		return "/main/msg";
 	}
 }

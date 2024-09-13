@@ -49,7 +49,7 @@
  			re_x = '${rest.re_x}',
  			re_y = '${rest.re_y}',
  			re_phone = '${rest.re_phone}',
- 			re_zip = ${rest.re_zip},
+ 			re_zip = '${rest.re_zip}',
  			re_address = '${rest.re_address}',
  			re_address2 = '${rest.re_address2}',
  			re_tag = '${rest.re_tag}',
@@ -63,8 +63,8 @@
  		]]>
  	</insert>
  	<insert id="insertFile">
-		insert into file(fi_path, fi_ori_id, fi_re_id, fi_num)
-		values(#{file.fi_path},#{file.fi_ori_id},#{file.fi_re_id}, #{file.fi_num)
+		insert into file(fi_path, fi_ori_id, fi_re_id)
+		values(#{file.fi_path},#{file.fi_ori_id},#{file.fi_re_id})
 	</insert>
 	<select id="findRestByUserId" resultType="kr.tf.spring.model.vo.RestaurantVO">
 	select * from restaurant where re_us_id = #{user.us_id}
@@ -84,11 +84,10 @@
 	<update id="updateRestaurant">
  	<![CDATA[
  		update restaurant
- 		set re_us_id = '${rest.re_us_id}',
- 			re_x = '${rest.re_x}',
+ 		set re_x = '${rest.re_x}',
  			re_y = '${rest.re_y}',
  			re_phone = '${rest.re_phone}',
- 			re_zip = ${rest.re_zip},
+ 			re_zip = '${rest.re_zip}',
  			re_address = '${rest.re_address}',
  			re_address2 = '${rest.re_address2}',
  			re_tag = '${rest.re_tag}',
