@@ -85,7 +85,7 @@
 		values(#{image.im_name},#{image.im_ori_name},#{image.im_rv_id})
 	</insert>
 
-	<select id="selectReview" resultType="ReviewVO">
+	<select id="selectReview" resultType="kr.tf.spring.model.vo.ReviewVO">
 		select * from review where rv_id = #{rv_id}
 	</select>
 
@@ -99,12 +99,12 @@
         DELETE FROM image WHERE im_rv_id = #{rv_id}
     </delete>
     
-     <select id="getReviewByRestId" resultType="ReviewVO">
+     <select id="getReviewByRestId" resultType="kr.tf.spring.model.vo.ReviewVO">
     select * from review where rv_re_id = #{rv.rv_re_id} limit 1
     </select>
 
     <!-- 이미지 목록 조회 -->
-	<select id="selectImageList" resultType="ImageVO">
+	<select id="selectImageList" resultType="kr.tf.spring.model.vo.ImageVO">
 		select * from image where im_rv_id = #{rv_id}
 	</select>
 	
