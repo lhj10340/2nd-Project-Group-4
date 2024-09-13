@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.tf.spring.model.vo.MenuVO;
 import kr.tf.spring.model.vo.RestaurantVO;
@@ -54,7 +56,7 @@ public class MeunController {
 	}
 	
 	@PostMapping("/add_menu")
-	public String add_menu(Model mo, HttpSession session, MenuVO menu) {
+	public String add_menu(Model mo, HttpSession session, MenuVO menu,  @RequestParam("thumb") MultipartFile me_thumb) {
 		UserVO user = (UserVO)session.getAttribute("user");//세션에서 유저 가져오고
 		RestaurantVO rest = restaurantService.findRestByUserId(user);//가져온 유저가 가지고있는 레스토랑 확인
 		//menuVO 받아온 것에서 아이디랑 레스토랑 아이디 추가한 뒤 (set) db에 저장 후 성공 유무 반환 
