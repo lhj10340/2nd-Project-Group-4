@@ -165,7 +165,7 @@ public class ReviewService {
 			return;
 		}
 		//첨부파일을 서버에서 삭제
-		UploadFileUtils.delteFile(uploadPath, image.getIm_name());
+		UploadFileUtils.deleteFile(uploadPath, image.getIm_name());
 		//첨부파일 정보를 DB에서 삭제
 		reviewDao.deleteImage(image.getIm_num());
 	}
