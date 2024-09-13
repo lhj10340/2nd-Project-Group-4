@@ -54,10 +54,11 @@ CREATE TABLE `review` (
 	`rv_us_id`		varchar(20)	NULL,
 	`rv_title`		varchar(50)	NULL,
 	`rv_content`	longtext	NULL,
+    `rv_name`		varchar(50)	NULL,
     `rv_date`		datetime NULL DEFAULT CURRENT_TIMESTAMP,
 	`rv_score`		DECIMAL(2,1)	NOT NULL,
     `rv_tf`			varchar(1)	NULL,
-    `rv_receipt` varchar(10) NULL,
+    `rv_receipt`	varchar(10) NULL,
 	`rv_ thumb`		longtext	NULL
 );
 

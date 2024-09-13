@@ -93,6 +93,19 @@
             color: #F9EBDE;
             border-radius: 20px;
         }
+
+        .btn-delete {
+            background-color: #D9534F;
+            color: #FFF;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background-color: #C9302C;
+        }
     </style>
 </head>
 <body>
@@ -100,7 +113,7 @@
 
     <!-- 검색창 -->
     <div class="search-form">
-        <form action="<c:url value='/review/list' />" method="get">
+        <form action="<c:url value='/admin/review' />" method="get">
             <input type="text" name="search" placeholder="검색어" value="${pm.cri.search}">
             <button type="submit">검색</button>
         </form>
@@ -116,6 +129,7 @@
                 <th>작성자</th>
                 <th>작성일</th>
                 <th>별점</th>
+                <th>삭제</th> <!-- 삭제 버튼 열 추가 -->
             </tr>
         </thead>
         <tbody>
@@ -123,26 +137,31 @@
                 <tr>
                     <td>${review.rv_id }</td>
                     <td><a href="#">${review.rv_re_id }</a></td>
-                    <td><c:url var="url" value="/review/detail">
+                    <td><c:url var="url" value="/admin/review/detail">
                         <c:param name="rv_tf" value="${pm.cri.rv_tf }" />
                         <c:param name="page" value="${pm.cri.page }" />
                         <c:param name="type" value="${pm.cri.type }" />
                         <c:param name="search" value="${pm.cri.search }" />
                         <c:param name="rv_id" value="${review.rv_id }" />
                     </c:url> <a href="${url }">${review.rv_title }</a></td>
-                    <td><c:url var="url" value="/review/list">
+                    <td><c:url var="url" value="/admin/review">
                         <c:param name="rv_tf" value="${pm.cri.rv_tf }" />
                         <c:param name="type" value="id" />
                         <c:param name="search" value="${review.rv_us_id }" />
                     </c:url> <a href="${url }">${review.rv_us_id }</a></td>
-                    <td><fmt:formatDate value="${review.rv_date }"
-                        pattern="yy.MM.dd" /></td>
+                    <td><fmt:formatDate value="${review.rv_date }" pattern="yy.MM.dd" /></td>
                     <td>${review.rv_score }</td>
+                    <td>
+                        <form action="<c:url value='/admin/review/delete' />" method="post" onsubmit="return confirmDelete()">
+                            <input type="hidden" name="rv_id" value="${review.rv_id}" />
+                            <button type="submit" class="btn-delete">삭제</button>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
             <c:if test="${reviewList.size() eq 0 }">
                 <tr>
-                    <td colspan="6" class="no-records">등록된 게시글이 없습니다.</td>
+                    <td colspan="7" class="no-records">등록된 게시글이 없습니다.</td>
                 </tr>
             </c:if>
         </tbody>
@@ -152,7 +171,7 @@
     <c:if test="${pm.totalCount ne 0 }">
         <ul class="pagination">
             <c:if test="${pm.prev }">
-                <c:url var="url" value="/review/list">
+                <c:url var="url" value="/admin/review">
                     <c:param name="rv_tf" value="${pm.cri.rv_tf }" />
                     <c:param name="page" value="${pm.startPage - 1 }" />
                     <c:param name="type" value="${pm.cri.type }"/>
@@ -163,7 +182,7 @@
                 </li>
             </c:if>
             <c:forEach begin="${pm.startPage }" end="${pm.endPage }" var="i">
-                <c:url var="url" value="/review/list">
+                <c:url var="url" value="/admin/review">
                     <c:param name="rv_tf" value="${pm.cri.rv_tf }" />
                     <c:param name="page" value="${i}" />
                     <c:param name="type" value="${pm.cri.type }" />
@@ -177,20 +196,24 @@
                         <c:set var="active" value="" />
                     </c:otherwise>
                 </c:choose>
-                <li class="page-item ${active}"><a class="page-link"
-                    href="${url }">${i}</a></li>
+                <li class="page-item ${active}"><a class="page-link" href="${url }">${i}</a></li>
             </c:forEach>
             <c:if test="${pm.next }">
-                <c:url var="url" value="/review/list">
+                <c:url var="url" value="/admin/review">
                     <c:param name="rv_tf" value="${pm.cri.rv_tf }" />
                     <c:param name="page" value="${pm.startPage + 1 }" />
                     <c:param name="type" value="${pm.cri.type }" />
                     <c:param name="search" value="${pm.cri.search }" />
                 </c:url>
-                <li class="page-item"><a class="page-link" href="${url }">다음</a>
-                </li>
+                <li class="page-item"><a class="page-link" href="${url }">다음</a></li>
             </c:if>
         </ul>
     </c:if>
+
+    <script>
+        function confirmDelete() {
+            return confirm("삭제하시겠습니까?");
+        }
+    </script>
 </body>
 </html>

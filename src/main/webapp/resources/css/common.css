@@ -27,3 +27,8 @@ ul, ol {list-style: none;}
 .dropdown-item{color: #F9EBDE !important;}
 .dropdown-menu{background: #b07872 !important;}
 .hover-link:hover{background: #F9EBDE !important;color: #815854 !important;}
+.btn-review-color {
+  background: rgba(129, 88, 84, 0.8);
+  color: #F9EBDE !important;
+  margin-top: 10px;
+}

@@ -36,7 +36,7 @@ public class MenuServiceImp implements MenuService{
 
 
 	@Override
-	public boolean setNewMenu(MenuVO menu, UserVO user, MultipartFile me_thumb) { 
+	public boolean setNewMenu(MenuVO menu, UserVO user, MultipartFile me_thumb) {
 		if (menu == null) {
 			return false;
 		}

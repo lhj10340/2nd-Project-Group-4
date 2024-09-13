@@ -27,5 +27,19 @@ public interface ReviewDAO {
 	List<ReviewVO> getAllReviews(@Param("cri")ReviewCriteria cri);
 
 	int selectTotalReviewCount();
+	
+	void updateView(@Param("rv_id")Integer rv_id);
+
+	ImageVO selectImage(@Param("im_num")int im_num);
+
+	void deleteImage(@Param("im_num")int fi_num);
+
+	boolean updateReview(@Param("review")ReviewVO review);
+
+	boolean deleteReview(@Param("rv_id")int rv_id);
+
+    int deleteImagesByReviewId(@Param("rv_id") int rv_id);
+
+	ReviewVO getReviewByRestId(@Param("rv")ReviewVO rv_);
 
 }
