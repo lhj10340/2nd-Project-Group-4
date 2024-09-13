@@ -103,7 +103,7 @@
         </div>
         
         <!-- from start -->
-        <form action='<c:url value="/menu/update_menu"/>' method="post">
+        <form action='<c:url value="/menu/update_menu"/>' method="post" enctype="multipart/form-data">
 		        <!-- Modal body -->
 		        <div class="modal-body">
 			        <input type="hidden" value="${me.me_id }" name="me_id">
