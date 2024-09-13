@@ -154,7 +154,7 @@ public class RestaurantServiceImp implements RestaurantService {
 			return;
 		}
 		//첨부파일을 서버에서 삭제
-		UploadFileUtils.delteFile(uploadPath, file.getFi_path());
+		UploadFileUtils.deleteFile(uploadPath, file.getFi_path());
 		//첨부파일 정보를 DB에서 삭제
 		restaurantDao.deleteFile(file.getFi_id());
 	}
