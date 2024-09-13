@@ -8,5 +8,26 @@
  	SELECT * FROM menu where me_re_id = #{rest.re_id}
  	</select>
  	
- 	
+ 	<insert id="setMenuInDB">
+ 	insert into menu(me_re_id, me_title, me_category, me_main_menu, me_show, me_price, me_thumb)
+ 	value (#{menu.me_re_id}, #{menu.me_title}, #{menu.me_category}, #{menu.me_main_menu}, #{menu.me_show}, #{menu.me_price},#{menu.me_thumb})
+ 	</insert>
+
+	<delete id="deleteMenuById">
+	delete from menu where me_id = #{me_id}
+	</delete>
+
+	<update id="updateMenu">
+	update menu
+	set
+		me_title = #{menu.me_title},
+		me_category = #{menu.me_category},
+		me_main_menu = #{menu.me_main_menu},
+		me_show = #{menu.me_show},
+		me_price = #{menu.me_price},
+		me_thumb = #{menu.me_thumb}
+	where
+		me_id = #{menu.me_id}
+	</update>
+	
 </mapper>

@@ -43,40 +43,19 @@
 	    </li>
 
 	    
-	<c:if test="${user.us_auth >= 7 or user == null}"><!-- 조건 user == null은 디버깅용 > 나중에 발견하면 삭제해 주세요 -->
-	    <li class="nav-item dropdown"  >
+	<c:if test="${user.us_auth >= 7 and user.us_auth != 9}">
+	    <li class="nav-item dropdown">
 	      <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" >매장관리</a>
-	      <div class="dropdown-menu "  style="position: inline-block;">
-	      	<a class="dropdown-item nav-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장등록 </a>
-	        <a class="dropdown-item nav-link" href="<c:url value="/menu/menu"/>">&nbsp;메뉴 정보 등록/수정 </a>
-	        <a class="dropdown-item nav-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장 정보 관리</a>
-	        <a class="dropdown-item nav-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장 리뷰/요청사항 </a>
+	      <div class="dropdown-menu"  style="position: inline-block;">
+	      	<a class="dropdown-item nav-link hover-link" href="<c:url value="/restaurant/register"/>">&nbsp;매장등록 </a>
+	      	<a class="dropdown-item nav-link hover-link" href="<c:url value="/restaurant/registerList"/>">&nbsp;매장 정보 관리</a>
+	        <a class="dropdown-item nav-link hover-link" href="<c:url value="/menu/menu"/>">&nbsp;메뉴 정보 등록/수정 </a>
 	       </div>
 	    </li>
 	 </c:if>
-    
-    
-
-   
-
-	   </ul>
-	    
+	</ul>
 		
 <ul class="navbar-nav">
-
-  <!-- us_auth == 8일 때 매장 관리 메뉴 -->
-  <c:if test="${user.us_auth == 8}">
-    <li class="nav-item">
-      <a class="nav-link text-white" href="<c:url value='/admin/store'/>">매장 관리</a>
-    </li>
-  </c:if>
-
-  <!-- us_auth == 1일 때 마이페이지 -->
-  <c:if test="${user.us_auth == 1}">
-    <li class="nav-item">
-      <a class="nav-link text-white" href="<c:url value='/user/mypage'/>">마이 페이지</a>
-    </li>
-  </c:if>
 
   <!-- us_auth == 9일 때 관리자 페이지 -->
   <c:if test="${user.us_auth == 9}">
@@ -115,13 +94,7 @@
 	
 	</c:choose>
 	
-	<c:if test="${user.us_auth == 9}">
-		
-		   		    <li class="nav-item">
-				      <a class="nav-link text-white" href="<c:url value="/admin/tool"/>">관리자 페이지</a>
-				    </li>
-	
-	</c:if>
+
 	
 		</ul>
 	</nav>

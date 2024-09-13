@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.tf.spring.model.vo.ImageVO;
-import kr.tf.spring.model.vo.RestaurantVO;
 import kr.tf.spring.model.vo.ReviewVO;
 import kr.tf.spring.pagination.ReviewCriteria;
 
@@ -38,4 +37,9 @@ public interface ReviewDAO {
 	boolean updateReview(@Param("review")ReviewVO review);
 
 	boolean deleteReview(@Param("rv_id")int rv_id);
+
+    int deleteImagesByReviewId(@Param("rv_id") int rv_id);
+
+	ReviewVO getReviewByRestId(@Param("rv")ReviewVO rv_);
+
 }

@@ -165,11 +165,54 @@ public class ReviewService {
 			return;
 		}
 		//첨부파일을 서버에서 삭제
-		UploadFileUtils.delteFile(uploadPath, image.getIm_name());
+		UploadFileUtils.deleteFile(uploadPath, image.getIm_name());
 		//첨부파일 정보를 DB에서 삭제
 		reviewDao.deleteImage(image.getIm_num());
-	}
+	
 
+		/*
+		 * try { String im_ori_name = file.getOriginalFilename(); // 첨부파일을 서버에 업로드 후 경로가
+		 * 포함된 파일명을 가져옴 String im_name = UploadFileUtils.uploadFile(uploadPath,
+		 * file.getOriginalFilename(), file.getBytes()); // DB에 첨부파일 정보를 추가 ImageVO
+		 * imageVO = new ImageVO(im_name, im_ori_name, rv_id);
+		 * reviewDao.insertImage(imageVO); } catch (Exception e) { e.printStackTrace();
+		 * }
+		 */
+    }
+
+    public boolean deleteReview(int rv_id) {
+        try {
+            // 리뷰의 이미지 리스트를 가져와서 이미지 파일을 삭제합니다.
+            List<ImageVO> imageList = reviewDao.selectImageList(rv_id);
+            if (imageList != null) {
+                for (ImageVO imageVO : imageList) {
+                    // 이미지 파일 삭제
+                    String fileName = imageVO.getIm_name();
+                    UploadFileUtils.deleteFile(uploadPath, fileName);
+                }
+            }
+
+            // 리뷰 삭제
+            boolean result = reviewDao.deleteReview(rv_id);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 로그를 기록하거나 사용자에게 알리는 방법을 고려할 수 있습니다.
+            return false;
+        }
+    }	
+    
+
+	public ReviewVO getReviewByRestId(ReviewVO rv_) {
+		//널 체크 해주고
+		if(rv_ == null){
+			return null;
+		}
+
+		
+		return reviewDao.getReviewByRestId(rv_);
+	}
+    
 	public boolean deleteReview(int rv_id, UserVO user) {
 		if(user == null) {
 			return false;

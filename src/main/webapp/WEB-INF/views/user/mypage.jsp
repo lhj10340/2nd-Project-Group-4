@@ -6,40 +6,46 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<style type="text/css">
-
-.form-group{
-width: 400px;
-margin: auto;
-}
-
-</style>
-
+<link rel="stylesheet" href="<c:url value="/resources/css/mypage.css" />">
+<link rel="stylesheet" href="<c:url value="/resources/css/form.css" />">
 </head>
 <body>
-
-	<p style="font-size: 42px; text-align: center;">마이페이지</p>
+<div class="form-div">
+	<p class="title-p">마이페이지</p>
 	
 	<form action="<c:url value="/user/mypage"/>" method="post" id="form">
+		<div class="form-group">
+			<p class="member-p">
+				<c:choose>
+				    <c:when test="${user.us_auth == 1}">
+				        일반회원
+				    </c:when>
+				    <c:when test="${user.us_auth == 7 or user.us_auth == 8}">
+				       사업자
+				    </c:when>
+				    <c:when test="${user.us_auth == 9}">
+				        관리자
+				    </c:when>
+				    <c:otherwise>
+				        비회원
+				    </c:otherwise>
+				</c:choose>
+			</p>
+		</div>
 		<div class="form-group">
 			<label for="id">아이디</label>
 			<input type="text" class="form-control" id="id" name="us_id" value="${user.us_id }" readonly>
 		</div>
 		<div class="form-group">
 			<label for="pw"> 비밀번호</label>
-			<input type="password" class="form-control" id="pw" name="us_pw">
+			<input type="password" class="form-control-rest" id="pw" name="us_pw">
 		</div>
 		<div class="form-group">
 			<label for="pw2"> 비밀번호 확인</label>
-			<input type="password" class="form-control" id="pw2" name="us_pw2">
+			<input type="password" class="form-control-rest" id="pw2" name="us_pw2">
 		</div>
 		<div class="form-group mt-2 mb-2">
-			<button type="submit" class="btn btn-outline-success">비밀번호 변경</button>
-		</div>
-		<div class="form-group">
-			<label for="auth"> 권한(1: 회원 / 7: 사업자 등록 대기 / 8: 사업자 / 9: 관리자)</label>
-			<input type="text" class="form-control" id="auth" name="us_auth" value="${user.us_auth }" readonly>
+			<button type="submit" class="btn btn-search-color">비밀번호 변경</button>
 		</div>
 		<div class="form-group">
 			<label for="gender"> 성별</label>
@@ -65,6 +71,6 @@ margin: auto;
 		</div>
 		<br>
 	</form>
-	
+</div>	
 </body>
 </html>
