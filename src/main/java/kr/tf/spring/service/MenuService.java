@@ -10,9 +10,9 @@ import kr.tf.spring.model.vo.UserVO;
 
 public interface MenuService {
 
-	List<MenuVO> getMenuListByRestId(RestaurantVO rest);
+	List<MenuVO> getMenuListByRestId(RestaurantVO rest); 
 
-	boolean setNewMenu(MenuVO menu, UserVO user, MultipartFile me_thumb);
+	boolean setNewMenu(MenuVO menu, UserVO user, MultipartFile me_thumb); 
 
 	boolean deleteMenuById(String me_id);
 
