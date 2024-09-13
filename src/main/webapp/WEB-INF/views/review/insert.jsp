@@ -32,7 +32,7 @@
 		<div class="form-group">
 			<label for="receiptNumber">리뷰를 작성할 매장을 선택해주세요:)</label>
 			<br>
-			<select name="rv_re_id" id="rv_re_id" required="required">
+			<select name="rv_re_id" id="rv_re_id" required="required" class="form-control">
 				<option value="">매장선택</option>
 				<c:forEach items="${rest }" var="list">
 					<option value="${list.re_id}">${list.re_name}</option>
