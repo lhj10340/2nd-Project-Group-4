@@ -462,7 +462,7 @@
         $('#re_state').text(data.rest.re_state + ' / ' + data.rest.re_day);
         $('#re_category').text(data.rest.re_category);
         $('#re_tag').text(data.rest.re_tag);
-        
+        get_review(data.rest.re_id);
         var files = getImgOne(data.rest.re_id, 'all');
         var file_path = '';
         var basePath = '<c:url value="/uploads" />';

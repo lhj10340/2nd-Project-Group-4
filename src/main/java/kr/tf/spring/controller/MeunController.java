@@ -59,7 +59,7 @@ public class MeunController {
 		RestaurantVO rest = restaurantService.findRestByUserId(user);//가져온 유저가 가지고있는 레스토랑 확인
 		//menuVO 받아온 것에서 아이디랑 레스토랑 아이디 추가한 뒤 (set) db에 저장 후 성공 유무 반환 
 		menu.setMe_re_id(rest.getRe_id());
-		boolean res = menuService.setNewMenu(menu, user, me_thumb);
+		boolean res = menuService.setNewMenu(menu, user);
 		
 		if (res) {
 			mo.addAttribute("msg", "새로운 매뉴 추가 완료.");

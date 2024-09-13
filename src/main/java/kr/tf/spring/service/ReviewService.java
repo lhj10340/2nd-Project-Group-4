@@ -126,4 +126,16 @@ public class ReviewService {
             return false;
         }
     }
+    
+
+	public ReviewVO getReviewByRestId(ReviewVO rv_) {
+		//널 체크 해주고
+		if(rv_ == null){
+			return null;
+		}
+
+		
+		return reviewDao.getReviewByRestId(rv_);
+	}
+    
 }

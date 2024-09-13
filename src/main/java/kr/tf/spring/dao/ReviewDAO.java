@@ -42,4 +42,7 @@ public interface ReviewDAO {
 
     // 리뷰에 연관된 모든 이미지 삭제
     int deleteImagesByReviewId(@Param("rv_id") int rv_id);
+    
+    // 홈에서 사용하는 미리보기 리뷰에용
+	ReviewVO getReviewByRestId(@Param("rv")ReviewVO rv_);
 }

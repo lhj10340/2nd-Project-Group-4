@@ -93,4 +93,8 @@
     <delete id="deleteImagesByReviewId" parameterType="int">
         DELETE FROM image WHERE im_rv_id = #{rv_id}
     </delete>
+    
+     <select id="getReviewByRestId" resultType="ReviewVO">
+    select * from review where rv_re_id = #{rv.rv_re_id} limit 1
+    </select>
 </mapper>
