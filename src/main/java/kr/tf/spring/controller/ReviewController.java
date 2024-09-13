@@ -78,7 +78,7 @@ public class ReviewController {
         String[] allowedExtensions = {"jpg", "jpeg", "png"};
         
         if (review == null || review.getRv_title() == null || review.getRv_title().trim().isEmpty() ||
-        		review.getRv_name() == null || review.getRv_score() == 0.0 || 
+        		 review.getRv_score() == 0.0 || 
                 review.getRv_content() == null || review.getRv_content().trim().isEmpty()) {
 
                 model.addAttribute("url", "/review/insert?rv_tf=" + review.getRv_tf());
