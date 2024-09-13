@@ -30,23 +30,24 @@
 				class="form-control" id="title" name="rv_title">
 		</div>
 		<div class="form-group">
-			<label for="receiptNumber">매장명</label>
-			<textarea class="form-control fixed-size" id="name" name="rv_name"
-				rows="1"></textarea>
+			<label for="receiptNumber">리뷰를 작성할 매장을 선택해주세요:)</label>
+			<br>
+			<select name="rv_re_id" id="rv_re_id" required="required">
+				<option value="">매장선택</option>
+				<c:forEach items="${rest }" var="list">
+					<option value="${list.re_id}">${list.re_name}</option>
+				</c:forEach>
+			</select>
 		</div>
 
 		<div class="form-group mt-3">
 			<label for="score">별점:</label> <select class="form-control"
 				id="score" name="rv_score">
-				<option value="0">별점을 선택해주세요.</option>
+				<option value="">별점을 선택해주세요.</option>
 				<option value="1">1점</option>
-				<option value="1.5">1.5점</option>
 				<option value="2">2점</option>
-				<option value="2.5">2.5점</option>
 				<option value="3">3점</option>
-				<option value="3.5">3.5점</option>
 				<option value="4">4점</option>
-				<option value="4.5">4.5점</option>
 				<option value="5">5점</option>
 			</select>
 		</div>
@@ -67,9 +68,6 @@
 			<label for="content">내용: </label>
 			<!-- <textarea type="text" class="form-control" id="content" name="rv_content"></textarea> -->
 			<textarea class="content" id="content" name="rv_content" maxlength="200" onkeyup="countText(this.value);"></textarea>
-			<!-- <div class="text-count">
-				<span id="count">0</span> / 200
-			</div> -->
 		</div>
 		
 		<div class="form-group">

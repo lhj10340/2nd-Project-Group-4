@@ -76,8 +76,8 @@
 	<insert id="insertReview" keyProperty="review.rv_id"
 		useGeneratedKeys="true">
 		insert into review(rv_title, rv_content, rv_tf, rv_us_id, rv_score,
-		rv_receipt, rv_name)
-		values(#{review.rv_title},#{review.rv_content},#{review.rv_tf},#{review.rv_us_id},#{review.rv_score},#{review.rv_receipt},#{review.rv_name})
+		rv_receipt, rv_name, rv_re_id)
+		values(#{review.rv_title},#{review.rv_content},#{review.rv_tf},#{review.rv_us_id},#{review.rv_score},#{review.rv_receipt},#{review.rv_name}, #{review.rv_re_id})
 	</insert>
 
 	<insert id="insertImage">

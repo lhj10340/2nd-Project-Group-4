@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.tf.spring.service.RestaurantService;
 import kr.tf.spring.service.ReviewService;
 import kr.tf.spring.model.vo.ImageVO;
+import kr.tf.spring.model.vo.RestaurantVO;
 import kr.tf.spring.model.vo.ReviewVO;
 import kr.tf.spring.model.vo.UserVO;
 import kr.tf.spring.pagination.PageMaker;
@@ -26,7 +28,9 @@ import kr.tf.spring.pagination.ReviewCriteria;
 public class ReviewController {
 	
     @Autowired
-    ReviewService reviewService;
+    public ReviewService reviewService;
+    @Autowired
+    public RestaurantService restaurantService;
 	
     @GetMapping("/list")
     public String list(Model model, ReviewCriteria cri) {
@@ -61,6 +65,8 @@ public class ReviewController {
     @GetMapping("/insert")
     public String insert(Model model, Integer rv_tf) {
     	model.addAttribute("rv_tf", rv_tf);
+    	List<RestaurantVO> rest = restaurantService.getAllRestaurant();
+    	model.addAttribute("rest", rest);
         return "/review/insert";
     }
     
