@@ -168,26 +168,16 @@ public class ReviewService {
 		UploadFileUtils.deleteFile(uploadPath, image.getIm_name());
 		//첨부파일 정보를 DB에서 삭제
 		reviewDao.deleteImage(image.getIm_num());
-	}
+	
 
-        try {
-            String im_ori_name = file.getOriginalFilename();
-            // 첨부파일을 서버에 업로드 후 경로가 포함된 파일명을 가져옴
-            String im_name = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-            // DB에 첨부파일 정보를 추가
-            ImageVO imageVO = new ImageVO(im_name, im_ori_name, rv_id);
-            reviewDao.insertImage(imageVO);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ReviewVO getReview(Integer rv_id) {
-        return reviewDao.selectReview(rv_id);
-    }
-
-    public List<ImageVO> getImageList(Integer rv_id) {
-        return reviewDao.selectImageList(rv_id);
+		/*
+		 * try { String im_ori_name = file.getOriginalFilename(); // 첨부파일을 서버에 업로드 후 경로가
+		 * 포함된 파일명을 가져옴 String im_name = UploadFileUtils.uploadFile(uploadPath,
+		 * file.getOriginalFilename(), file.getBytes()); // DB에 첨부파일 정보를 추가 ImageVO
+		 * imageVO = new ImageVO(im_name, im_ori_name, rv_id);
+		 * reviewDao.insertImage(imageVO); } catch (Exception e) { e.printStackTrace();
+		 * }
+		 */
     }
 
     public boolean deleteReview(int rv_id) {
@@ -203,14 +193,14 @@ public class ReviewService {
             }
 
             // 리뷰 삭제
-            int result = reviewDao.deleteReview(rv_id);
-            return result > 0;
+            boolean result = reviewDao.deleteReview(rv_id);
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
             // 로그를 기록하거나 사용자에게 알리는 방법을 고려할 수 있습니다.
             return false;
         }
-    }
+    }	
     
 
 	public ReviewVO getReviewByRestId(ReviewVO rv_) {
