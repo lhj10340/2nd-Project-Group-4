@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.tf.spring.service.ReviewService;
@@ -73,6 +71,22 @@ public class ReviewController {
         // 허용할 파일 확장자 목록
         String[] allowedExtensions = {"jpg", "jpeg", "png"};
         
+        if (review == null || review.getRv_title() == null || review.getRv_title().trim().isEmpty() ||
+        		review.getRv_name() == null || review.getRv_score() == 0.0 || 
+                review.getRv_content() == null || review.getRv_content().trim().isEmpty()) {
+
+                model.addAttribute("url", "/review/insert?rv_tf=" + review.getRv_tf());
+                model.addAttribute("msg", "모든 내용을 입력해주세요: 제목, 매장명, 별점, 내용");
+                return "/main/msg";
+            }
+        
+        // 영수증 번호가 입력된 경우 rv_tf 값을 1로 설정
+        if (review.getRv_receipt() != null && !review.getRv_receipt().trim().isEmpty()) {
+            review.setRv_tf("1");  // 영수증 번호가 있으면 rv_tf를 1로 설정
+        } else {
+            review.setRv_tf("0");  // 영수증 번호가 없으면 rv_tf를 0으로 설정
+        }
+        
         // 파일 확장자 검사
         for (MultipartFile file : fileList) {
             if (!file.isEmpty()) {  // 파일이 비어 있지 않으면 검사
@@ -90,10 +104,10 @@ public class ReviewController {
     	UserVO user = (UserVO)session.getAttribute("user");
     	
     	if (reviewService.insertReview(review, user, fileList)) {
-			model.addAttribute("url", "/revie	w/list/?rv_tf="+review.getRv_tf());
+			model.addAttribute("url", "/review/list/?rv_tf=" + review.getRv_tf());
 			model.addAttribute("msg", "리뷰를 등록했습니다.");
 		}else {
-			model.addAttribute("url", "/review/insert?rv_tf="+review.getRv_tf());
+			model.addAttribute("url", "/review/insert?rv_tf=" + review.getRv_tf());
 			model.addAttribute("msg", "리뷰를 등록하지 못했습니다.");
 		}
     	return "/main/msg";
@@ -112,4 +126,47 @@ public class ReviewController {
     	model.addAttribute("cri", cri);
     	return "/review/detail";
     }
+    
+	@GetMapping("/update")
+	public String update(Model model, Integer rv_id, ReviewCriteria cri) {
+		//게시글 가져옴
+		ReviewVO review = reviewService.getReview(rv_id);
+		//첨부파일 가져옴
+		List<ImageVO> imageList = reviewService.getImageList(rv_id);
+		//화면에 전송 
+		model.addAttribute("review", review);
+		model.addAttribute("list", imageList);
+		model.addAttribute("cri", cri);
+		return "/review/update";
+	}
+	@PostMapping("/update")
+	public String updateReview(Model model, ReviewVO review, 
+			int []im_nums, MultipartFile[] imageList, ReviewCriteria cri, HttpSession session) {
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		if(reviewService.updateReview(review, im_nums, imageList, user)) {
+			model.addAttribute("url", "/review/detail?rv_id="+review.getRv_id()+"&"+cri);
+			model.addAttribute("msg", "게시글을 수정했습니다.");
+		}else {
+			model.addAttribute("url", "/review/detail?rv_id="+review.getRv_id()+"&"+cri);
+			model.addAttribute("msg", "게시글을 수정하지 못했습니다.");
+		}
+		return "/main/msg";
+	}
+	@GetMapping("/delete")
+	public String delete(Model model, HttpSession session, int rv_id, ReviewCriteria cri) {
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		if(reviewService.deleteReview(rv_id, user)) {
+			model.addAttribute("url", "/review/list");
+			model.addAttribute("msg", "게시글을 삭제했습니다.");
+		}else {
+			model.addAttribute("url", "/review/detail?rv_id="+rv_id+"&"+cri);
+			model.addAttribute("msg", "게시글을 삭제하지 못했습니다.");
+		}
+		return "/main/msg";
+	}
+	
+	
 }

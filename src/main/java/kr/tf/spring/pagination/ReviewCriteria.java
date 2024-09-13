@@ -11,6 +11,7 @@ public class ReviewCriteria extends Criteria{
 
 	@Override
 	public String toString() {
-		return "[rv_tf=" + rv_tf +"]  "+ super.toString();
+		//return "[rv_tf=" + rv_tf +"]  "+ super.toString();
+		return "rv_tf=" + rv_tf +"&page="+ page + "&type=" + type +"&search=" +search;
 	}
 }
