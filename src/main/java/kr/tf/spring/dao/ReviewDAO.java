@@ -38,4 +38,8 @@ public interface ReviewDAO {
 
 	boolean deleteReview(@Param("rv_id")int rv_id);
 
+    int deleteImagesByReviewId(@Param("rv_id") int rv_id);
+
+	ReviewVO getReviewByRestId(@Param("rv")ReviewVO rv_);
+
 }

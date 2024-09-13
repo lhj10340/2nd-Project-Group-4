@@ -89,6 +89,26 @@
 		select * from review where rv_id = #{rv_id}
 	</select>
 
+
+    <!-- 이미지 목록 조회 -->
+    <select id="selectImageList" parameterType="int" resultType="kr.tf.spring.model.vo.ImageVO">
+        SELECT * FROM image WHERE im_rv_id = #{rv_id}
+    </select>
+
+    <!-- 리뷰 삭제 -->
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM review WHERE rv_id = #{rv_id}
+    </delete>
+
+    <!-- 리뷰의 모든 이미지 삭제 -->
+    <delete id="deleteImagesByReviewId" parameterType="int">
+        DELETE FROM image WHERE im_rv_id = #{rv_id}
+    </delete>
+    
+     <select id="getReviewByRestId" resultType="ReviewVO">
+    select * from review where rv_re_id = #{rv.rv_re_id} limit 1
+    </select>
+
 	<select id="selectImageList" resultType="ImageVO">
 		select * from image where im_rv_id = #{rv_id}
 	</select>
@@ -109,4 +129,5 @@
 	<delete id="deleteReview">
 		delete from review where rv_id = #{rv_id}
 	</delete>
+
 </mapper>
