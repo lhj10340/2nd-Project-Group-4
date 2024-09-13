@@ -12,6 +12,7 @@ public class ImageVO {
 	int im_rv_id;
 	
 	public ImageVO(String im_name, String im_ori_name, int rv_id) {
+		this.im_num = im_num;
 		this.im_name = im_name;
 		this.im_ori_name = im_ori_name;
 		this.im_rv_id = im_rv_id;

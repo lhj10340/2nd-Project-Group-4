@@ -10,39 +10,36 @@ import kr.tf.spring.pagination.ReviewCriteria;
 
 public interface ReviewDAO {
 
-    // 모든 커뮤니티 리뷰 리스트 조회
-    List<ReviewVO> selectCommunityList();
+	List<ReviewVO> selectCommunityList();
+	
+	List<ReviewVO> selectReviewList(@Param("cri")ReviewCriteria cri);
 
-    // 필터링된 리뷰 목록 조회
-    List<ReviewVO> selectReviewList(@Param("cri") ReviewCriteria cri);
+	int selectReviewTotalCount(@Param("cri")ReviewCriteria cri);
 
-    // 필터링된 리뷰 총 개수 조회
-    int selectReviewTotalCount(@Param("cri") ReviewCriteria cri);
+	boolean insertReview(@Param("review")ReviewVO review);
 
-    // 리뷰 추가
-    boolean insertReview(@Param("review") ReviewVO review);
+	void insertImage(@Param("image")ImageVO imageVO);
 
-    // 이미지 추가
-    void insertImage(@Param("image") ImageVO imageVO);
+	ReviewVO selectReview(@Param("rv_id")Integer rv_id);
 
-    // 리뷰 조회
-    ReviewVO selectReview(@Param("rv_id") Integer rv_id);
+	List<ImageVO> selectImageList(@Param("rv_id")Integer rv_id);
 
-    // 리뷰의 이미지 목록 조회
-    List<ImageVO> selectImageList(@Param("rv_id") Integer rv_id);
+	List<ReviewVO> getAllReviews(@Param("cri")ReviewCriteria cri);
 
-    // 모든 리뷰 조회 (페이지네이션 포함)
-    List<ReviewVO> getAllReviews(@Param("cri") ReviewCriteria cri);
+	int selectTotalReviewCount();
+	
+	void updateView(@Param("rv_id")Integer rv_id);
 
-    // 모든 리뷰 총 개수 조회
-    int selectTotalReviewCount();
+	ImageVO selectImage(@Param("im_num")int im_num);
 
-    // 리뷰 삭제
-    int deleteReview(@Param("rv_id") int rv_id);
+	void deleteImage(@Param("im_num")int fi_num);
 
-    // 리뷰에 연관된 모든 이미지 삭제
+	boolean updateReview(@Param("review")ReviewVO review);
+
+	boolean deleteReview(@Param("rv_id")int rv_id);
+
     int deleteImagesByReviewId(@Param("rv_id") int rv_id);
-    
-    // 홈에서 사용하는 미리보기 리뷰에용
+
 	ReviewVO getReviewByRestId(@Param("rv")ReviewVO rv_);
+
 }

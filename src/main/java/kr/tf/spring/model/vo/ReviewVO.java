@@ -14,7 +14,9 @@ public class ReviewVO {
 	private String rv_us_id;
 	private String rv_title;
 	private String rv_content;
+	private String rv_name;
 	private Date rv_date; 
 	private double rv_score;
 	private String rv_tf;
+	private String rv_receipt;
 }

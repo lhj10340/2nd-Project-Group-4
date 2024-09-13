@@ -16,7 +16,7 @@
 <body>
 <div class="form-div">
 	<p class="title-p">매장수정</p>
-	<form name="frestaurant" id="frestaurant" onsubmit="return frestaurantsubmit(this);" action="<c:url value="/restaurant/insert"/>"  method="POST" enctype="multipart/form-data" autocomplete="off">
+	<form name="frestaurant" id="frestaurant" onsubmit="return frestaurantsubmit(this);" action="<c:url value="/restaurant/update"/>"  method="POST" enctype="multipart/form-data" autocomplete="off">
 		<input type="hidden" name="re_us_id" value="${rest.re_us_id}">
 		<input type="hidden" name="re_x" value="${rest.re_x}" id="re_x">
 		<input type="hidden" name="re_y" value="${rest.re_y}" id="re_y">

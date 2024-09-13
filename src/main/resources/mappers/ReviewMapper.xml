@@ -3,81 +3,92 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.tf.spring.dao.ReviewDAO">
-    <!-- 모든 리뷰 선택, rv_tf 기준으로 정렬 -->
-    <select id="selectCommunityList" resultType="kr.tf.spring.model.vo.ReviewVO">
-        SELECT * FROM review ORDER BY rv_tf
-    </select>
+	<!-- 모든 리뷰 선택 -->
+	<select id="selectCommunityList"
+		resultType="kr.tf.spring.model.vo.ReviewVO">
+		SELECT * FROM review ORDER BY rv_tf
+	</select>
 
-    <!-- 페이지네이션이 있는 모든 리뷰 선택 -->
-    <select id="getAllReviews" parameterType="kr.tf.spring.pagination.ReviewCriteria" resultType="kr.tf.spring.model.vo.ReviewVO">
-        SELECT * FROM review 
-        ORDER BY rv_id DESC
-        LIMIT #{cri.pageStart}, #{cri.perPageNum}
-    </select>
+	<!-- 페이지네이션이 있는 모든 리뷰 선택 -->
+	<select id="getAllReviews"
+		parameterType="kr.tf.spring.pagination.ReviewCriteria"
+		resultType="kr.tf.spring.model.vo.ReviewVO">
+		SELECT * FROM review
+		ORDER BY rv_id DESC
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
 
-    <!-- 필터링된 리뷰 목록 선택, 페이지네이션 포함 -->
-    <select id="selectReviewList" parameterType="kr.tf.spring.pagination.ReviewCriteria" resultType="kr.tf.spring.model.vo.ReviewVO">
-        SELECT * FROM review 
-        WHERE 1 = 1 
-        <choose>
-            <when test="cri.rv_tf != null and cri.rv_tf != ''">
-                AND rv_tf = #{cri.rv_tf}
-            </when>
-        </choose>
-        <choose>
-            <when test="cri.type == 'title'">
-                AND rv_title LIKE CONCAT('%', #{cri.search}, '%')
-            </when>
-            <when test="cri.type == 'id'">
-                AND rv_us_id = #{cri.search}
-            </when>
-            <otherwise>
-                AND (rv_title LIKE CONCAT('%', #{cri.search}, '%') OR rv_us_id = #{cri.search})
-            </otherwise>
-        </choose>
-        ORDER BY rv_id DESC
-        LIMIT #{cri.pageStart}, #{cri.perPageNum}
-    </select>
+	<!-- 필터링된 리뷰 목록 선택, 페이지네이션 포함 -->
+	<select id="selectReviewList"
+		parameterType="kr.tf.spring.pagination.ReviewCriteria"
+		resultType="kr.tf.spring.model.vo.ReviewVO">
+		SELECT * FROM review
+		WHERE 1 = 1
+		<choose>
+			<when test="cri.rv_tf != null and cri.rv_tf != ''">
+				and rv_tf = #{cri.rv_tf}
+			</when>
+		</choose>
+		<choose>
+			<when test="cri.type == 'title'">
+				AND rv_title LIKE CONCAT('%', #{cri.search}, '%')
+			</when>
+			<when test="cri.type == 'id'">
+				AND rv_us_id = #{cri.search}
+			</when>
+			<when test="cri.type == 'name'">
+				AND rv_name LIKE CONCAT('%', #{cri.search}, '%')
+			</when>
+			<otherwise>
+				AND (rv_title LIKE CONCAT('%', #{cri.search}, '%') OR rv_us_id =
+				#{cri.search})
+			</otherwise>
+		</choose>
+		ORDER BY rv_id DESC
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
 
-    <!-- 리뷰의 총 개수 선택 -->
-    <select id="selectReviewTotalCount" parameterType="kr.tf.spring.pagination.ReviewCriteria" resultType="int">
-        SELECT count(*) 
-        FROM review
-        WHERE 1 = 1 
-        <choose>
-            <when test="cri.rv_tf != null and cri.rv_tf != ''">
-                AND rv_tf = #{cri.rv_tf}
-            </when>
-        </choose>
-        <choose>
-            <when test="cri.type == 'title'">
-                AND rv_title LIKE CONCAT('%', #{cri.search}, '%')
-            </when>
-            <when test="cri.type == 'id'">
-                AND rv_us_id = #{cri.search}
-            </when>
-            <otherwise>
-                AND (rv_title LIKE CONCAT('%', #{cri.search}, '%') OR rv_us_id = #{cri.search})
-            </otherwise>
-        </choose>
-    </select>
+	<select id="selectReviewTotalCount" resultType="int">
+		select count(*) from review
+		WHERE 1 = 1
+		<choose>
+			<when test="cri.rv_tf != null and cri.rv_tf != ''">
+				and rv_tf = #{cri.rv_tf}
+			</when>
+		</choose>
+		<choose>
+			<when test="cri.type == 'title'">
+				and rv_title like concat('%', #{cri.search}, '%')
+			</when>
+			<when test="cri.type == 'id'">
+				and rv_us_id = #{cri.search}
+			</when>
+			<when test="cri.type == 'name'">
+				and rv_name like concat('%', #{cri.search}, '%')
+			</when>
+			<otherwise>
+				and (rv_title like concat('%', #{cri.search}, '%') or rv_us_id =
+				#{cri.search})
+			</otherwise>
+		</choose>
+	</select>
 
-    <!-- 리뷰 추가 -->
-    <insert id="insertReview" keyProperty="review.rv_id" useGeneratedKeys="true">
-        INSERT INTO review(rv_title, rv_content, rv_tf, rv_us_id, rv_score)
-        VALUES(#{review.rv_title}, #{review.rv_content}, #{review.rv_tf}, #{review.rv_us_id}, #{review.rv_score})
-    </insert>
+	<insert id="insertReview" keyProperty="review.rv_id"
+		useGeneratedKeys="true">
+		insert into review(rv_title, rv_content, rv_tf, rv_us_id, rv_score,
+		rv_receipt, rv_name)
+		values(#{review.rv_title},#{review.rv_content},#{review.rv_tf},#{review.rv_us_id},#{review.rv_score},#{review.rv_receipt},#{review.rv_name})
+	</insert>
 
-    <!-- 이미지 추가 -->
-    <insert id="insertImage">
-        INSERT INTO image(im_name, im_ori_name, im_rv_id)
-        VALUES(#{image.im_name}, #{image.im_ori_name}, #{image.im_rv_id})
-    </insert>
+	<insert id="insertImage">
+		insert into file(im_name, im_ori_name, im_rv_id)
+		values(#{image.im_name},#{image.im_ori_name},#{image.im_rv_id})
+	</insert>
 
-    <!-- 리뷰 조회 -->
-    <select id="selectReview" parameterType="int" resultType="kr.tf.spring.model.vo.ReviewVO">
-        SELECT * FROM review WHERE rv_id = #{rv_id}
-    </select>
+	<select id="selectReview" resultType="ReviewVO">
+		select * from review where rv_id = #{rv_id}
+	</select>
+
 
     <!-- 이미지 목록 조회 -->
     <select id="selectImageList" parameterType="int" resultType="kr.tf.spring.model.vo.ImageVO">
@@ -97,4 +108,26 @@
      <select id="getReviewByRestId" resultType="ReviewVO">
     select * from review where rv_re_id = #{rv.rv_re_id} limit 1
     </select>
+
+	<select id="selectImageList" resultType="ImageVO">
+		select * from image where im_rv_id = #{rv_id}
+	</select>
+	
+	<delete id="deleteImage">
+		delete from image where im_num = #{im_num}
+	</delete>
+	
+	<update id="updateReview">
+		update review
+		set
+			rv_title = #{review.rv_title},
+			rv_content = #{review.rv_content}
+		where
+			rv_id = #{review.rv_id}
+	</update>
+	
+	<delete id="deleteReview">
+		delete from review where rv_id = #{rv_id}
+	</delete>
+
 </mapper>
