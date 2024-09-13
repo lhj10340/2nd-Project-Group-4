@@ -512,7 +512,6 @@
   }
 
   function get_review(re_id) {
-    alert(re_id);
     //전송할때는 rv_, 받은 데이터는 rv로 가정하겠습니다.
     let rv_ = { rv_re_id : re_id };
 
